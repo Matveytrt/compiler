@@ -1,0 +1,11 @@
+VarStackInit:14 Varstack size = 0, capacity = 50
+Initialisation succses
+line: 88 pushed value = a
+VarStackPush:88 Varstack size = 1, capacity = 50
+line: 88 pushed value = b
+VarStackPush:88 Varstack size = 2, capacity = 50
+line: 88 pushed value = c
+VarStackPush:88 Varstack size = 3, capacity = 50
+
+info about Varstack before death:
+VarStackDestroy:43 Varstack size = 3, capacity = 50
