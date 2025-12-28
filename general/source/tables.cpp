@@ -1,0 +1,45 @@
+#include "generalheaders/tables.h"
+
+Oper_t Oper_table [_OPERDATASIZE_] =    {
+                                        {"+",       "_MATH_ADD_",           OP_ADD,             strlen("+"),      POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmAdd,},
+                                        {"-",       "_MATH_SUB_",           OP_SUB,             strlen("-"),      POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmSub,},
+                                        {"*",       "_MATH_MUL_",           OP_MUL,             strlen("*"),      POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmMul,},
+                                        {"/",       "_MATH_DIV_",           OP_DIV,             strlen("/"),      POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmDiv,},
+                                        {"sqrt",    "_MATH_SQRT_",          OP_SQRT,            strlen("sqrt"),   POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmSqrt,},
+                                        {"^",       "_MATH_POW_",           OP_POW,             strlen("^"),      POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"==",      "_MATH_EQUAL_",         OP_EQ,              strlen("=="),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"!=",      "_MATH_NOT_EQUAL_",     OP_NEQ,             strlen("!="),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {">=",      "_MATH_ABOVE_EQ_",      OP_ABOVE_EQ,        strlen(">="),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"<=",      "_MATH_BELOW_EQ_",      OP_BELOW_EQ,        strlen("<="),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"<",       "_MATH_BELOW_",         OP_BELOW,           1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {">",       "_MATH_ABOVE_",         OP_ABOVE,           1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"!",       "_MATH_NOT_",           OP_NOT,             1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"&",       "_MATH_AND_",           OP_AND,             1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"||",      "_MATH_OR_",            OP_OR,              1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"(",       "(",                    OPEN_R_BR,          1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {")",       ")",                    CLOSE_R_BR,         1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"[",       "[",                    OPEN_SQ_BR,         1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"]",       "]",                    CLOSE_SQ_BR,        1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"{",       "{",                    OPEN_FIG_BR,        1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"}",       "}",                    CLOSE_FIG_BR,       1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"if",      "_IF_",                 OP_IF,              strlen("if"),     DOUBLE_ORD,   GetAsmSkip,       GetAsmInfixIf,     GetAsmPostIf,},
+                                        {"else",    "_ELSE_",               OP_ELSE,            strlen("else"),   DOUBLE_ORD,   GetAsmSkip,       GetAsmInfixElse,   GetAsmPostElse,},
+                                        {"while",   "_WHILE_",              OP_WHILE,           strlen("while"),  DOUBLE_ORD,   GetAsmSkip,       GetAsmInfixWhile,  GetAsmPostWhile,},
+                                        {"for",     "_FOR_",                OP_FOR,             strlen("for"),    DOUBLE_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"return",  "_RETURN_",             OP_RET,             strlen("return"), POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmRet,},
+                                        {"break",   "_BREAK_",              OP_BREAK,           strlen("break"),  POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmRet,},
+                                        {"=",       "_ASSIGNMENT_",         OP_ASSIGN,          1,                POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmAssign,},
+                                        {"$",       "$",                    OP_END,             1,                OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"dfunc",   "_FUNC_DECLARE_",       OP_F_DCLR,          strlen("dfunc"),  POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {"dvar",    "_VAR_DECLARE_",        OP_V_DCLR,          strlen("dvar"),   OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {",",       "_COMMA_",              OP_COMMA,           1,                DOUBLE_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
+                                        {";",       "_END_STATEMENT_",      OP_STR_END,         1,                POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmStrEnd,},
+                                        {"print",   "_PRINT_",              OP_PRINT,           strlen("print"),  POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmPrint,},
+                                        {"scan",    "_SCAN_",               OP_SCAN,            strlen("scan"),   POSTFIX_ORD,  GetAsmSkip,       GetAsmSkip,        GetAsmScanf,},
+                                        {"memget",  "memget",               OP_MEMGET,          strlen("memget"), OTHER_ORD,    GetAsmMemget,     GetAsmMemget,      GetAsmMemget,},
+                                        {"memset",  "memset",               OP_MEMSET,          strlen("memset"), OTHER_ORD,    GetAsmMemset,     GetAsmMemset,      GetAsmMemset,},
+                                        };
+
+VarStack_t Var_table = {};
+FuncStack_t Func_table = {};
+FILE *Logfile = NULL;
