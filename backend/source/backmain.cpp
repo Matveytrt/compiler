@@ -18,6 +18,7 @@ int main(int argc, const char *argv[])
     Node_t *node = ReadTreeFromFile(input_file, "out.txt", __LINE__);
     TreeDump(node, "out.txt", __LINE__);
     DumpVarTable();
+    DumpFuncTable();
 
     MakeAsm(node, output_file);
 

@@ -5,35 +5,35 @@ void GetAsmAdd     (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "ADD\n");
+    TEXT_("ADD");
 }     
 void GetAsmSub     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    fprintf(file, "SUB\n");
+    TEXT_("SUB");
 }     
 void GetAsmMul     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    fprintf(file, "MUL\n");
+    TEXT_("MUL");
 }         
 void GetAsmDiv     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    fprintf(file, "DIV\n");
+    TEXT_("DIV");
 }
 void GetAsmSqrt    (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    fprintf(file, "SQRT\n");
+    TEXT_("SQRT");
 }     
 
 void GetAsmSkip    (Node_t *node, FILE *file)
@@ -47,7 +47,7 @@ void GetAsmPostIf      (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, ":end_if_%p\n\n", node);
+    LBL_("end_if", node);
 }
 
 void GetAsmPostElse    (Node_t *node, FILE *file)
@@ -55,7 +55,7 @@ void GetAsmPostElse    (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, ":end_else_%p\n\n", node);
+    LBL_("end_else", node);
 } 
 
 void GetAsmPostWhile   (Node_t *node, FILE *file)
@@ -63,7 +63,7 @@ void GetAsmPostWhile   (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, ":end_while_%p\n\n", node);
+    LBL_("end_while", node);
 } 
 
 void GetAsmInfixIf      (Node_t *node, FILE *file)
@@ -73,14 +73,14 @@ void GetAsmInfixIf      (Node_t *node, FILE *file)
 
     if (!IsLogicOp(GetLeft(node)))
     {
-        fprintf(file, "PUSH 0\n");
-        fprintf(file, "JE :end_if_%p\n", node);
+        PUSH_(0);
+        JMP_("JE", "end_if", node);
     }
 
     else
     {
         const char *str = GetInvLogOp(GetLeft(node));
-        fprintf(file, "%s :end_if_%p\n", str, node);
+        JMP_(str, "end_if", node);
     }
 }
 
@@ -89,7 +89,7 @@ void GetAsmInfixElse    (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "JE :end_else_%p\n", node);
+    JMP_("JE", "end_else", node);
 } 
 
 void GetAsmInfixWhile   (Node_t *node, FILE *file)
@@ -99,14 +99,14 @@ void GetAsmInfixWhile   (Node_t *node, FILE *file)
 
     if (!IsLogicOp(GetLeft(node)))
     {
-        fprintf(file, "PUSH 0\n");
-        fprintf(file, "JE :end_while_%p\n", node);
+        PUSH_(0);
+        JMP_("JE", "end_while", node);
     }
 
     else
     {
         const char *str = GetInvLogOp(GetLeft(node));
-        fprintf(file, "%s :end_while_%p\n", str, node);
+        JMP_(str, "end_while", node);
     }
 }  
 
@@ -121,7 +121,7 @@ void GetAsmRet     (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "RET\n");
+    TEXT_("RET");
 }  
 
 void GetAsmAssign  (Node_t *node, FILE *file)
@@ -140,7 +140,7 @@ void GetAsmAssign  (Node_t *node, FILE *file)
         PopVar(GetLeft(node), file);
     }
 
-    fprintf(file, ";assign end\n\n");
+    TEXT_(";assign end");//func!
 }
 
 void GetAsmMemget  (Node_t *node, FILE *file)
@@ -161,7 +161,7 @@ void GetAsmPrint   (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "OUT\n");
+    TEXT_("OUT");
 } 
 
 void GetAsmScanf   (Node_t *node, FILE *file)
@@ -169,7 +169,7 @@ void GetAsmScanf   (Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "IN\n");
+    TEXT_("IN");
 }     
 void GetAsmFDecl   (Node_t *node, FILE *file)
 {
@@ -192,9 +192,11 @@ void PushVar(Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "PUSH %d\n", GetVar(node));
-    fprintf(file, "POPR AX\n");
-    fprintf(file, "PUSHM [AX] ;pushed var [%s]\n", Var_table.data[GetVar(node)].name);
+    
+    PUSH_(GetVar(node));
+    POPR_("AX");
+    PUSHM_("AX"); 
+    fprintf(file, ";pushed var [%s]\n", Var_table.data[GetVar(node)].name);
 }
 
 void PopVar(Node_t *node, FILE *file)
@@ -202,7 +204,9 @@ void PopVar(Node_t *node, FILE *file)
     assert(node);
     assert(file);
 
-    fprintf(file, "PUSH %d\n", GetVar(node));
-    fprintf(file, "POPR AX\n");
-    fprintf(file, "POPM [AX] ;popped in var [%s]\n", Var_table.data[GetVar(node)].name);
+    
+    PUSH_(GetVar(node));
+    POPR_("AX");
+    POPM_("AX");
+    fprintf(file, ";popped in var [%s]\n", Var_table.data[GetVar(node)].name);
 }

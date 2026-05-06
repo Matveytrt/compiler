@@ -4,7 +4,11 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/source/headers"
+                "${workspaceFolder}/source/headers",
+                "${workspaceFolder}/frontend/source/headers",
+                "${workspaceFolder}/general/source/headers",
+                "${workspaceFolder}/general/source/generalheaders",
+                "${workspaceFolder}/backend/source/headers"
             ],
             "defines": [
                 "_DEBUG",

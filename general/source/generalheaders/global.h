@@ -21,7 +21,8 @@
 #define DATASIZE 50
 #define STRSIZE 30
 #define _VAR_STR_SIZE_ 50
-#define _RAMSTART_  100
+#define _RAMSTART_   100
+#define _STACK_SIZE_ 50
 
 #define DEBUG
 

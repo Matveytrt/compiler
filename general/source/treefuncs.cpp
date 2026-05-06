@@ -53,143 +53,6 @@ Node_t *CtorNumber(TreeElem_t number)
     return node;
 }
 
-#define _RemoveLeft_                                              \
-                            fix_node = GetRight(node);            \
-                                                                  \
-                            SetParent(fix_node, GetParent(node)); \
-                            SetRight(node, NULL);                 \
-                            NodeDtor(node);                       \
-                            (*change_par)++;                      \
-                            return fix_node;
-                            
-
-#define _RemoveRight_                                             \
-                            fix_node = GetLeft(node);             \
-                                                                  \
-                            SetParent(fix_node, GetParent(node)); \
-                            SetLeft(node, NULL);                  \
-                            NodeDtor(node);                       \
-                            (*change_par)++;                      \
-                            return fix_node;
- 
-Node_t *RemoveFict(Node_t *node, int *change_par)
-{
-    assert(node);
-    assert(change_par);
-
-    Node_t *fix_node = node;
-
-    if ((GetLeft(node) && (IsNum(GetLeft(node), 1) || IsNum(GetLeft(node), 0))) || (GetRight(node) && (IsNum(GetRight(node), 1) || IsNum(GetRight(node), 0))) )                                                                                                         
-        fix_node = RemoveFictNode(node, change_par);                    
-
-    return fix_node;                                                
-}   
-
-#define _LZeroRemL_(val)    if (IsNum(GetLeft(node), 0))\
-                            {                           \
-                                _RemoveLeft_;           \
-                            }
-
-#define _LZeroRemR_(val)    if (IsNum(GetLeft(node), 0))\
-                            {                           \
-                                _RemoveRight_;          \
-                            }
-
-#define _RZeroRemR_(val)    if (IsNum(GetRight(node), 0))\
-                            {                            \
-                                _RemoveRight_;           \
-                            }
-
-#define _RZeroRemL_(val)    if (IsNum(GetRight(node), 0))\
-                            {                            \
-                                _RemoveLeft_;            \
-                            }
-
-#define _LOneRemL_(val)     if (IsNum(GetLeft(node), 0))\
-                            {                           \
-                                _RemoveLeft_;           \
-                            }
-
-#define _LOneRemR_(val)     if (IsNum(GetLeft(node), 0))\
-                            {                           \
-                                _RemoveRight_;          \
-                            }
-
-#define _ROneRemR_(val)     if (IsNum(GetRight(node), 0))\
-                            {                            \
-                                _RemoveRight_;           \
-                            }
-
-#define _ROneRemL_(val)     if (IsNum(GetRight(node), 0))\
-                            {                            \
-                                _RemoveLeft_;            \
-                            }
-
-Node_t *RemoveFictNode(Node_t *node, int *change_par)
-{
-    assert(node);
-    assert(change_par);
-
-    Node_t *fix_node = node;
-
-    switch (GetOper(node))
-    {
-        case OP_ADD:
-            _LZeroRemL_(0);
-
-            _RZeroRemR_(0);
-
-            break;
-
-        case OP_SUB:
-            _RZeroRemR_(0);
-            
-            break;
-
-        case OP_MUL:
-            _LZeroRemR_(0);
-
-            _ROneRemR_(1);
-
-            _RZeroRemL_(0);
-
-            _LOneRemL_(1);
-            
-            break;
-
-        case OP_DIV:
-            _LZeroRemR_(0);
-
-             _ROneRemR_(1);
-            
-            break;
-
-        case OP_SQRT:
-            _LZeroRemR_(0);
-            _LOneRemR_(1);
-
-            break;
-            
-        case OP_POW:
-            if (IsNum(GetRight(node), 0))
-            {
-                SetNum(GetRight(node), 1);
-                _RemoveLeft_;
-            }
-
-             _LOneRemR_(1);
-
-             _ROneRemR_(1);
-
-            break;
-
-        default:
-            break;
-    }
-
-    return fix_node;
-}
-
 Node_t *NodeCpy(const Node_t *node)
 {
     assert(node);
@@ -538,6 +401,32 @@ void TreeDump(const Node_t *node, const char *output_tree, int line)
 
     fprintf(Logfile, "\n\n\tImage:\n\t<img src = treepng/graph%d.png heigth = 1000px width = 1000px>\n</pre>\n", png_counter);
     system(dot_cmd);
+}
+
+void PrintNodeInfo(const Node_t *node, FILE *file)
+{
+    assert(node);
+    assert(file);
+
+    switch (GetType(node))
+    {
+        case TYPE_OP:
+            fprintf(file, "OP - %s\n", Oper_table[GetOper(node)].std_name);
+            break;
+        case TYPE_VAR:
+            fprintf(file, "VAR - %s, table_idx [%d]\n", Var_table.data[GetVar(node)].name, GetVar(node));
+            break;
+        case TYPE_NUM:
+            fprintf(file, "NUM = %d\n", GetNum(node));
+            break;
+        case TYPE_UFUNC:
+            fprintf(file, "FUNC - %s st_idx = %d, end_idx = %d\n", Func_table.data[GetFunc(node)].name, Func_table.data[GetFunc(node)].start_idx, Func_table.data[GetFunc(node)].end_idx);
+            break;
+        case TYPE_ERR:
+            break;
+        default:
+            break;
+    }
 }
 
 int SearchFuncName(const char *func)

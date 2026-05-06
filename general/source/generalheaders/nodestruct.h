@@ -81,6 +81,8 @@ struct Func_t
 {
     char *      name;
     size_t      len;
+    int         start_idx;
+    int         end_idx;
     size_t      hash;
 };
 
@@ -116,8 +118,8 @@ struct Oper_t
     size_t      len;
     int         order_type;
     void        (*ptr_prefix)  (Node_t *, FILE *);
-    void        (*ptr_infix)  (Node_t *, FILE *);
-    void        (*ptr_postix) (Node_t *, FILE *);
+    void        (*ptr_infix)   (Node_t *, FILE *);
+    void        (*ptr_postix)  (Node_t *, FILE *);
     size_t      hash;
 };
 

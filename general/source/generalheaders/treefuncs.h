@@ -13,8 +13,6 @@ Node_t *CtorNumber      (TreeElem_t number);
 
 Node_t *NodeCpy         (const Node_t *node);
 Node_t *NewNode         (Node_t *node, Node_t *left_node, Node_t *right_node);
-Node_t *RemoveFictNode  (Node_t *node, int *change_par);
-Node_t *RemoveFict      (Node_t *node, int *change_par);
 void    NodeDtor        (Node_t *node);
 
 bool IsZero             (double value);
@@ -33,6 +31,7 @@ bool IsPostix           (const Node_t *node);
 bool IsConditionalOp    (const Node_t *node);
 bool IsInt              (TreeElem_t value);
 
+void PrintNodeInfo      (const Node_t *node, FILE *file);
 void PrintNode          (const Node_t *node, FILE *graph, FILE *tree_file);
 void TreeDump           (const Node_t *node, const char *out_tree, int line);
 void FuncTableDtor      ();

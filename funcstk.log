@@ -1,0 +1,7 @@
+FuncStackInit:16 Funcstack size = 0, capacity = 50
+Initialisation succses
+line: 187 pushed value = Fact
+FuncStackPush:187 Funcstack size = 1, capacity = 50
+
+info about Funcstack before death:
+FuncStackDestroy:473 Funcstack size = 1, capacity = 50

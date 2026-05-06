@@ -51,7 +51,6 @@ void GetTokens(File_Info_t *info, TokStack_t *stk)
                     if(!isalnum(CUR_POS)) break;
                 }
 
-                //printf("str = %s\n", str);
                 SkipSpaces(&CUR_STR);
 
                 if (CUR_POS == '(')
@@ -149,7 +148,7 @@ bool GetOpToken (char **buff, int nline, TokStack_t *stk)
         if( strncmp(*buff, _OP_NAME_, _OP_LEN_) == 0)
         {
             Node_t *new_node = CTOR_OP(_OP_CODE_);
-            printf("op - %s\n", _OP_NAME_);
+            //printf("op - %s\n", _OP_NAME_);
             new_node->info.nline = nline;
             new_node->info.cur_pos = *buff;
             PUSH_TOK(stk, new_node);

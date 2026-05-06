@@ -1,0 +1,15 @@
+( "_END_STATEMENT_"  ( "_IF_"  ( "_MATH_ADD_"  ( "a" nil nil )( "5" nil nil ) )( "_END_STATEMENT_"  ( "_ASSIGNMENT_"  ( "a" nil nil )( "7" nil nil ) )( "_END_STATEMENT_"  nil( "_ASSIGNMENT_"  ( "b" nil nil )( "8" nil nil ) ) ) ) )( "_END_STATEMENT_"  nil( "_ASSIGNMENT_"  ( "c" nil nil )( "9" nil nil ) ) ) )
+dvar x = 3;
+
+dvar res = Fact(x);
+
+dfunc Fact(n)
+[
+    dvar f = 1;
+    while (n - 1)
+    [
+        f = n * Fact(n - 1);
+    ];
+
+    return f;
+];$

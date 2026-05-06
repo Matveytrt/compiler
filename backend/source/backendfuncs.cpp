@@ -42,6 +42,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
     int offset = 0;
     static int iteration = 0;
+    int temp_idx = 0;
 
     iteration++;
     
@@ -68,6 +69,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
         if (IsOper(node, OP_F_DCLR))
         {
             *start_index = (int) Var_table.size;
+            temp_idx = *start_index;
         }
 
         *(buff + *cur_pos) = '\"';
@@ -107,6 +109,10 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
         if (IsOper(node, OP_F_DCLR))
         {
             *start_index = (int) Var_table.size;
+            Func_table.data[GetFunc(GetLeft(node))].start_idx = temp_idx;
+            Func_table.data[GetFunc(GetLeft(node))].end_idx = *start_index - 1;
+            // printf("start_idx = %d\n", Func_table.data[GetFunc(node)].start_idx);
+            // printf("end_idx = %d\n", Func_table.data[GetFunc(node)].end_idx);
         }
 
         return node;
@@ -138,7 +144,7 @@ Node_t *CheckNodeType(const char *str, int start_idx)
 
     sscanf(str, " %s", name_str);
 
-    printf("name_str = %s\ntype_str = %s\n", name_str, type_str);
+    //printf("name_str = %s\ntype_str = %s\n", name_str, type_str);
 
     Node_t *node = NULL;
 
@@ -233,4 +239,16 @@ void DumpVarTable()
     {
         fprintf(Logfile, "| %03d | %.*s |\n", idx, NUMSTEP, Var_table.data[idx].name);
     }    
+}
+
+void DumpFuncTable()
+{
+    fprintf(Logfile, "<pre>\n\t<h3>\n\t\tDUMP from %s:%d <font color = red>ПЕЧАТЬ таблицы функций</font>\n\t</h3>\n<p style=\"font-size: 30px;\">\n", __func__, __LINE__);
+    
+    fprintf(Logfile, "| %16s | start | end |\n", "func_name");
+
+    for (int idx = 0; idx < Func_table.size; idx++)
+    {
+        fprintf(Logfile, "| %16s | %5d | %3d |\n", Func_table.data[idx].name, Func_table.data[idx].start_idx, Func_table.data[idx].end_idx);
+    }
 }

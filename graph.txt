@@ -1,0 +1,90 @@
+digraph structs
+{
+	node[style=filled];
+	rankdir = TB;
+	s0x504000000010 [shape=record, fillcolor="#b4ff05ff", label = "{(nil)| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000050 | 0x504000000750}}"];
+	s0x504000000010 -> s0x504000000050 [color = blue]
+	s0x504000000050 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000010| type = OP | <f0>key word: BUYSTRAT | std word: _FUNC_DECLARE_ | {0x504000000090 | (nil)}}"];
+	s0x504000000050 -> s0x504000000090 [color = blue]
+	s0x504000000090 [shape=record, fillcolor="#b94c84ff", label = "{0x504000000050| type = FUNC | <f0>val =  Fact | {0x5040000000d0 | 0x504000000110}}"];
+	s0x504000000090 -> s0x5040000000d0 [color = blue]
+	s0x5040000000d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000090| type = VAR | <f0>val = n (0) | table_idx = 0 | {(nil) | (nil)}}"];
+	s0x504000000090 -> s0x504000000110 [color = red]
+	s0x504000000110 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000090| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000150 | 0x504000000310}}"];
+	s0x504000000110 -> s0x504000000150 [color = blue]
+	s0x504000000150 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000110| type = OP | <f0>key word: BLUFF? | std word: _IF_ | {0x504000000190 | 0x504000000250}}"];
+	s0x504000000150 -> s0x504000000190 [color = blue]
+	s0x504000000190 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000150| type = OP | <f0>key word: SNAP | std word: _MATH_EQUAL_ | {0x5040000001d0 | 0x504000000210}}"];
+	s0x504000000190 -> s0x5040000001d0 [color = blue]
+	s0x5040000001d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000190| type = VAR | <f0>val = n (0) | table_idx = 0 | {(nil) | (nil)}}"];
+	s0x504000000190 -> s0x504000000210 [color = red]
+	s0x504000000210 [shape=record, fillcolor="#fd0101ff", label = "{0x504000000190| type = NUM | <f0>val =  0 | {(nil) | (nil)}}"];
+	s0x504000000150 -> s0x504000000250 [color = red]
+	s0x504000000250 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000150| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000290 | (nil)}}"];
+	s0x504000000250 -> s0x504000000290 [color = blue]
+	s0x504000000290 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000250| type = OP | <f0>key word: BOUNTY | std word: _RETURN_ | {0x5040000002d0 | (nil)}}"];
+	s0x504000000290 -> s0x5040000002d0 [color = blue]
+	s0x5040000002d0 [shape=record, fillcolor="#fd0101ff", label = "{0x504000000290| type = NUM | <f0>val =  1 | {(nil) | (nil)}}"];
+	s0x504000000110 -> s0x504000000310 [color = red]
+	s0x504000000310 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000110| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000350 | 0x504000000450}}"];
+	s0x504000000310 -> s0x504000000350 [color = blue]
+	s0x504000000350 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000310| type = OP | <f0>key word: BET | std word: _ASSIGNMENT_ | {0x504000000390 | 0x504000000410}}"];
+	s0x504000000350 -> s0x504000000390 [color = blue]
+	s0x504000000390 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000350| type = OP | <f0>key word: FREEBET | std word: _VAR_DECLARE_ | {0x5040000003d0 | (nil)}}"];
+	s0x504000000390 -> s0x5040000003d0 [color = blue]
+	s0x5040000003d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000390| type = VAR | <f0>val = f (0) | table_idx = 1 | {(nil) | (nil)}}"];
+	s0x504000000350 -> s0x504000000410 [color = red]
+	s0x504000000410 [shape=record, fillcolor="#fd0101ff", label = "{0x504000000350| type = NUM | <f0>val =  1 | {(nil) | (nil)}}"];
+	s0x504000000310 -> s0x504000000450 [color = red]
+	s0x504000000450 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000310| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000490 | 0x504000000690}}"];
+	s0x504000000450 -> s0x504000000490 [color = blue]
+	s0x504000000490 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000450| type = OP | <f0>key word: BET | std word: _ASSIGNMENT_ | {0x5040000004d0 | 0x504000000510}}"];
+	s0x504000000490 -> s0x5040000004d0 [color = blue]
+	s0x5040000004d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000490| type = VAR | <f0>val = f (0) | table_idx = 1 | {(nil) | (nil)}}"];
+	s0x504000000490 -> s0x504000000510 [color = red]
+	s0x504000000510 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000490| type = OP | <f0>key word: ALLIN | std word: _MATH_MUL_ | {0x504000000550 | 0x504000000650}}"];
+	s0x504000000510 -> s0x504000000550 [color = blue]
+	s0x504000000550 [shape=record, fillcolor="#b94c84ff", label = "{0x504000000510| type = FUNC | <f0>val =  Fact | {0x504000000590 | (nil)}}"];
+	s0x504000000550 -> s0x504000000590 [color = blue]
+	s0x504000000590 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000550| type = OP | <f0>key word: FOLD | std word: _MATH_SUB_ | {0x5040000005d0 | 0x504000000610}}"];
+	s0x504000000590 -> s0x5040000005d0 [color = blue]
+	s0x5040000005d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000590| type = VAR | <f0>val = n (0) | table_idx = 0 | {(nil) | (nil)}}"];
+	s0x504000000590 -> s0x504000000610 [color = red]
+	s0x504000000610 [shape=record, fillcolor="#fd0101ff", label = "{0x504000000590| type = NUM | <f0>val =  1 | {(nil) | (nil)}}"];
+	s0x504000000510 -> s0x504000000650 [color = red]
+	s0x504000000650 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000510| type = VAR | <f0>val = n (0) | table_idx = 0 | {(nil) | (nil)}}"];
+	s0x504000000450 -> s0x504000000690 [color = red]
+	s0x504000000690 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000450| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x5040000006d0 | (nil)}}"];
+	s0x504000000690 -> s0x5040000006d0 [color = blue]
+	s0x5040000006d0 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000690| type = OP | <f0>key word: BOUNTY | std word: _RETURN_ | {0x504000000710 | (nil)}}"];
+	s0x5040000006d0 -> s0x504000000710 [color = blue]
+	s0x504000000710 [shape=record, fillcolor="#0091a1ff", label = "{0x5040000006d0| type = VAR | <f0>val = f (0) | table_idx = 1 | {(nil) | (nil)}}"];
+	s0x504000000010 -> s0x504000000750 [color = red]
+	s0x504000000750 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000010| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000790 | 0x504000000890}}"];
+	s0x504000000750 -> s0x504000000790 [color = blue]
+	s0x504000000790 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000750| type = OP | <f0>key word: BET | std word: _ASSIGNMENT_ | {0x5040000007d0 | 0x504000000850}}"];
+	s0x504000000790 -> s0x5040000007d0 [color = blue]
+	s0x5040000007d0 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000790| type = OP | <f0>key word: FREEBET | std word: _VAR_DECLARE_ | {0x504000000810 | (nil)}}"];
+	s0x5040000007d0 -> s0x504000000810 [color = blue]
+	s0x504000000810 [shape=record, fillcolor="#0091a1ff", label = "{0x5040000007d0| type = VAR | <f0>val = x (0) | table_idx = 2 | {(nil) | (nil)}}"];
+	s0x504000000790 -> s0x504000000850 [color = red]
+	s0x504000000850 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000790| type = OP | <f0>key word: READ | std word: _SCAN_ | {(nil) | (nil)}}"];
+	s0x504000000750 -> s0x504000000890 [color = red]
+	s0x504000000890 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000750| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x5040000008d0 | 0x504000000a10}}"];
+	s0x504000000890 -> s0x5040000008d0 [color = blue]
+	s0x5040000008d0 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000890| type = OP | <f0>key word: BET | std word: _ASSIGNMENT_ | {0x504000000910 | 0x504000000990}}"];
+	s0x5040000008d0 -> s0x504000000910 [color = blue]
+	s0x504000000910 [shape=record, fillcolor="#b4ff05ff", label = "{0x5040000008d0| type = OP | <f0>key word: FREEBET | std word: _VAR_DECLARE_ | {0x504000000950 | (nil)}}"];
+	s0x504000000910 -> s0x504000000950 [color = blue]
+	s0x504000000950 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000910| type = VAR | <f0>val = res (0) | table_idx = 3 | {(nil) | (nil)}}"];
+	s0x5040000008d0 -> s0x504000000990 [color = red]
+	s0x504000000990 [shape=record, fillcolor="#b94c84ff", label = "{0x5040000008d0| type = FUNC | <f0>val =  Fact | {0x5040000009d0 | (nil)}}"];
+	s0x504000000990 -> s0x5040000009d0 [color = blue]
+	s0x5040000009d0 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000990| type = VAR | <f0>val = x (0) | table_idx = 2 | {(nil) | (nil)}}"];
+	s0x504000000890 -> s0x504000000a10 [color = red]
+	s0x504000000a10 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000890| type = OP | <f0>key word: TURN | std word: _END_STATEMENT_ | {0x504000000a50 | (nil)}}"];
+	s0x504000000a10 -> s0x504000000a50 [color = blue]
+	s0x504000000a50 [shape=record, fillcolor="#b4ff05ff", label = "{0x504000000a10| type = OP | <f0>key word: CALL | std word: _PRINT_ | {0x504000000a90 | (nil)}}"];
+	s0x504000000a50 -> s0x504000000a90 [color = blue]
+	s0x504000000a90 [shape=record, fillcolor="#0091a1ff", label = "{0x504000000a50| type = VAR | <f0>val = res (0) | table_idx = 3 | {(nil) | (nil)}}"];
+}

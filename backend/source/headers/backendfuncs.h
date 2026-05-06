@@ -10,5 +10,6 @@ Node_t *CheckNodeType   (const char *str, int start_idx);
 int IsNil               (const char *buff);
 int SkipSpaces          (const char *buff);
 void DumpVarTable       ();
+void DumpFuncTable      ();
 
 #endif

@@ -1,5 +1,0 @@
-FuncStackInit:15 Funcstack size = 0, capacity = 50
-Initialisation succses
-
-info about Funcstack before death:
-FuncStackDestroy:44 Funcstack size = 0, capacity = 50
