@@ -1,4 +1,4 @@
-#include "generalheaders/treefuncs.h"
+#include "../generalheaders/treefuncs.h"
 
 Node_t *NodeCtor()
 {
@@ -188,81 +188,29 @@ bool IsLogicOp(const Node_t *node)
         return false;
 }
 
-bool IsNumType(const Node_t *node)
-{
-    assert(node);
+#define DEF_IS_TYPE(name, type)             \
+    bool Is##name##Type(const Node_t *node) \
+    {                                       \
+        assert(node);                       \
+        return GetType(node) == type;       \
+    }
 
-    if (GetType(node) == TYPE_NUM)
-        return true;
+#define DEF_IS(name, type_check, cmp_type)                     \
+    bool Is##name(const Node_t *node, cmp_type value)          \
+    {                                                          \
+        assert(node);                                          \
+        return (type_check(node) && Get##name(node) == value); \
+    }
 
-    else
-        return false;
-}
+DEF_IS_TYPE(Num, TYPE_NUM);
+DEF_IS_TYPE(Var, TYPE_VAR);
+DEF_IS_TYPE(Oper, TYPE_OP);
+DEF_IS_TYPE(Func, TYPE_UFUNC);
 
-bool IsVarType(const Node_t *node)
-{
-    assert(node);
-
-    if (GetType(node) == TYPE_VAR)
-        return true;
-
-    else
-        return false;
-}
-
-bool IsOperType(const Node_t *node)
-{
-    assert(node);
-
-    if (GetType(node) == TYPE_OP)
-        return true;
-
-    else
-        return false;
-}
-
-bool IsFuncType(const Node_t *node)
-{
-    assert(node);
-
-    if (GetType(node) == TYPE_UFUNC)
-        return true;
-
-    else
-        return false;
-}
-
-bool IsNum(const Node_t *node, TreeElem_t value)
-{
-    assert(node);
-
-    if (IsNumType(node) && IsZero(GetNum(node) - value))
-        return true;
-
-    else
-        return false;
-}
-
-bool IsVar(const Node_t *node, int var)
-{
-    assert(node);
-
-    if (IsVarType(node) && GetVar(node) == var)
-        return true;
-    else
-        return false;
-}
-
-bool IsOper(const Node_t *node, Operators oper)
-{
-    assert(node);
-
-    if (IsOperType(node) && GetOper(node) == oper)
-        return true;
-
-    else
-        return false;
-}
+DEF_IS(Num, IsNumType, TreeElem_t);
+DEF_IS(Var, IsVarType, int);
+DEF_IS(Oper, IsOperType, Operators);
+DEF_IS(VarScope, IsVarType, int); 
 
 bool IsPrefix(const Node_t *node)
 {
@@ -397,7 +345,7 @@ void TreeDump(const Node_t *node, const char *output_tree, int line)
 
     png_counter++;
 
-    sprintf(dot_cmd, "dot \"graph.txt\" -T png -o treepng/graph%d.png", png_counter);
+    sprintf(dot_cmd, "dot \"graph.txt\" -T png -o logfiles/treepng/graph%d.png", png_counter);
 
     fprintf(Logfile, "\n\n\tImage:\n\t<img src = treepng/graph%d.png heigth = 1000px width = 1000px>\n</pre>\n", png_counter);
     system(dot_cmd);
@@ -411,16 +359,16 @@ void PrintNodeInfo(const Node_t *node, FILE *file)
     switch (GetType(node))
     {
         case TYPE_OP:
-            fprintf(file, "OP - %s\n", Oper_table[GetOper(node)].std_name);
+            fprintf(file, ";OP - %s\n", Oper_table[GetOper(node)].std_name);
             break;
         case TYPE_VAR:
-            fprintf(file, "VAR - %s, table_idx [%d]\n", Var_table.data[GetVar(node)].name, GetVar(node));
+            fprintf(file, ";VAR - %s, table_idx [%d]\n", Var_table.data[GetVar(node)].name, GetVar(node));
             break;
         case TYPE_NUM:
-            fprintf(file, "NUM = %d\n", GetNum(node));
+            fprintf(file, ";NUM = %d\n", GetNum(node));
             break;
         case TYPE_UFUNC:
-            fprintf(file, "FUNC - %s st_idx = %d, end_idx = %d\n", Func_table.data[GetFunc(node)].name, Func_table.data[GetFunc(node)].start_idx, Func_table.data[GetFunc(node)].end_idx);
+            fprintf(file, ";FUNC - %s st_idx = %d, end_idx = %d\n", Func_table.data[GetFunc(node)].name, Func_table.data[GetFunc(node)].start_idx, Func_table.data[GetFunc(node)].end_idx);
             break;
         case TYPE_ERR:
             break;

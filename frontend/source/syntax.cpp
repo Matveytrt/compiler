@@ -1,11 +1,14 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-#include "headers/syntax.h"
+#include "../headers/syntax.h"
 
+#define _DBG_TREEFILE_ "frontend/dbg/syntax_dbg_tree.txt"
 #define _TOKEN_ stk->data[*stk_index]
 #define _PREV_TOKEN_ stk->data[*stk_index - 1]
 #define _NEXT_TOKEN_ stk->data[*stk_index + 1]
+#define NODE_(node, node_left, node_right) NewNode(node, node_left, node_right)
+
 #define ReadInfo(info)                                                                                                    \
     fprintf(Logfile, "Я функция по имени %s called from line:%d\n" info "\n", __func__, __LINE__);
 /*   fprintf(Logfile, "cur_pos:%c\ncur_buff_pos:<span style = \"background-color:#a0ffa0;\">%.*s</span>"                  \
@@ -105,6 +108,10 @@ Node_t *GetOperator(const TokStack_t *stk, int *stk_index)
     node = NewNode(_TOKEN_, node_left, NULL);
     (*stk_index)++;
 
+    ReadInfo("Успешно! Оператор считан! Выполняю Dump");
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
+
+
     return node;
 }
 
@@ -131,7 +138,7 @@ Node_t *GetConditional(const TokStack_t *stk, int *stk_index)
     node = NewNode(node, node_left, node_right);
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
     return node;
 }
@@ -155,7 +162,7 @@ Node_t *GetFuncDeclare(const TokStack_t *stk, int *stk_index)
     func_node = NewNode(func_node, node, NULL);
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(func_node, "out.txt", __LINE__);
+    TreeDump(func_node, _DBG_TREEFILE_, __LINE__);
 
     return func_node;
 }
@@ -172,7 +179,7 @@ Node_t *GetAssign(const TokStack_t *stk, int *stk_index, Node_t *node_left)
 
     node = NewNode(node, node_left, node_right);
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
     return node;
 }
@@ -203,7 +210,7 @@ Node_t *GetLogic(const TokStack_t *stk, int *stk_index)
     }
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
    return node;
 }
@@ -234,7 +241,7 @@ Node_t *GetExpression(const TokStack_t *stk, int *stk_index)
     }
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
    return node;
 }
@@ -264,7 +271,7 @@ Node_t *GetTerm(const TokStack_t *stk, int *stk_index)
     }
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
    return node;
 }
@@ -294,7 +301,7 @@ Node_t *GetExp(const TokStack_t *stk, int *stk_index)
     }
     
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
    return node;
 }
@@ -309,7 +316,6 @@ Node_t *GetParent(const TokStack_t *stk, int *stk_index)
     if (IsOper(_TOKEN_, OPEN_R_BR))
     {
         ReadInfo("Чтение выражения в скобках");
-
         (*stk_index)++;
         node = GetLogic(stk, stk_index);
         (*stk_index)++;
@@ -349,10 +355,7 @@ Node_t *GetVariable(const TokStack_t *stk, int *stk_index)
         return node;        
     }
 
-    else
-    {
-        return NULL;
-    }
+    return NULL;
 }
 
 Node_t *GetFunction(const TokStack_t *stk, int *stk_index)
@@ -385,7 +388,7 @@ Node_t *GetFunction(const TokStack_t *stk, int *stk_index)
     (*stk_index)++;
 
     ReadInfo("Успешно! Выполняю Dump");
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, _DBG_TREEFILE_, __LINE__);
 
     return node;
 }
@@ -403,8 +406,5 @@ Node_t *GetNumber(const TokStack_t *stk, int *stk_index)
         return node;
     }
 
-    else
-    {
-        return NULL;
-    }
+    return NULL;
 }

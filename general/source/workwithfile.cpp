@@ -1,4 +1,4 @@
-#include "generalheaders/workwithfile.h"
+#include "../generalheaders/workwithfile.h"
 
 size_t BuffSize(const char *file_name)
 {
@@ -52,7 +52,6 @@ void StrArrayCtor(const char *filename, const char *mode, File_Info_t *info)
     info->buff = (char *) ReadBuffResult(filename, mode, &info->buff_size, sizeof(char));
 
     CountLines(info);
-    //printf("lines: %d\n", info->nlines);
 
     info->str_data = (Str_info_t *) calloc((size_t)info->nlines, sizeof(Str_info_t));
     assert(info->str_data);

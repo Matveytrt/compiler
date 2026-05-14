@@ -1,4 +1,4 @@
-#include "headers/tokstack.h"
+#include "../headers/tokstack.h"
 
 #define TYPE_ELEM       "%p"
 
@@ -49,7 +49,7 @@ TokStackErr_t TokStackInit(TokStack_t *stk, int capacity, int line)
     TokStackErr_t error ={};
     stk->size = 0;
 
-    Tokstk_log = fopen("tokenstk.log", "w");
+    Tokstk_log = fopen("general/stklogs/tokenstk.log", "w");
     assert(Tokstk_log);
 
     #ifdef DEBUGTOK
@@ -404,50 +404,32 @@ TokStackErr_t AllocationStk(TokStack_t *stk)
     return err;
 }
 
+#define PRINT_LOG_MSG(msg) fprintf(Tokstk_log, "line: %d Error: %s\n", line, msg)
+
 TokStackErr_t TokStackOk(TokStack_t *stk, TokStackErr_t err, int line)
 {
     assert(stk);
 
     if ((err.code & NULLSTKPTR))
-    {
-        fprintf(Tokstk_log, "line: %d Error: TokStack pointer = NULL\n", line);      
-    }
+        PRINT_LOG_MSG("TokStack pointer = NULL");
     if (err.code & NULLDATAPTR)
-    {
-        fprintf(Tokstk_log, "line: %d Error: Data pointer = NULL\n", line);     
-    }
+        PRINT_LOG_MSG("Data pointer = NULL");   
     if (err.code & NEGATIVECAPACITY)
-    {
-        fprintf(Tokstk_log, "line: %d Error: Capacity too small!\n", line);  
-    }
+        PRINT_LOG_MSG("Capacity too small!");
     if (err.code & STKATTACKLEFT)
-    {
-        fprintf(Tokstk_log, "line: %d Error: TokStack attack from the left\n", line);      
-    }
+        PRINT_LOG_MSG("TokStack attack from the left");
     if (err.code & STKATTACKRIGHT)
-    {
-        fprintf(Tokstk_log, "line: %d Error: TokStack attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("TokStack attack from the right");
     if (err.code & STRUCTATTACKRIGHT)
-    {
-        fprintf(Tokstk_log, "line: %d Error: Struct attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("Struct attack from the right");
     if (err.code & STRUCTATTACKLEFT)
-    {
-        fprintf(Tokstk_log, "line: %d Error: Struct attack from the left\n", line);     
-    }
+        PRINT_LOG_MSG("Struct attack from the left");
     if (err.code & SIZELIMIT)
-    {
-        fprintf(Tokstk_log, "line: %d Warning: Size limit errors\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: Size limit errors");      
     if (err.code & POISONING)
-    {
-        fprintf(Tokstk_log, "line: %d Warning: TokStack poisoning\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: TokStack poisoning");
     if (err.code & HASHTRASH)
-    {
-        fprintf(Tokstk_log, "line: %d Error: hash violation\n", line);
-    }
+        PRINT_LOG_MSG("Error: hash violation"); 
     
     err.type = ErrorType(err);
 

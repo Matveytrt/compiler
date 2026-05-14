@@ -1,4 +1,7 @@
-#include "headers/backendfuncs.h"
+#include "../headers/backendfuncs.h"
+#include <cstdio>
+
+#define LOGPRINT_(text) fprintf(Logfile, "<pre>\n\t<h3>\n\t\tDUMP from %s:%d <font color = red>Tree %s </font>\n\t</h3>\n<p style=\"font-size: 30px;\">\n", __func__, __LINE__, text)
 
 Node_t *ReadTreeFromFile(const char *input_tree, const char *output_tree, int line)
 {
@@ -13,16 +16,72 @@ Node_t *ReadTreeFromFile(const char *input_tree, const char *output_tree, int li
     int cur_pos = 0;
     int start_idx = 0;
 
-    ONDEBUG(fprintf(Logfile, "<pre>\n\t<h3>\n\t\tDUMP from %s:%d <font color = red>Tree НАЧАЛО чтения дерева </font>\n\t</h3>\n<p style=\"font-size: 30px;\">\n", __func__, line));
-
+    LOGPRINT_("Начало чтения дерева");
     Node_t *root_node = ReadNode(info.buff, &cur_pos, output_tree, &start_idx);
+    SetScopes(root_node, GLOBAL, 0);
 
     TreeDump(root_node, output_tree, line);
-    ONDEBUG(fprintf(Logfile, "<h3>\n\t<font color = red> Чтение дерева закончено! </font>\n</h3>\n</p>\n</pre>\n"));
+    fprintf(Logfile, "<h3>\n\t<font color = red> Чтение дерева закончено! </font>\n</h3>\n</p>\n</pre>\n");
 
     free(start_ptr);
 
     return root_node;
+}
+
+void SetScopes(Node_t *node, int scope, int arg_end_idx)
+{
+    if (!node) return;
+
+    static int global_ofs = 0;
+
+    if (IsOper(node, OP_V_DCLR))
+    {
+        Node_t *var_node = GetLeft(node);
+        int var_ofs = - (GetVar(var_node) - arg_end_idx + 1) * _REG_SIZE_;
+
+        SetVarScope(var_node, scope);
+        
+        SetVarOfs(var_node, var_ofs);
+        return;
+    }
+
+    if (IsOper(node, OP_F_DCLR))
+    {
+        int arg_ofs = _ARGS_OFS_;
+        Node_t *func_node = GetLeft(node);
+
+        SetArgScopes(GetLeft(func_node), arg_ofs, &arg_end_idx);
+
+        Func_table.data[GetFunc(func_node)].arg_end_idx = arg_end_idx;
+
+        SetScopes(GetRight(func_node), LOCAL, arg_end_idx);
+    }
+        
+    else
+    {
+        SetScopes(GetLeft(node), scope, arg_end_idx);
+    }
+
+    SetScopes(GetRight(node), scope, arg_end_idx);
+}
+
+int SetArgScopes(Node_t *node, int arg_ofs, int *arg_end_idx)
+{
+    if (!node) return arg_ofs;
+
+    arg_ofs = SetArgScopes(GetLeft(node), arg_ofs, arg_end_idx);
+
+    arg_ofs = SetArgScopes(GetRight(node), arg_ofs, arg_end_idx);
+
+    if (IsVarType(node))
+    {
+        SetVarScope(node, ARGUMENT);
+        SetVarOfs(node, arg_ofs);  
+        arg_ofs += 8;
+        *arg_end_idx = GetVar(node) + 1;
+    }
+
+    return arg_ofs;
 }
 
 #define ReadInfo(info)                                                                                                  \
@@ -97,10 +156,8 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
         #ifdef DEBUG
             ReadInfo("После чтения правого поддерева");
-        
             ReadInfo("Закончила чтение узла выполняю Dump");
             TreeDump(node, output_tree, __LINE__);
-
             fprintf(Logfile, "<p style=\"font-size: 30px;\"> ");
         #endif
 
@@ -111,8 +168,6 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
             *start_index = (int) Var_table.size;
             Func_table.data[GetFunc(GetLeft(node))].start_idx = temp_idx;
             Func_table.data[GetFunc(GetLeft(node))].end_idx = *start_index - 1;
-            // printf("start_idx = %d\n", Func_table.data[GetFunc(node)].start_idx);
-            // printf("end_idx = %d\n", Func_table.data[GetFunc(node)].end_idx);
         }
 
         return node;
@@ -130,8 +185,7 @@ Node_t *CheckNodeType(const char *str, int start_idx)
 {
     assert(str);
 
-    char *type_str = (char *) calloc(STRSIZE, sizeof(char));
-    assert(type_str);
+    char type_str[STRSIZE] = "";
 
     int offset = 0;
     int index = NOT_FOUND;
@@ -139,12 +193,9 @@ Node_t *CheckNodeType(const char *str, int start_idx)
     sscanf(str, " %s%n", type_str, &offset);
     str += offset;  
 
-    char *name_str = (char *) calloc(STRSIZE, sizeof(char));
-    assert(name_str);
+    char name_str[STRSIZE] = "";
 
     sscanf(str, " %s", name_str);
-
-    //printf("name_str = %s\ntype_str = %s\n", name_str, type_str);
 
     Node_t *node = NULL;
 
@@ -196,9 +247,6 @@ Node_t *CheckNodeType(const char *str, int start_idx)
         node = CTOR_NUM(result);
     }
 
-    free(name_str);
-    free(type_str);
-
     return node;
 }
 
@@ -232,23 +280,25 @@ int IsNil(const char *buff)
 }
 
 void DumpVarTable()
-{
-    fprintf(Logfile, "<pre>\n\t<h3>\n\t\tDUMP from %s:%d <font color = red>ПЕЧАТЬ таблицы имен </font>\n\t</h3>\n<p style=\"font-size: 30px;\">\n", __func__, __LINE__);
-
+{   
+    LOGPRINT_("ПЕЧАТЬ таблицы имен");
+    
     for (int idx = 0; idx < Var_table.size; idx++)
     {
-        fprintf(Logfile, "| %03d | %.*s |\n", idx, NUMSTEP, Var_table.data[idx].name);
+        Var_t var = Var_table.data[idx];
+        fprintf(Logfile, "| %8s | %03d | ofs:%03d | %.*s |\n", GetVarScopeName(var.scope), idx, var.ofs, NUMSTEP, var.name);
     }    
 }
 
 void DumpFuncTable()
 {
-    fprintf(Logfile, "<pre>\n\t<h3>\n\t\tDUMP from %s:%d <font color = red>ПЕЧАТЬ таблицы функций</font>\n\t</h3>\n<p style=\"font-size: 30px;\">\n", __func__, __LINE__);
-    
-    fprintf(Logfile, "| %16s | start | end |\n", "func_name");
+    LOGPRINT_("ПЕЧАТЬ таблицы функций");
+
+    fprintf(Logfile, "| %16s | start | end |arg_end|\n", "func_name");
 
     for (int idx = 0; idx < Func_table.size; idx++)
     {
-        fprintf(Logfile, "| %16s | %5d | %3d |\n", Func_table.data[idx].name, Func_table.data[idx].start_idx, Func_table.data[idx].end_idx);
+        Func_t func = Func_table.data[idx];
+        fprintf(Logfile, "| %16s | %05d | %03d | %05d |\n", func.name, func.start_idx, func.end_idx, func.arg_end_idx);
     }
 }

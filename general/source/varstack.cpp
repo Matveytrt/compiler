@@ -1,4 +1,4 @@
-#include "generalheaders/varstack.h"
+#include "../generalheaders/varstack.h"
 
 #define TYPE_ELEM       "%s"
 
@@ -49,7 +49,7 @@ VarStackErr_t VarStackInit(VarStack_t *stk, int capacity, int line)
     VarStackErr_t error ={};
     stk->size = 0;
 
-    Varstk_log = fopen("varstk.log", "w");
+    Varstk_log = fopen("general/stklogs/varstk.log", "w");
     assert(Varstk_log);
 
     #ifdef DEBUGVAR
@@ -405,50 +405,32 @@ VarStackErr_t AllocationStk(VarStack_t *stk)
     return err;
 }
 
+#define PRINT_LOG_MSG(msg) fprintf(Varstk_log, "line: %d Error: %s\n", line, msg)
+
 VarStackErr_t VarStackOk(VarStack_t *stk, VarStackErr_t err, int line)
 {
     assert(stk);
 
     if ((err.code & NULLSTKPTR))
-    {
-        fprintf(Varstk_log, "line: %d Error: VarStack pointer = NULL\n", line);      
-    }
+        PRINT_LOG_MSG("VarStack pointer = NULL");
     if (err.code & NULLDATAPTR)
-    {
-        fprintf(Varstk_log, "line: %d Error: Data pointer = NULL\n", line);     
-    }
+        PRINT_LOG_MSG("Data pointer = NULL");   
     if (err.code & NEGATIVECAPACITY)
-    {
-        fprintf(Varstk_log, "line: %d Error: Capacity too small!\n", line);  
-    }
+        PRINT_LOG_MSG("Capacity too small!");
     if (err.code & STKATTACKLEFT)
-    {
-        fprintf(Varstk_log, "line: %d Error: VarStack attack from the left\n", line);      
-    }
+        PRINT_LOG_MSG("VarStack attack from the left");
     if (err.code & STKATTACKRIGHT)
-    {
-        fprintf(Varstk_log, "line: %d Error: VarStack attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("VarStack attack from the right");
     if (err.code & STRUCTATTACKRIGHT)
-    {
-        fprintf(Varstk_log, "line: %d Error: Struct attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("Struct attack from the right");
     if (err.code & STRUCTATTACKLEFT)
-    {
-        fprintf(Varstk_log, "line: %d Error: Struct attack from the left\n", line);     
-    }
+        PRINT_LOG_MSG("Struct attack from the left");
     if (err.code & SIZELIMIT)
-    {
-        fprintf(Varstk_log, "line: %d Warning: Size limit errors\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: Size limit errors");      
     if (err.code & POISONING)
-    {
-        fprintf(Varstk_log, "line: %d Warning: VarStack poisoning\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: VarStack poisoning");
     if (err.code & HASHTRASH)
-    {
-        fprintf(Varstk_log, "line: %d Error: hash violation\n", line);
-    }
+        PRINT_LOG_MSG("Error: hash violation"); 
     
     err.type = ErrorType(err);
 

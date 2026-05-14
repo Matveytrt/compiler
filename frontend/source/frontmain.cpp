@@ -1,14 +1,10 @@
-#include "headers/lexical.h"
-#include "headers/syntax.h"
+#include "../headers/lexical.h"
+#include "../headers/syntax.h"
 
 int main(int argc, const char *argv[])
 {
-    assert(argc == 3);
-    assert(argv[1]);
-    assert(argv[2]);
-
-    const char *input_file = argv[1];
-    const char *output_file = argv[2];
+    const char *input_file = (argc >= 2) ? argv[1] : "my_progs/fact.txt";
+    const char *output_file = (argc == 3) ? argv[2] : "ast_trees/front.txt";
 
     TokStack_t tok_stk = TokStkCtor();
     INIT_VAR(DATASIZE);
@@ -17,7 +13,7 @@ int main(int argc, const char *argv[])
     File_Info_t info = {};
     StrArrayCtor(input_file, "r", &info);
 
-    Logfile = fopen("frontlog.htm", "w");
+    Logfile = fopen("logfiles/frontlog.htm", "w");
     fflush(Logfile);
 
     GetTokens(&info, &tok_stk);

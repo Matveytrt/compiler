@@ -1,0 +1,18 @@
+BUYSTRAT Fact (n)
+BUYIN
+    BLUFF? (n SNAP (10 FOLD 10) )
+    BUYIN
+        BOUNTY 20 FOLD 19 TURN
+    CASHOUT TURN
+
+    FREEBET f BET 30 FOLD 29 TURN  
+
+    f BET n ALLIN Fact (n FOLD 1 ) TURN  
+
+    BOUNTY f TURN  
+CASHOUT TURN  
+
+FREEBET x BET READ ()    TURN  
+FREEBET res BET Fact (x) TURN  
+CALL (res) TURN  
+$

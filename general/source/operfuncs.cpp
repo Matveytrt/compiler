@@ -1,130 +1,97 @@
-#include "generalheaders/operfuncs.h"
+#include "../generalheaders/operfuncs.h"
 
-void GetAsmAdd     (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
+#define DEF_VM_LABEL(name)                      \
+    void Do_VM_##name(Node_t *node, FILE *file) \
+    {                                           \
+        assert(node);                           \
+        assert(file);                           \
+        VM_LBL_("end_" #name, node);                   \
+    }
 
-    TEXT_("ADD");
-}     
-void GetAsmSub     (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
+DEF_VM_LABEL(IF)
+DEF_VM_LABEL(ELSE)
+DEF_VM_LABEL(WHILE)
 
-    TEXT_("SUB");
-}     
-void GetAsmMul     (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
+#define DEF_VM_OP(op)                         \
+    void Do_VM_##op(Node_t *node, FILE *file) \
+    {                                         \
+        assert(node);                         \
+        assert(file);                         \
+        VM_TEXT_(#op);                        \
+    }
 
-    TEXT_("MUL");
-}         
-void GetAsmDiv     (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
+DEF_VM_OP(ADD)
+DEF_VM_OP(SUB)
+DEF_VM_OP(MUL)
+DEF_VM_OP(DIV)
+DEF_VM_OP(SQRT)
 
-    TEXT_("DIV");
-}
-void GetAsmSqrt    (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-
-    TEXT_("SQRT");
-}     
-
-void GetAsmSkip    (Node_t *node, FILE *file)
+void Do_VM_SKIP    (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 }
 
-void GetAsmPostIf      (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
 
-    LBL_("end_if", node);
-}
-
-void GetAsmPostElse    (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-
-    LBL_("end_else", node);
-} 
-
-void GetAsmPostWhile   (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-
-    LBL_("end_while", node);
-} 
-
-void GetAsmInfixIf      (Node_t *node, FILE *file)
+void Do_VM_InfixIF      (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
     if (!IsLogicOp(GetLeft(node)))
     {
-        PUSH_(0);
-        JMP_("JE", "end_if", node);
+        VM_PUSH_(0);
+        VM_JMP_("JE", "end_if", node);
     }
 
     else
     {
         const char *str = GetInvLogOp(GetLeft(node));
-        JMP_(str, "end_if", node);
+        VM_JMP_(str, "end_if", node);
     }
 }
 
-void GetAsmInfixElse    (Node_t *node, FILE *file)
+void Do_VM_InfixELSE    (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    JMP_("JE", "end_else", node);
+    VM_JMP_("JE", "end_else", node);
 } 
 
-void GetAsmInfixWhile   (Node_t *node, FILE *file)
+void Do_VM_InfixWHILE   (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
     if (!IsLogicOp(GetLeft(node)))
     {
-        PUSH_(0);
-        JMP_("JE", "end_while", node);
+        VM_PUSH_(0);
+        VM_JMP_("JE", "end_while", node);
     }
 
     else
     {
         const char *str = GetInvLogOp(GetLeft(node));
-        JMP_(str, "end_while", node);
+        VM_JMP_(str, "end_while", node);
     }
 }  
 
-void GetAsmFor     (Node_t *node, FILE *file)
+void DO_VM_FOR     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 } 
 
-void GetAsmRet     (Node_t *node, FILE *file)
+void DO_VM_RET     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    TEXT_("RET");
+    VM_TEXT_("RET");
 }  
 
-void GetAsmAssign  (Node_t *node, FILE *file)
+void DO_VM_ASSIGN  (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
@@ -140,52 +107,37 @@ void GetAsmAssign  (Node_t *node, FILE *file)
         PopVar(GetLeft(node), file);
     }
 
-    TEXT_(";assign end");//func!
+    VM_TEXT_(";assign end");//func!
 }
 
-void GetAsmMemget  (Node_t *node, FILE *file)
+void Do_VM_MEMGET  (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
 } 
 
-void GetAsmMemset  (Node_t *node, FILE *file)
+void Do_VM_MEMSET  (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 }
 
-void GetAsmPrint   (Node_t *node, FILE *file)
+void Do_VM_Print   (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    TEXT_("OUT");
+    VM_TEXT_("OUT");
 } 
 
-void GetAsmScanf   (Node_t *node, FILE *file)
+void Do_VM_Scanf   (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 
-    TEXT_("IN");
+    VM_TEXT_("IN");
 }     
-void GetAsmFDecl   (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-}     
-void GetAsmVDecl   (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-}     
-void GetAsmStrEnd  (Node_t *node, FILE *file)
-{
-    assert(node);
-    assert(file);
-}
 
 void PushVar(Node_t *node, FILE *file)
 {
@@ -193,9 +145,9 @@ void PushVar(Node_t *node, FILE *file)
     assert(file);
 
     
-    PUSH_(GetVar(node));
-    POPR_("AX");
-    PUSHM_("AX"); 
+    VM_PUSH_(GetVar(node));
+    VM_POPR_("AX");
+    VM_PUSHM_("AX"); 
     fprintf(file, ";pushed var [%s]\n", Var_table.data[GetVar(node)].name);
 }
 
@@ -205,8 +157,8 @@ void PopVar(Node_t *node, FILE *file)
     assert(file);
 
     
-    PUSH_(GetVar(node));
-    POPR_("AX");
-    POPM_("AX");
+    VM_PUSH_(GetVar(node));
+    VM_POPR_("AX");
+    VM_POPM_("AX");
     fprintf(file, ";popped in var [%s]\n", Var_table.data[GetVar(node)].name);
 }

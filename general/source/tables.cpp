@@ -1,42 +1,52 @@
-#include "generalheaders/tables.h"
+#include "../generalheaders/tables.h"
+#include "../generalheaders/operfuncs.h"
+#include "../../backend/headers/s_oper_funcs.h"
+
+#define LANG_NAME_INIT_(name) name, strlen(name)
+#define MATH_OP_INIT(op, name, order_type) {OP_##op, "_MATH_" #op "_", #name, strlen(#name), order_type, Do_S_##op, Do_VM_SKIP, Do_VM_##op} 
+#define MATH_OP_INIT2(op, name, order_type) {OP_##op, "_MATH_" #op "_", #name, strlen(#name), order_type, Do_S_##op, Do_VM_SKIP, Do_VM_SKIP} //half ready
+#define MATH_OP_INIT3(op, name, order_type) {OP_##op, "_MATH_" #op "_", #name, strlen(#name), order_type, Do_S_SKIP, Do_VM_SKIP, Do_VM_SKIP} //not ready
+#define BR_OP_INIT(op, std_name, name) {op, std_name, name, strlen(name), OTHER_ORD, Do_S_SKIP, Do_VM_SKIP, Do_VM_SKIP}
+
+
 Oper_t Oper_table [_OPERDATASIZE_] =    {
-                                        {"RAISE",      "_MATH_ADD_",           OP_ADD,             strlen("RAISE"),     INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmAdd,},
-                                        {"FOLD",       "_MATH_SUB_",           OP_SUB,             strlen("FOLD"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSub,},
-                                        {"ALLIN",      "_MATH_MUL_",           OP_MUL,             strlen("ALLIN"),     INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmMul,},
-                                        {"CHECK",      "_MATH_DIV_",           OP_DIV,             strlen("CHECK"),     INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmDiv,},
-                                        {"SQRT",       "_MATH_SQRT_",          OP_SQRT,            strlen("SQRT"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSqrt,},
-                                        {"POW",        "_MATH_POW_",           OP_POW,             strlen("POW"),       INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"SNAP",       "_MATH_EQUAL_",         OP_EQ,              strlen("SNAP"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"MUCK",       "_MATH_NOT_EQUAL_",     OP_NEQ,             strlen("MUCK"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"BUMP",       "_MATH_ABOVE_EQ_",      OP_ABOVE_EQ,        strlen("BUMP"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"TANK",       "_MATH_BELOW_EQ_",      OP_BELOW_EQ,        strlen("TANK"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"TILT",       "_MATH_BELOW_",         OP_BELOW,           strlen("TILT"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"SHOVE",      "_MATH_ABOVE_",         OP_ABOVE,           strlen("SHOVE"),     INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"NIT",        "_MATH_NOT_",           OP_NOT,             strlen("NIT"),       OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"FLOP",       "_MATH_AND_",           OP_AND,             strlen("FLOP"),      OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"RIVER",      "_MATH_OR_",            OP_OR,              strlen("RIVER"),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"(",          "(",                    OPEN_R_BR,          strlen("("),         OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {")",          ")",                    CLOSE_R_BR,         strlen(")"),         OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"BUYIN",      "[",                    OPEN_SQ_BR,         strlen("BUYIN"),     OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"CASHOUT",    "]",                    CLOSE_SQ_BR,        strlen("CASHOUT"),   OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"ANTE",       "{",                    OPEN_FIG_BR,        strlen("ANTE"),      OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"POT",        "}",                    CLOSE_FIG_BR,       strlen("POT"),       OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"BLUFF?",     "_IF_",                 OP_IF,              strlen("BLUFF?"),    PREFIX_ORD,   GetAsmSkip,       GetAsmInfixIf,     GetAsmPostIf,},
-                                        {"CHECKBACK",  "_ELSE_",               OP_ELSE,            strlen("CHECKBACK"), PREFIX_ORD,   GetAsmSkip,       GetAsmInfixElse,   GetAsmPostElse,},
-                                        {"WHILESTACK", "_WHILE_",              OP_WHILE,           strlen("WHILESTACK"),PREFIX_ORD,   GetAsmSkip,       GetAsmInfixWhile,  GetAsmPostWhile,},
-                                        {"FOR",        "_FOR_",                OP_FOR,             strlen("FOR"),       PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"BOUNTY",     "_RETURN_",             OP_RET,             strlen("BOUNTY"),    PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmRet,},
-                                        {"PASS",       "_BREAK_",              OP_BREAK,           strlen("PASS"),      PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmRet,},//brrr asm
-                                        {"BET",        "_ASSIGNMENT_",         OP_ASSIGN,          strlen("BET"),       INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmAssign,},
-                                        {"$",          "$",                    OP_END,             strlen("$"),         OTHER_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"BUYSTRAT",   "_FUNC_DECLARE_",       OP_F_DCLR,          strlen("BUYSTRAT"),  PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"FREEBET",    "_VAR_DECLARE_",        OP_V_DCLR,          strlen("FREEBET"),   PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {",",          "_COMMA_",              OP_COMMA,           strlen(","),         INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmSkip,},
-                                        {"TURN",       "_END_STATEMENT_",      OP_STR_END,         strlen("TURN"),      INFIX_ORD,    GetAsmSkip,       GetAsmSkip,        GetAsmStrEnd,},
-                                        {"CALL",       "_PRINT_",              OP_PRINT,           strlen("CALL"),      PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmPrint,},
-                                        {"READ",       "_SCAN_",               OP_SCAN,            strlen("READ"),      PREFIX_ORD,   GetAsmSkip,       GetAsmSkip,        GetAsmScanf,},
-                                        {"MEMGET",     "memget",               OP_MEMGET,          strlen("MEMGET"),    PREFIX_ORD,   GetAsmMemget,     GetAsmMemget,      GetAsmMemget,},
-                                        {"MEMSET",     "memset",               OP_MEMSET,          strlen("MEMSET"),    PREFIX_ORD,   GetAsmMemset,     GetAsmMemset,      GetAsmMemset,},
+                                            MATH_OP_INIT(ADD, RAISE, INFIX_ORD),
+                                            MATH_OP_INIT(SUB, FOLD, INFIX_ORD),
+                                            MATH_OP_INIT(MUL, ALLIN, INFIX_ORD),
+                                            MATH_OP_INIT(DIV, CUT, INFIX_ORD),
+                                            MATH_OP_INIT(SQRT, SQRT, INFIX_ORD),
+                                            MATH_OP_INIT2(POW, POW, INFIX_ORD),
+                                            MATH_OP_INIT2(EQ, SNAP, INFIX_ORD),
+                                            MATH_OP_INIT2(NEQ, MUCK, INFIX_ORD),
+                                            MATH_OP_INIT2(ABOVE_EQ, BUMP, INFIX_ORD),
+                                            MATH_OP_INIT2(BELOW_EQ, TANK, INFIX_ORD),
+                                            MATH_OP_INIT2(BELOW, TILT, INFIX_ORD),
+                                            MATH_OP_INIT2(ABOVE, SHOVE, INFIX_ORD),
+                                            MATH_OP_INIT2(NOT, NOT, OTHER_ORD),
+                                            MATH_OP_INIT2(AND, PAIR, OTHER_ORD),
+                                            MATH_OP_INIT2(OR, SUIT, OTHER_ORD),
+                                            BR_OP_INIT(OPEN_R_BR, "(", "("),
+                                            BR_OP_INIT(CLOSE_R_BR, ")", ")"),
+                                            BR_OP_INIT(OPEN_SQ_BR, "[", "BUYIN"),
+                                            BR_OP_INIT(CLOSE_SQ_BR, "]", "CASHOUT"),
+                                            BR_OP_INIT(OPEN_FIG_BR, "{", "ANTE"),
+                                            BR_OP_INIT(CLOSE_FIG_BR, "}", "POT"),
+                                        {OP_IF,         "_IF_",                  LANG_NAME_INIT_("BLUFF?"),     PREFIX_ORD,  Do_S_IF,      Do_VM_InfixIF,      DO_VM_IF,},
+                                        {OP_ELSE,       "_ELSE_",                LANG_NAME_INIT_("CHECKBACK"),  PREFIX_ORD,  Do_S_ELSE,    Do_VM_InfixELSE,    DO_VM_ELSE,},
+                                        {OP_WHILE,      "_WHILE_",               LANG_NAME_INIT_("WHILESTACK"), PREFIX_ORD,  Do_S_WHILE,   Do_VM_InfixWHILE,   DO_VM_WHILE,},
+                                        {OP_FOR,        "_FOR_",                 LANG_NAME_INIT_("FOR"),        PREFIX_ORD,  Do_S_FOR,     Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_RET,        "_RETURN_",              LANG_NAME_INIT_("BOUNTY"),     PREFIX_ORD,  Do_S_RET,     Do_VM_SKIP,         DO_VM_RET,},
+                                        {OP_BREAK,      "_BREAK_",               LANG_NAME_INIT_("PASS"),       PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         DO_VM_RET,},//brrr asm
+                                        {OP_ASSIGN,     "_ASSIGNMENT_",          LANG_NAME_INIT_("BET"),        INFIX_ORD,   Do_S_ASSIGN,  Do_VM_SKIP,         DO_VM_ASSIGN},
+                                        {OP_END,        "$",                     LANG_NAME_INIT_("$"),          OTHER_ORD,   Do_S_SKIP,    Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_F_DCLR,     "_FUNC_DECLARE_",        LANG_NAME_INIT_("BUYSTRAT"),   PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_V_DCLR,     "_VAR_DECLARE_",         LANG_NAME_INIT_("FREEBET"),    PREFIX_ORD,  Do_S_VDECL,    Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_COMMA,      "_COMMA_",               LANG_NAME_INIT_(","),          INFIX_ORD,   Do_S_SKIP,    Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_STR_END,    "_END_STATEMENT_",       LANG_NAME_INIT_("TURN"),       INFIX_ORD,   Do_S_SKIP,    Do_VM_SKIP,         Do_VM_SKIP,},
+                                        {OP_PRINT,      "_PRINT_",               LANG_NAME_INIT_("CALL"),       PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         Do_VM_Print,},
+                                        {OP_SCAN,       "_SCAN_",                LANG_NAME_INIT_("READ"),       PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         Do_VM_Scanf,},
+                                        {OP_MEMGET,     "MEMGET",                LANG_NAME_INIT_("MEMGET"),     PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         Do_VM_MEMGET,},
+                                        {OP_MEMSET,     "MEMSET",                LANG_NAME_INIT_("MEMSET"),     PREFIX_ORD,  Do_S_SKIP,    Do_VM_SKIP,         Do_VM_MEMSET,},
                                         };
 VarStack_t Var_table = {};
 FuncStack_t Func_table = {};

@@ -1,24 +1,7 @@
-#include "headers/middle.h"
-
-#define _RemoveLeft_                                              \
-                            fix_node = GetRight(node);            \
-                                                                  \
-                            SetParent(fix_node, GetParent(node)); \
-                            SetRight(node, NULL);                 \
-                            NodeDtor(node);                       \
-                            (*change_par)++;                      \
-                            return fix_node;
-                            
-
-#define _RemoveRight_                                             \
-                            fix_node = GetLeft(node);             \
-                                                                  \
-                            SetParent(fix_node, GetParent(node)); \
-                            SetLeft(node, NULL);                  \
-                            NodeDtor(node);                       \
-                            (*change_par)++;                      \
-                            return fix_node;
+#include "../headers/middle.h"
  
+#define _DBG_TREEFILE_ "middleend/dbg/syntax_dbg_tree.txt"
+
 Node_t *OptimizeTree(Node_t *node, int dump_flag)
 {
     assert(node);
@@ -96,46 +79,38 @@ Node_t *CalcConstNode(Node_t *node, int *change_par, int dump_flag)
             SetRight(node, CalcConstNode(GetRight(node), change_par, dump_flag));
 
         else  
-        {
             return node;
-        }  
                 
-        printf("myau\n");
         node = CalcNode(node, change_par);
     }
     
     return node;
 }
 
+#define Calc_LR_Node(oper) GetNum(GetLeft(node)) oper GetNum(GetRight(node))
+
 Node_t *CalcNode(Node_t *node, int *change_par)
 {
     assert(node);
 
     Node_t *fix_node = node;
-    TreeElem_t val = 0;
-    TreeDump(node, "out.txt", __LINE__);
+    TreeDump(node, "ast_trees/dbg.txt", __LINE__);
 
     if(IsNumType(GetLeft(node)) && IsNumType(GetRight(node)))
     {
-        printf("gaf\n");
         switch (GetOper(node))
         {
         case OP_ADD:
-            val = GetNum(GetLeft(node)) + GetNum(GetRight(node));
-            fix_node = CTOR_NUM(val);
+            fix_node = CTOR_NUM(Calc_LR_Node(+));
             break;
         case OP_SUB:
-            val = GetNum(GetLeft(node)) - GetNum(GetRight(node));
-            printf("sub val = %d\n", val);
-            fix_node = CTOR_NUM(val);
+            fix_node = CTOR_NUM(Calc_LR_Node(-));
             break;
         case OP_MUL:
-            val = GetNum(GetLeft(node)) * GetNum(GetRight(node));
-            fix_node = CTOR_NUM(val);
+            fix_node = CTOR_NUM(Calc_LR_Node(*));
             break;
         case OP_DIV:
-            val = GetNum(GetLeft(node)) / GetNum(GetRight(node));
-            fix_node = CTOR_NUM(val);
+            fix_node = CTOR_NUM(Calc_LR_Node(/));
             break;
         default:
             break;
@@ -148,6 +123,24 @@ Node_t *CalcNode(Node_t *node, int *change_par)
     
     return fix_node;
 }
+
+#define _RemoveLeft_                                              \
+                            fix_node = GetRight(node);            \
+                                                                  \
+                            SetParent(fix_node, GetParent(node)); \
+                            SetRight(node, NULL);                 \
+                            NodeDtor(node);                       \
+                            (*change_par)++;                      \
+                            return fix_node;
+                            
+#define _RemoveRight_                                             \
+                            fix_node = GetLeft(node);             \
+                                                                  \
+                            SetParent(fix_node, GetParent(node)); \
+                            SetLeft(node, NULL);                  \
+                            NodeDtor(node);                       \
+                            (*change_par)++;                      \
+                            return fix_node;
 
 #define _LZeroRemL_(val)    if (IsNum(GetLeft(node), 0))\
                             {                           \

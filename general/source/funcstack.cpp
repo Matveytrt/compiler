@@ -1,4 +1,4 @@
-#include "./generalheaders/funcstack.h"
+#include "../generalheaders/funcstack.h"
 
 #define TYPE_ELEM       "%s"
 #define ERROR        fprintf(Funcstk_log, "error: %d line: %d\n", err.code, err.line);
@@ -48,7 +48,7 @@ FuncStackErr_t FuncStackInit(FuncStack_t *stk, int capacity, int line)
     FuncStackErr_t error ={};
     stk->size = 0;
 
-    Funcstk_log = fopen("funcstk.log", "w");
+    Funcstk_log = fopen("general/stklogs/funcstk.log", "w");
     assert(Funcstk_log);
 
     #ifdef DEBUGFUNC
@@ -404,55 +404,38 @@ FuncStackErr_t AllocationStk(FuncStack_t *stk)
     return err;
 }
 
+#define PRINT_LOG_MSG(msg) fprintf(Funcstk_log, "line: %d Error: %s\n", line, msg)
+
 FuncStackErr_t FuncStackOk(FuncStack_t *stk, FuncStackErr_t err, int line)
 {
     assert(stk);
 
     if ((err.code & NULLSTKPTR))
-    {
-        fprintf(Funcstk_log, "line: %d Error: FuncStack pointer = NULL\n", line);      
-    }
+        PRINT_LOG_MSG("FuncStack pointer = NULL");
     if (err.code & NULLDATAPTR)
-    {
-        fprintf(Funcstk_log, "line: %d Error: Data pointer = NULL\n", line);     
-    }
+        PRINT_LOG_MSG("Data pointer = NULL");   
     if (err.code & NEGATIVECAPACITY)
-    {
-        fprintf(Funcstk_log, "line: %d Error: Capacity too small!\n", line);  
-    }
+        PRINT_LOG_MSG("Capacity too small!");
     if (err.code & STKATTACKLEFT)
-    {
-        fprintf(Funcstk_log, "line: %d Error: FuncStack attack from the left\n", line);      
-    }
+        PRINT_LOG_MSG("FuncStack attack from the left");
     if (err.code & STKATTACKRIGHT)
-    {
-        fprintf(Funcstk_log, "line: %d Error: FuncStack attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("FuncStack attack from the right");
     if (err.code & STRUCTATTACKRIGHT)
-    {
-        fprintf(Funcstk_log, "line: %d Error: Struct attack from the right\n", line);      
-    }
+        PRINT_LOG_MSG("Struct attack from the right");
     if (err.code & STRUCTATTACKLEFT)
-    {
-        fprintf(Funcstk_log, "line: %d Error: Struct attack from the left\n", line);     
-    }
+        PRINT_LOG_MSG("Struct attack from the left");
     if (err.code & SIZELIMIT)
-    {
-        fprintf(Funcstk_log, "line: %d Warning: Size limit errors\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: Size limit errors");      
     if (err.code & POISONING)
-    {
-        fprintf(Funcstk_log, "line: %d Warning: FuncStack poisoning\n", line);      
-    }
+        PRINT_LOG_MSG("Warning: FuncStack poisoning");
     if (err.code & HASHTRASH)
-    {
-        fprintf(Funcstk_log, "line: %d Error: hash violation\n", line);
-    }
+        PRINT_LOG_MSG("Error: hash violation"); 
     
     err.type = ErrorType(err);
 
     return err;
 }
+
 
 int ErrorType(FuncStackErr_t err)
 {
@@ -464,8 +447,6 @@ int ErrorType(FuncStackErr_t err)
     {
         return ERRORPOINT;
     }
-    else
-    {
-        return WARNINGPOINT;
-    }
+
+    return WARNINGPOINT;
 }

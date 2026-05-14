@@ -1,4 +1,4 @@
-#include "headers/reverse.h"
+#include "../headers/reverse.h"
 
 int main(int argc, const char *argv[])
 {
@@ -6,16 +6,16 @@ int main(int argc, const char *argv[])
     assert(argv[1]);
     assert(argv[2]);
 
-    const char *input_file = argv[1];
-    const char *output_file = argv[2];
+    const char *input_file = (argc >= 2) ? argv[1] : "ast_trees/front.txt";
+    const char *output_file = (argc == 3) ? argv[2] : "my_progs/rev.txt";
 
-    Logfile = fopen("reverselog.htm", "w");
+    Logfile = fopen("logfiles/reverselog.htm", "w");
     fflush(Logfile);
 
     INIT_VAR(DATASIZE);
     INIT_FUNC(DATASIZE);
 
-    Node_t *node = ReadTreeFromFile(input_file, "out.txt", __LINE__);
+    Node_t *node = ReadTreeFromFile(input_file, "ast_trees/dbg.txt", __LINE__);
 
     PrintReverse(node, output_file);
 

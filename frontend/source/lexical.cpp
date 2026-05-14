@@ -1,4 +1,5 @@
-#include "headers/lexical.h"
+#include "../headers/lexical.h"
+#include <cstdio>
 
 #define INIT_TOK(stk, capacity) TokStackInit(stk, capacity, __LINE__)
 #define PUSH_TOK(stk, val)      TokStackPush(stk, val, __LINE__)
@@ -27,7 +28,7 @@ void GetTokens(File_Info_t *info, TokStack_t *stk)
 {
     assert(stk);
 
-    printf("lines = %d\n", info->nlines);
+    printf("code_lines = %d\n", info->nlines);
 
     for(int nline = 0; nline < info->nlines; nline++)
     {
@@ -111,7 +112,7 @@ void DumpTokens (TokStack_t *stk, int line)
 {
     assert(stk);
 
-    FILE *tree_file = fopen("tokens.txt", "w");
+    FILE *tree_file = fopen("frontend/dbg/tokens.txt", "w");
     assert(tree_file);
 
     FILE *graph = fopen("graph.txt", "w");
@@ -125,6 +126,7 @@ void DumpTokens (TokStack_t *stk, int line)
     {
         PrintNode(stk->data[index], graph, tree_file);
     }
+    
     fprintf(graph, "}");
 
     fclose(graph);
@@ -145,10 +147,11 @@ bool GetOpToken (char **buff, int nline, TokStack_t *stk)
 
     for (int index = 0; index < _OPERDATASIZE_; index++)
     {
+        // printf("op: %.*s\n", (int)_OP_LEN_, *buff);
         if( strncmp(*buff, _OP_NAME_, _OP_LEN_) == 0)
         {
             Node_t *new_node = CTOR_OP(_OP_CODE_);
-            //printf("op - %s\n", _OP_NAME_);
+
             new_node->info.nline = nline;
             new_node->info.cur_pos = *buff;
             PUSH_TOK(stk, new_node);
