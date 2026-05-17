@@ -1,0 +1,27 @@
+BUYSTRAT Main ()
+BUYIN
+    FREEBET n BET 0 $
+    READ (n) $
+    FREEBET x BET Fibonacci(n) $
+    CALL (x) $
+    BOUNTY x $
+CASHOUT $
+
+BUYSTRAT Fibonacci (n)
+BUYIN
+    BLUFF? (n SNAP 0)
+    BUYIN
+        BOUNTY n $
+    CASHOUT $
+
+    BLUFF? (n SNAP 1)
+    BUYIN
+        BOUNTY n $
+    CASHOUT $
+
+    FREEBET val BET Fibonacci(n FOLD 1) RAISE Fibonacci(n FOLD 2) $
+
+    BOUNTY val $
+CASHOUT $
+
+TURN

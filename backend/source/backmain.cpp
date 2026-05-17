@@ -1,4 +1,5 @@
-#include "../headers/asmcode.h"
+// #include "../headers/asmcode.h"
+#include "../headers/nasmcode.h"
 
 int main(int argc, const char *argv[])
 {
@@ -16,7 +17,8 @@ int main(int argc, const char *argv[])
     DumpVarTable();
     DumpFuncTable();
 
-    MakeAsm(node, output_file);
+    // MakeAsm(node, output_file);
+    MakeCode(node, output_file);
 
     VarTableDtor();
     FuncTableDtor();

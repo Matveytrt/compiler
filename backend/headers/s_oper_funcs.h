@@ -1,5 +1,5 @@
-#ifndef S_OPER_FUNCS
-#define S_OPER_FUNCS
+#ifndef S_OPER_FUNCS_H
+#define S_OPER_FUNCS_H
 
 #include "../../general/generalheaders/treefuncs.h"
 #include "section_table.h"
@@ -24,22 +24,21 @@ DECL_S_FUNC_(ABOVE);
 DECL_S_FUNC_(BELOW);
 
 DECL_S_FUNC_(InfixIF);
-DECL_S_FUNC_(InfixELSE);
 DECL_S_FUNC_(InfixWHILE);
 
 DECL_S_FUNC_(IF);
 DECL_S_FUNC_(ELSE);
 DECL_S_FUNC_(WHILE);
 DECL_S_FUNC_(FOR);
-DECL_S_FUNC_(RET);
 
 DECL_S_FUNC_(SKIP);
 DECL_S_FUNC_(ASSIGN);
 DECL_S_FUNC_(MEMGET);
 DECL_S_FUNC_(MEMSET);
-DECL_S_FUNC_(Print);
-DECL_S_FUNC_(Scanf);
+DECL_S_FUNC_(PRINT);
+DECL_S_FUNC_(SCAN);
 DECL_S_FUNC_(VDECL);
+DECL_S_FUNC_(DRAW);
 
 #define TEXT_SEC Binary.text
 #define DATA_SEC Binary.data
@@ -66,10 +65,10 @@ DECL_S_FUNC_(VDECL);
 #define ADD_RI_(dst, src)       TEXT_("add %s, %d", #dst, src)
 #define SUB_RR_(dst, src)       TEXT_("sub %s, %s", #dst, #src)
 #define SUB_RI_(dst, src)       TEXT_("sub %s, %d", #dst, src)
-#define MUL_RR_(dst, src)       TEXT_("mul %s, %s", #dst, #src)
-#define MUL_RI_(dst, src)       TEXT_("mul %s, %d", #dst, src)
-#define DIV_RR_(dst, src)       TEXT_("div %s, %s", #dst, #src)
-#define DIV_RI_(dst, src)       TEXT_("div %s, %d", #dst, src)
+#define MUL_RR_(dst, src)       TEXT_("imul %s, %s", #dst, #src)
+#define MUL_RI_(dst, src)       TEXT_("imul %s, %d", #dst, src)
+#define DIV_RR_(dst, src)       TEXT_("idiv %s, %s", #dst, #src)
+#define DIV_RI_(dst, src)       TEXT_("idiv %s, %d", #dst, src)
 
 #define CMP_RR_(reg1, reg2)     TEXT_("cmp %s, %s", #reg1, #reg2)
 #define CMP_RI_(reg, num)       TEXT_("cmp %s, %d", #reg, num)
@@ -86,14 +85,18 @@ DECL_S_FUNC_(VDECL);
 #define MOV_RI_(dst, src)       TEXT_("mov %s, %d", #dst, src)
 #define MOV_RM_(dst, src)       TEXT_("mov %s, [%s]", #dst, #src)
 #define MOV_MR_(dst, src)       TEXT_("mov [%s], %s", #dst, #src)
-#define MOV_RM_OFS_(dst, ofs)   TEXT_("mov %s, [rbp + %d]", #dst, ofs)
-#define MOV_MR_OFS_(ofs, src)   TEXT_("mov [rbp + %d], %s", ofs, #src)
 #define LEA_(dst, src)          TEXT_("lea %s, [%s]", #dst, #src)
 
-#define CALL_(func)             TEXT_("call :%s", func)
-#define LBL_(name, ptr)         TEXT_(":%s_%p", name, ptr)
-#define TAG_(name)              TEXT_(":%s", name)
-#define JMP_(cond, lbl, ptr)    TEXT_("%s :%s_%p", #cond, lbl, ptr)
+#define MOV_RM_OFS_(dst, ofs)   MOV_RI_(rcx, ofs); \
+                                TEXT_("mov %s, [rbp + rcx]", #dst)
+
+#define MOV_MR_OFS_(ofs, src)   MOV_RI_(rcx, ofs); \
+                                TEXT_("mov [rbp + rcx], %s", #src)
+
+#define CALL_(func)             TEXT_("call %s", func)
+#define LBL_(name, ptr)         TEXT_("%s_%p:", name, ptr)
+#define TAG_(name)              TEXT_("%s:", name)
+#define JMP_(cond, lbl, ptr)    TEXT_("%s %s_%p", #cond, lbl, ptr)
 
 
 

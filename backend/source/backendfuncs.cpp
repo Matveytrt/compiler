@@ -32,10 +32,7 @@ void SetScopes(Node_t *node, int scope, int arg_end_idx)
 {
     if (!node) return;
 
-    static int global_ofs = 0;
-
-    if (IsOper(node, OP_V_DCLR))
-    {
+    if (IsOper(node, OP_V_DCLR)) {
         Node_t *var_node = GetLeft(node);
         int var_ofs = - (GetVar(var_node) - arg_end_idx + 1) * _REG_SIZE_;
 
@@ -45,8 +42,7 @@ void SetScopes(Node_t *node, int scope, int arg_end_idx)
         return;
     }
 
-    if (IsOper(node, OP_F_DCLR))
-    {
+    if (IsOper(node, OP_F_DCLR)) {
         int arg_ofs = _ARGS_OFS_;
         Node_t *func_node = GetLeft(node);
 
@@ -57,10 +53,7 @@ void SetScopes(Node_t *node, int scope, int arg_end_idx)
         SetScopes(GetRight(func_node), LOCAL, arg_end_idx);
     }
         
-    else
-    {
-        SetScopes(GetLeft(node), scope, arg_end_idx);
-    }
+    else SetScopes(GetLeft(node), scope, arg_end_idx);
 
     SetScopes(GetRight(node), scope, arg_end_idx);
 }
@@ -125,8 +118,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
         Node_t *node = CheckNodeType(name, *start_index);
 
-        if (IsOper(node, OP_F_DCLR))
-        {
+        if (IsOper(node, OP_F_DCLR)) {
             *start_index = (int) Var_table.size;
             temp_idx = *start_index;
         }
@@ -140,8 +132,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
         SetLeft(node, ReadNode(buff, cur_pos, output_tree, start_index));
 
-        if(GetLeft(node))
-            SetParent(GetLeft(node), node);
+        if(GetLeft(node)) SetParent(GetLeft(node), node);
 
         (*cur_pos) += SkipSpaces(buff + *cur_pos);
 
@@ -149,8 +140,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
         SetRight(node, ReadNode(buff, cur_pos, output_tree, start_index));
 
-        if(GetRight(node))
-            SetParent(GetRight(node), node);
+        if(GetRight(node)) SetParent(GetRight(node), node);
 
         (*cur_pos) += SkipSpaces(buff + *cur_pos);
 
@@ -163,8 +153,7 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
 
         (*cur_pos)++;
 
-        if (IsOper(node, OP_F_DCLR))
-        {
+        if (IsOper(node, OP_F_DCLR)) {
             *start_index = (int) Var_table.size;
             Func_table.data[GetFunc(GetLeft(node))].start_idx = temp_idx;
             Func_table.data[GetFunc(GetLeft(node))].end_idx = *start_index - 1;
@@ -173,10 +162,8 @@ Node_t *ReadNode(char *buff, int *cur_pos, const char *output_tree, int *start_i
         return node;
     }
 
-    else 
-    {
-        (*cur_pos) += IsNil(buff + *cur_pos);
-        
+    else {
+        (*cur_pos) += IsNil(buff + *cur_pos);    
         return NULL;
     }
 }
@@ -186,7 +173,6 @@ Node_t *CheckNodeType(const char *str, int start_idx)
     assert(str);
 
     char type_str[STRSIZE] = "";
-
     int offset = 0;
     int index = NOT_FOUND;
 
@@ -256,8 +242,7 @@ int SkipSpaces(const char *buff)
 
     int offset = 0;
 
-    while (*buff == ' ' || *buff == '\n' || *buff == '\r')
-    {
+    while (*buff == ' ' || *buff == '\n' || *buff == '\r') {
         buff++;
         offset++;
     }
@@ -271,10 +256,7 @@ int IsNil(const char *buff)
 
     int offset = 0;
 
-    if (strncmp(buff, "nil", strlen("nil")) == 0)
-    {
-        offset += (int) strlen("nil");
-    }
+    if (strncmp(buff, "nil", strlen("nil")) == 0) offset += (int) strlen("nil");
 
     return offset;
 }
@@ -283,8 +265,7 @@ void DumpVarTable()
 {   
     LOGPRINT_("ПЕЧАТЬ таблицы имен");
     
-    for (int idx = 0; idx < Var_table.size; idx++)
-    {
+    for (int idx = 0; idx < Var_table.size; idx++) {
         Var_t var = Var_table.data[idx];
         fprintf(Logfile, "| %8s | %03d | ofs:%03d | %.*s |\n", GetVarScopeName(var.scope), idx, var.ofs, NUMSTEP, var.name);
     }    
@@ -296,8 +277,7 @@ void DumpFuncTable()
 
     fprintf(Logfile, "| %16s | start | end |arg_end|\n", "func_name");
 
-    for (int idx = 0; idx < Func_table.size; idx++)
-    {
+    for (int idx = 0; idx < Func_table.size; idx++) {
         Func_t func = Func_table.data[idx];
         fprintf(Logfile, "| %16s | %05d | %03d | %05d |\n", func.name, func.start_idx, func.end_idx, func.arg_end_idx);
     }

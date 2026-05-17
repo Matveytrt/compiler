@@ -1,4 +1,6 @@
 ./objects/front my_progs/test.txt ast_trees/front.txt
 ./objects/mid ast_trees/front.txt ast_trees/mid.txt
-./objects/back ast_trees/mid.txt asm_code/test.asm
+./objects/back ast_trees/mid.txt nasm_code/test.asm
 ./objects/rev ast_trees/mid.txt my_progs/rev.txt
+nasm -f elf64 nasm_code/test.asm -o test.o
+gcc test.o my_scanf.o -o test -fPIE

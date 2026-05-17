@@ -75,6 +75,7 @@ enum Operators
     OP_SCAN      = 34,
     OP_MEMGET    = 35,
     OP_MEMSET    = 36,
+    OP_DRAW      = 37,
 };
 
 struct Var_t

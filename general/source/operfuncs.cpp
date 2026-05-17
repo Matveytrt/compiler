@@ -5,12 +5,12 @@
     {                                           \
         assert(node);                           \
         assert(file);                           \
-        VM_LBL_("end_" #name, node);                   \
+        VM_LBL_("end_" #name, node);            \
     }
 
-DEF_VM_LABEL(IF)
-DEF_VM_LABEL(ELSE)
-DEF_VM_LABEL(WHILE)
+DEF_VM_LABEL(IF);
+DEF_VM_LABEL(ELSE);
+DEF_VM_LABEL(WHILE);
 
 #define DEF_VM_OP(op)                         \
     void Do_VM_##op(Node_t *node, FILE *file) \
@@ -77,13 +77,13 @@ void Do_VM_InfixWHILE   (Node_t *node, FILE *file)
     }
 }  
 
-void DO_VM_FOR     (Node_t *node, FILE *file)
+void Do_VM_FOR     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
 } 
 
-void DO_VM_RET     (Node_t *node, FILE *file)
+void Do_VM_RET     (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
@@ -91,7 +91,7 @@ void DO_VM_RET     (Node_t *node, FILE *file)
     VM_TEXT_("RET");
 }  
 
-void DO_VM_ASSIGN  (Node_t *node, FILE *file)
+void Do_VM_ASSIGN  (Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);

@@ -1,36 +1,15 @@
 BUYSTRAT Main ()
 BUYIN
-    FREEBET res BET Myaufunc(2, 4, 2, 3) TURN
-    CALL (res) TURN
-    BOUNTY res TURN
-CASHOUT TURN 
+    FREEBET res BET 100 $
+    MEMSET (2, 100) $
+    FREEBET x BET MEMGET (2) $
+    CALL (x) $    
+CASHOUT $ 
 
 BUYSTRAT Myaufunc (a, b, c, d)
 BUYIN
-    FREEBET f BET a RAISE b FOLD c ALLIN d TURN
+    FREEBET f BET a RAISE b FOLD c ALLIN d $
 
-    BOUNTY f TURN
-CASHOUT TURN
-BUYSTRAT Fact (n)
-BUYIN
-    BLUFF? (n SNAP (10 FOLD 10) )
-    BUYIN
-        BOUNTY 20 FOLD 19 TURN
-    CASHOUT TURN
-
-    CHECKBACK
-    BUYIN
-        FREEBET a BET 2 TURN
-    CASHOUT TURN
-
-    FREEBET f BET 30 FOLD 29 TURN  
-
-    f BET Fact (n FOLD 1 ) ALLIN n TURN  
-
-    BOUNTY f TURN  
-CASHOUT TURN  
-
-FREEBET x BET READ ()    TURN  
-FREEBET res BET Fact (x) TURN  
-CALL (res) TURN  
-$
+    BOUNTY f $
+CASHOUT $  
+TURN

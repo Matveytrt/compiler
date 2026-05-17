@@ -1,11 +1,9 @@
 FuncStackInit:16 Funcstack size = 0, capacity = 50
 Initialisation succses
-line: 235 pushed value = Main
-FuncStackPush:235 Funcstack size = 1, capacity = 50
-line: 235 pushed value = Myaufunc
-FuncStackPush:235 Funcstack size = 2, capacity = 50
-line: 235 pushed value = Fact
-FuncStackPush:235 Funcstack size = 3, capacity = 50
+line: 224 pushed value = Main
+FuncStackPush:224 Funcstack size = 1, capacity = 50
+line: 224 pushed value = Myaufunc
+FuncStackPush:224 Funcstack size = 2, capacity = 50
 
 info about Funcstack before death:
-FuncStackDestroy:421 Funcstack size = 3, capacity = 50
+FuncStackDestroy:421 Funcstack size = 2, capacity = 50
