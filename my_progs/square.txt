@@ -1,0 +1,58 @@
+BUYSTRAT Main ()
+BUYIN
+    FREEBET a BET 0 $
+    FREEBET b BET 0 $
+    FREEBET c BET 0 $
+    FREEBET d BET 0 $
+    FREEBET x1 BET 0 $
+    FREEBET x2 BET 0 $
+    
+    READ (a) $
+    READ (b) $
+    READ (c) $
+    
+    BLUFF? (a SNAP 0)
+    BUYIN
+        BLUFF? (b SNAP 0)
+        BUYIN
+            BLUFF? (c SNAP 0)
+            BUYIN
+                CALL (8) $
+                BOUNTY 0 $
+            CASHOUT $
+            
+            CALL (-1) $
+            BOUNTY 0 $
+        CASHOUT $
+        
+        FREEBET x1 BET (0 FOLD c) CUT b $
+        CALL (x1) $
+        BOUNTY 0 $
+    CASHOUT $
+    
+    FREEBET d BET (b ALLIN b) FOLD (4 ALLIN a ALLIN c) $
+    
+    BLUFF? (d TILT 0)
+    BUYIN
+        CALL (-1) $
+        BOUNTY 0 $
+    CASHOUT $
+    
+    BLUFF? (d SNAP 0)
+    BUYIN
+        FREEBET x1 BET (0 FOLD b) CUT (2 ALLIN a) $
+        CALL (x1) $
+        BOUNTY 0 $
+    CASHOUT $
+    
+    FREEBET sqrtd BET SQRT(d) $
+    FREEBET x1 BET (0 FOLD b FOLD sqrtd) CUT (2 ALLIN a) $
+    FREEBET x2 BET (0 FOLD b RAISE sqrtd) CUT (2 ALLIN a) $
+    
+    CALL (x1) $
+    CALL (x2) $
+    
+    BOUNTY 0 $
+CASHOUT $
+
+TURN

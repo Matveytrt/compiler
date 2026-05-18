@@ -1,724 +1,480 @@
 TokStackInit:22 Tokstack size = 0, capacity = 50
 Initialisation succses
-line: 157 pushed value = 0x7bf38f1e0010
+line: 157 pushed value = 0x7b46b75e0010
 TokStackPush:157 Tokstack size = 1, capacity = 50
-line: 74 pushed value = 0x7bf38f1e0050
+line: 74 pushed value = 0x7b46b75e0050
 TokStackPush:74 Tokstack size = 2, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0090
+line: 157 pushed value = 0x7b46b75e0090
 TokStackPush:157 Tokstack size = 3, capacity = 50
-line: 157 pushed value = 0x7bf38f1e00d0
+line: 157 pushed value = 0x7b46b75e00d0
 TokStackPush:157 Tokstack size = 4, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0110
+line: 157 pushed value = 0x7b46b75e0110
 TokStackPush:157 Tokstack size = 5, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0150
+line: 157 pushed value = 0x7b46b75e0150
 TokStackPush:157 Tokstack size = 6, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0190
+line: 94 pushed value = 0x7b46b75e0190
 TokStackPush:94 Tokstack size = 7, capacity = 50
-line: 157 pushed value = 0x7bf38f1e01d0
+line: 157 pushed value = 0x7b46b75e01d0
 TokStackPush:157 Tokstack size = 8, capacity = 50
-line: 103 pushed value = 0x7bf38f1e0210
+line: 103 pushed value = 0x7b46b75e0210
 TokStackPush:103 Tokstack size = 9, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0250
+line: 157 pushed value = 0x7b46b75e0250
 TokStackPush:157 Tokstack size = 10, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0290
+line: 157 pushed value = 0x7b46b75e0290
 TokStackPush:157 Tokstack size = 11, capacity = 50
-line: 94 pushed value = 0x7bf38f1e02d0
+line: 94 pushed value = 0x7b46b75e02d0
 TokStackPush:94 Tokstack size = 12, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0310
+line: 157 pushed value = 0x7b46b75e0310
 TokStackPush:157 Tokstack size = 13, capacity = 50
-line: 103 pushed value = 0x7bf38f1e0350
+line: 103 pushed value = 0x7b46b75e0350
 TokStackPush:103 Tokstack size = 14, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0390
+line: 157 pushed value = 0x7b46b75e0390
 TokStackPush:157 Tokstack size = 15, capacity = 50
-line: 157 pushed value = 0x7bf38f1e03d0
+line: 157 pushed value = 0x7b46b75e03d0
 TokStackPush:157 Tokstack size = 16, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0410
+line: 94 pushed value = 0x7b46b75e0410
 TokStackPush:94 Tokstack size = 17, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0450
+line: 157 pushed value = 0x7b46b75e0450
 TokStackPush:157 Tokstack size = 18, capacity = 50
-line: 103 pushed value = 0x7bf38f1e0490
+line: 103 pushed value = 0x7b46b75e0490
 TokStackPush:103 Tokstack size = 19, capacity = 50
-line: 157 pushed value = 0x7bf38f1e04d0
+line: 157 pushed value = 0x7b46b75e04d0
 TokStackPush:157 Tokstack size = 20, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0510
+line: 157 pushed value = 0x7b46b75e0510
 TokStackPush:157 Tokstack size = 21, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0550
+line: 94 pushed value = 0x7b46b75e0550
 TokStackPush:94 Tokstack size = 22, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0590
+line: 157 pushed value = 0x7b46b75e0590
 TokStackPush:157 Tokstack size = 23, capacity = 50
-line: 103 pushed value = 0x7bf38f1e05d0
+line: 103 pushed value = 0x7b46b75e05d0
 TokStackPush:103 Tokstack size = 24, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0610
+line: 157 pushed value = 0x7b46b75e0610
 TokStackPush:157 Tokstack size = 25, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0650
+line: 157 pushed value = 0x7b46b75e0650
 TokStackPush:157 Tokstack size = 26, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0690
+line: 94 pushed value = 0x7b46b75e0690
 TokStackPush:94 Tokstack size = 27, capacity = 50
-line: 157 pushed value = 0x7bf38f1e06d0
+line: 157 pushed value = 0x7b46b75e06d0
 TokStackPush:157 Tokstack size = 28, capacity = 50
-line: 103 pushed value = 0x7bf38f1e0710
+line: 103 pushed value = 0x7b46b75e0710
 TokStackPush:103 Tokstack size = 29, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0750
+line: 157 pushed value = 0x7b46b75e0750
 TokStackPush:157 Tokstack size = 30, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0790
+line: 157 pushed value = 0x7b46b75e0790
 TokStackPush:157 Tokstack size = 31, capacity = 50
-line: 157 pushed value = 0x7bf38f1e07d0
-TokStackPush:157 Tokstack size = 32, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0810
-TokStackPush:94 Tokstack size = 33, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0850
-TokStackPush:157 Tokstack size = 34, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0890
+line: 94 pushed value = 0x7b46b75e07d0
+TokStackPush:94 Tokstack size = 32, capacity = 50
+line: 157 pushed value = 0x7b46b75e0810
+TokStackPush:157 Tokstack size = 33, capacity = 50
+line: 103 pushed value = 0x7b46b75e0850
+TokStackPush:103 Tokstack size = 34, capacity = 50
+line: 157 pushed value = 0x7b46b75e0890
 TokStackPush:157 Tokstack size = 35, capacity = 50
-line: 157 pushed value = 0x7bf38f1e08d0
+line: 157 pushed value = 0x7b46b75e08d0
 TokStackPush:157 Tokstack size = 36, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0910
+line: 157 pushed value = 0x7b46b75e0910
 TokStackPush:157 Tokstack size = 37, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0950
+line: 94 pushed value = 0x7b46b75e0950
 TokStackPush:94 Tokstack size = 38, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0990
+line: 157 pushed value = 0x7b46b75e0990
 TokStackPush:157 Tokstack size = 39, capacity = 50
-line: 157 pushed value = 0x7bf38f1e09d0
+line: 157 pushed value = 0x7b46b75e09d0
 TokStackPush:157 Tokstack size = 40, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0a10
+line: 157 pushed value = 0x7b46b75e0a10
 TokStackPush:157 Tokstack size = 41, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0a50
+line: 157 pushed value = 0x7b46b75e0a50
 TokStackPush:157 Tokstack size = 42, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0a90
+line: 94 pushed value = 0x7b46b75e0a90
 TokStackPush:94 Tokstack size = 43, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0ad0
+line: 157 pushed value = 0x7b46b75e0ad0
 TokStackPush:157 Tokstack size = 44, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0b10
+line: 157 pushed value = 0x7b46b75e0b10
 TokStackPush:157 Tokstack size = 45, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0b50
+line: 157 pushed value = 0x7b46b75e0b50
 TokStackPush:157 Tokstack size = 46, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0b90
-TokStackPush:94 Tokstack size = 47, capacity = 50
-line: 157 pushed value = 0x7bf38f1e0bd0
-TokStackPush:157 Tokstack size = 48, capacity = 50
-line: 94 pushed value = 0x7bf38f1e0c10
-TokStackPush:94 Tokstack size = 49, capacity = 50
+line: 157 pushed value = 0x7b46b75e0b90
+TokStackPush:157 Tokstack size = 47, capacity = 50
+line: 94 pushed value = 0x7b46b75e0bd0
+TokStackPush:94 Tokstack size = 48, capacity = 50
+line: 157 pushed value = 0x7b46b75e0c10
+TokStackPush:157 Tokstack size = 49, capacity = 50
 succesful reallocation
-line: 157 pushed value = 0x7bf38f1e0c50
+line: 157 pushed value = 0x7b46b75e0c50
 TokStackPush:157 Tokstack size = 50, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0c90
-TokStackPush:94 Tokstack size = 51, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0cd0
+line: 157 pushed value = 0x7b46b75e0c90
+TokStackPush:157 Tokstack size = 51, capacity = 100
+line: 157 pushed value = 0x7b46b75e0cd0
 TokStackPush:157 Tokstack size = 52, capacity = 100
-line: 74 pushed value = 0x7bf38f1e0d10
-TokStackPush:74 Tokstack size = 53, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0d50
+line: 94 pushed value = 0x7b46b75e0d10
+TokStackPush:94 Tokstack size = 53, capacity = 100
+line: 157 pushed value = 0x7b46b75e0d50
 TokStackPush:157 Tokstack size = 54, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0d90
-TokStackPush:94 Tokstack size = 55, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0dd0
+line: 103 pushed value = 0x7b46b75e0d90
+TokStackPush:103 Tokstack size = 55, capacity = 100
+line: 157 pushed value = 0x7b46b75e0dd0
 TokStackPush:157 Tokstack size = 56, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0e10
-TokStackPush:94 Tokstack size = 57, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0e50
+line: 157 pushed value = 0x7b46b75e0e10
+TokStackPush:157 Tokstack size = 57, capacity = 100
+line: 157 pushed value = 0x7b46b75e0e50
 TokStackPush:157 Tokstack size = 58, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0e90
-TokStackPush:94 Tokstack size = 59, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0ed0
-TokStackPush:157 Tokstack size = 60, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0f10
-TokStackPush:94 Tokstack size = 61, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0f50
-TokStackPush:157 Tokstack size = 62, capacity = 100
-line: 94 pushed value = 0x7bf38f1e0f90
-TokStackPush:94 Tokstack size = 63, capacity = 100
-line: 157 pushed value = 0x7bf38f1e0fd0
+line: 157 pushed value = 0x7b46b75e0e90
+TokStackPush:157 Tokstack size = 59, capacity = 100
+line: 94 pushed value = 0x7b46b75e0ed0
+TokStackPush:94 Tokstack size = 60, capacity = 100
+line: 157 pushed value = 0x7b46b75e0f10
+TokStackPush:157 Tokstack size = 61, capacity = 100
+line: 103 pushed value = 0x7b46b75e0f50
+TokStackPush:103 Tokstack size = 62, capacity = 100
+line: 157 pushed value = 0x7b46b75e0f90
+TokStackPush:157 Tokstack size = 63, capacity = 100
+line: 157 pushed value = 0x7b46b75e0fd0
 TokStackPush:157 Tokstack size = 64, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1010
+line: 157 pushed value = 0x7b46b75e1010
 TokStackPush:157 Tokstack size = 65, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1050
+line: 157 pushed value = 0x7b46b75e1050
 TokStackPush:157 Tokstack size = 66, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1090
+line: 94 pushed value = 0x7b46b75e1090
 TokStackPush:94 Tokstack size = 67, capacity = 100
-line: 157 pushed value = 0x7bf38f1e10d0
+line: 157 pushed value = 0x7b46b75e10d0
 TokStackPush:157 Tokstack size = 68, capacity = 100
-line: 103 pushed value = 0x7bf38f1e1110
+line: 103 pushed value = 0x7b46b75e1110
 TokStackPush:103 Tokstack size = 69, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1150
+line: 157 pushed value = 0x7b46b75e1150
 TokStackPush:157 Tokstack size = 70, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1190
+line: 157 pushed value = 0x7b46b75e1190
 TokStackPush:157 Tokstack size = 71, capacity = 100
-line: 157 pushed value = 0x7bf38f1e11d0
+line: 157 pushed value = 0x7b46b75e11d0
 TokStackPush:157 Tokstack size = 72, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1210
-TokStackPush:94 Tokstack size = 73, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1250
-TokStackPush:157 Tokstack size = 74, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1290
-TokStackPush:94 Tokstack size = 75, capacity = 100
-line: 157 pushed value = 0x7bf38f1e12d0
+line: 157 pushed value = 0x7b46b75e1210
+TokStackPush:157 Tokstack size = 73, capacity = 100
+line: 103 pushed value = 0x7b46b75e1250
+TokStackPush:103 Tokstack size = 74, capacity = 100
+line: 157 pushed value = 0x7b46b75e1290
+TokStackPush:157 Tokstack size = 75, capacity = 100
+line: 157 pushed value = 0x7b46b75e12d0
 TokStackPush:157 Tokstack size = 76, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1310
+line: 157 pushed value = 0x7b46b75e1310
 TokStackPush:157 Tokstack size = 77, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1350
-TokStackPush:157 Tokstack size = 78, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1390
-TokStackPush:94 Tokstack size = 79, capacity = 100
-line: 157 pushed value = 0x7bf38f1e13d0
+line: 103 pushed value = 0x7b46b75e1350
+TokStackPush:103 Tokstack size = 78, capacity = 100
+line: 157 pushed value = 0x7b46b75e1390
+TokStackPush:157 Tokstack size = 79, capacity = 100
+line: 157 pushed value = 0x7b46b75e13d0
 TokStackPush:157 Tokstack size = 80, capacity = 100
-line: 103 pushed value = 0x7bf38f1e1410
-TokStackPush:103 Tokstack size = 81, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1450
+line: 157 pushed value = 0x7b46b75e1410
+TokStackPush:157 Tokstack size = 81, capacity = 100
+line: 157 pushed value = 0x7b46b75e1450
 TokStackPush:157 Tokstack size = 82, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1490
+line: 157 pushed value = 0x7b46b75e1490
 TokStackPush:157 Tokstack size = 83, capacity = 100
-line: 157 pushed value = 0x7bf38f1e14d0
-TokStackPush:157 Tokstack size = 84, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1510
-TokStackPush:94 Tokstack size = 85, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1550
+line: 103 pushed value = 0x7b46b75e14d0
+TokStackPush:103 Tokstack size = 84, capacity = 100
+line: 157 pushed value = 0x7b46b75e1510
+TokStackPush:157 Tokstack size = 85, capacity = 100
+line: 157 pushed value = 0x7b46b75e1550
 TokStackPush:157 Tokstack size = 86, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1590
-TokStackPush:94 Tokstack size = 87, capacity = 100
-line: 157 pushed value = 0x7bf38f1e15d0
-TokStackPush:157 Tokstack size = 88, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1610
+line: 157 pushed value = 0x7b46b75e1590
+TokStackPush:157 Tokstack size = 87, capacity = 100
+line: 103 pushed value = 0x7b46b75e15d0
+TokStackPush:103 Tokstack size = 88, capacity = 100
+line: 157 pushed value = 0x7b46b75e1610
 TokStackPush:157 Tokstack size = 89, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1650
+line: 157 pushed value = 0x7b46b75e1650
 TokStackPush:157 Tokstack size = 90, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1690
-TokStackPush:94 Tokstack size = 91, capacity = 100
-line: 157 pushed value = 0x7bf38f1e16d0
+line: 157 pushed value = 0x7b46b75e1690
+TokStackPush:157 Tokstack size = 91, capacity = 100
+line: 157 pushed value = 0x7b46b75e16d0
 TokStackPush:157 Tokstack size = 92, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1710
-TokStackPush:157 Tokstack size = 93, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1750
-TokStackPush:94 Tokstack size = 94, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1790
+line: 94 pushed value = 0x7b46b75e1710
+TokStackPush:94 Tokstack size = 93, capacity = 100
+line: 157 pushed value = 0x7b46b75e1750
+TokStackPush:157 Tokstack size = 94, capacity = 100
+line: 157 pushed value = 0x7b46b75e1790
 TokStackPush:157 Tokstack size = 95, capacity = 100
-line: 94 pushed value = 0x7bf38f1e17d0
-TokStackPush:94 Tokstack size = 96, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1810
+line: 103 pushed value = 0x7b46b75e17d0
+TokStackPush:103 Tokstack size = 96, capacity = 100
+line: 157 pushed value = 0x7b46b75e1810
 TokStackPush:157 Tokstack size = 97, capacity = 100
-line: 157 pushed value = 0x7bf38f1e1850
-TokStackPush:157 Tokstack size = 98, capacity = 100
-line: 94 pushed value = 0x7bf38f1e1890
-TokStackPush:94 Tokstack size = 99, capacity = 100
+line: 94 pushed value = 0x7b46b75e1850
+TokStackPush:94 Tokstack size = 98, capacity = 100
+line: 157 pushed value = 0x7b46b75e1890
+TokStackPush:157 Tokstack size = 99, capacity = 100
 succesful reallocation
-line: 157 pushed value = 0x7bf38f1e18d0
+line: 157 pushed value = 0x7b46b75e18d0
 TokStackPush:157 Tokstack size = 100, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1910
-TokStackPush:157 Tokstack size = 101, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1950
-TokStackPush:94 Tokstack size = 102, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1990
+line: 94 pushed value = 0x7b46b75e1910
+TokStackPush:94 Tokstack size = 101, capacity = 200
+line: 157 pushed value = 0x7b46b75e1950
+TokStackPush:157 Tokstack size = 102, capacity = 200
+line: 157 pushed value = 0x7b46b75e1990
 TokStackPush:157 Tokstack size = 103, capacity = 200
-line: 157 pushed value = 0x7bf38f1e19d0
+line: 157 pushed value = 0x7b46b75e19d0
 TokStackPush:157 Tokstack size = 104, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1a10
-TokStackPush:157 Tokstack size = 105, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1a50
-TokStackPush:94 Tokstack size = 106, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1a90
+line: 94 pushed value = 0x7b46b75e1a10
+TokStackPush:94 Tokstack size = 105, capacity = 200
+line: 157 pushed value = 0x7b46b75e1a50
+TokStackPush:157 Tokstack size = 106, capacity = 200
+line: 157 pushed value = 0x7b46b75e1a90
 TokStackPush:157 Tokstack size = 107, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1ad0
+line: 157 pushed value = 0x7b46b75e1ad0
 TokStackPush:157 Tokstack size = 108, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1b10
-TokStackPush:157 Tokstack size = 109, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1b50
+line: 103 pushed value = 0x7b46b75e1b10
+TokStackPush:103 Tokstack size = 109, capacity = 200
+line: 157 pushed value = 0x7b46b75e1b50
 TokStackPush:157 Tokstack size = 110, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1b90
-TokStackPush:94 Tokstack size = 111, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1bd0
+line: 157 pushed value = 0x7b46b75e1b90
+TokStackPush:157 Tokstack size = 111, capacity = 200
+line: 157 pushed value = 0x7b46b75e1bd0
 TokStackPush:157 Tokstack size = 112, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1c10
+line: 157 pushed value = 0x7b46b75e1c10
 TokStackPush:157 Tokstack size = 113, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1c50
+line: 94 pushed value = 0x7b46b75e1c50
 TokStackPush:94 Tokstack size = 114, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1c90
+line: 157 pushed value = 0x7b46b75e1c90
 TokStackPush:157 Tokstack size = 115, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1cd0
-TokStackPush:94 Tokstack size = 116, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1d10
-TokStackPush:157 Tokstack size = 117, capacity = 200
-line: 103 pushed value = 0x7bf38f1e1d50
-TokStackPush:103 Tokstack size = 118, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1d90
-TokStackPush:157 Tokstack size = 119, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1dd0
+line: 157 pushed value = 0x7b46b75e1cd0
+TokStackPush:157 Tokstack size = 116, capacity = 200
+line: 94 pushed value = 0x7b46b75e1d10
+TokStackPush:94 Tokstack size = 117, capacity = 200
+line: 157 pushed value = 0x7b46b75e1d50
+TokStackPush:157 Tokstack size = 118, capacity = 200
+line: 94 pushed value = 0x7b46b75e1d90
+TokStackPush:94 Tokstack size = 119, capacity = 200
+line: 157 pushed value = 0x7b46b75e1dd0
 TokStackPush:157 Tokstack size = 120, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1e10
+line: 157 pushed value = 0x7b46b75e1e10
 TokStackPush:157 Tokstack size = 121, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1e50
+line: 157 pushed value = 0x7b46b75e1e50
 TokStackPush:157 Tokstack size = 122, capacity = 200
-line: 94 pushed value = 0x7bf38f1e1e90
-TokStackPush:94 Tokstack size = 123, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1ed0
+line: 103 pushed value = 0x7b46b75e1e90
+TokStackPush:103 Tokstack size = 123, capacity = 200
+line: 157 pushed value = 0x7b46b75e1ed0
 TokStackPush:157 Tokstack size = 124, capacity = 200
-line: 103 pushed value = 0x7bf38f1e1f10
-TokStackPush:103 Tokstack size = 125, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1f50
+line: 94 pushed value = 0x7b46b75e1f10
+TokStackPush:94 Tokstack size = 125, capacity = 200
+line: 157 pushed value = 0x7b46b75e1f50
 TokStackPush:157 Tokstack size = 126, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1f90
-TokStackPush:157 Tokstack size = 127, capacity = 200
-line: 157 pushed value = 0x7bf38f1e1fd0
+line: 94 pushed value = 0x7b46b75e1f90
+TokStackPush:94 Tokstack size = 127, capacity = 200
+line: 157 pushed value = 0x7b46b75e1fd0
 TokStackPush:157 Tokstack size = 128, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2010
-TokStackPush:94 Tokstack size = 129, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2050
+line: 157 pushed value = 0x7b46b75e2010
+TokStackPush:157 Tokstack size = 129, capacity = 200
+line: 157 pushed value = 0x7b46b75e2050
 TokStackPush:157 Tokstack size = 130, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2090
+line: 157 pushed value = 0x7b46b75e2090
 TokStackPush:157 Tokstack size = 131, capacity = 200
-line: 94 pushed value = 0x7bf38f1e20d0
+line: 94 pushed value = 0x7b46b75e20d0
 TokStackPush:94 Tokstack size = 132, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2110
+line: 157 pushed value = 0x7b46b75e2110
 TokStackPush:157 Tokstack size = 133, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2150
-TokStackPush:94 Tokstack size = 134, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2190
+line: 103 pushed value = 0x7b46b75e2150
+TokStackPush:103 Tokstack size = 134, capacity = 200
+line: 157 pushed value = 0x7b46b75e2190
 TokStackPush:157 Tokstack size = 135, capacity = 200
-line: 103 pushed value = 0x7bf38f1e21d0
-TokStackPush:103 Tokstack size = 136, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2210
+line: 157 pushed value = 0x7b46b75e21d0
+TokStackPush:157 Tokstack size = 136, capacity = 200
+line: 157 pushed value = 0x7b46b75e2210
 TokStackPush:157 Tokstack size = 137, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2250
+line: 157 pushed value = 0x7b46b75e2250
 TokStackPush:157 Tokstack size = 138, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2290
-TokStackPush:157 Tokstack size = 139, capacity = 200
-line: 157 pushed value = 0x7bf38f1e22d0
+line: 103 pushed value = 0x7b46b75e2290
+TokStackPush:103 Tokstack size = 139, capacity = 200
+line: 157 pushed value = 0x7b46b75e22d0
 TokStackPush:157 Tokstack size = 140, capacity = 200
-line: 103 pushed value = 0x7bf38f1e2310
-TokStackPush:103 Tokstack size = 141, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2350
+line: 157 pushed value = 0x7b46b75e2310
+TokStackPush:157 Tokstack size = 141, capacity = 200
+line: 157 pushed value = 0x7b46b75e2350
 TokStackPush:157 Tokstack size = 142, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2390
-TokStackPush:157 Tokstack size = 143, capacity = 200
-line: 157 pushed value = 0x7bf38f1e23d0
+line: 103 pushed value = 0x7b46b75e2390
+TokStackPush:103 Tokstack size = 143, capacity = 200
+line: 157 pushed value = 0x7b46b75e23d0
 TokStackPush:157 Tokstack size = 144, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2410
+line: 157 pushed value = 0x7b46b75e2410
 TokStackPush:157 Tokstack size = 145, capacity = 200
-line: 74 pushed value = 0x7bf38f1e2450
-TokStackPush:74 Tokstack size = 146, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2490
+line: 157 pushed value = 0x7b46b75e2450
+TokStackPush:157 Tokstack size = 146, capacity = 200
+line: 157 pushed value = 0x7b46b75e2490
 TokStackPush:157 Tokstack size = 147, capacity = 200
-line: 94 pushed value = 0x7bf38f1e24d0
-TokStackPush:94 Tokstack size = 148, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2510
-TokStackPush:157 Tokstack size = 149, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2550
-TokStackPush:94 Tokstack size = 150, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2590
-TokStackPush:157 Tokstack size = 151, capacity = 200
-line: 94 pushed value = 0x7bf38f1e25d0
-TokStackPush:94 Tokstack size = 152, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2610
+line: 157 pushed value = 0x7b46b75e24d0
+TokStackPush:157 Tokstack size = 148, capacity = 200
+line: 94 pushed value = 0x7b46b75e2510
+TokStackPush:94 Tokstack size = 149, capacity = 200
+line: 157 pushed value = 0x7b46b75e2550
+TokStackPush:157 Tokstack size = 150, capacity = 200
+line: 103 pushed value = 0x7b46b75e2590
+TokStackPush:103 Tokstack size = 151, capacity = 200
+line: 157 pushed value = 0x7b46b75e25d0
+TokStackPush:157 Tokstack size = 152, capacity = 200
+line: 157 pushed value = 0x7b46b75e2610
 TokStackPush:157 Tokstack size = 153, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2650
-TokStackPush:94 Tokstack size = 154, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2690
-TokStackPush:157 Tokstack size = 155, capacity = 200
-line: 94 pushed value = 0x7bf38f1e26d0
-TokStackPush:94 Tokstack size = 156, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2710
+line: 157 pushed value = 0x7b46b75e2650
+TokStackPush:157 Tokstack size = 154, capacity = 200
+line: 94 pushed value = 0x7b46b75e2690
+TokStackPush:94 Tokstack size = 155, capacity = 200
+line: 157 pushed value = 0x7b46b75e26d0
+TokStackPush:157 Tokstack size = 156, capacity = 200
+line: 157 pushed value = 0x7b46b75e2710
 TokStackPush:157 Tokstack size = 157, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2750
-TokStackPush:157 Tokstack size = 158, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2790
+line: 103 pushed value = 0x7b46b75e2750
+TokStackPush:103 Tokstack size = 158, capacity = 200
+line: 157 pushed value = 0x7b46b75e2790
 TokStackPush:157 Tokstack size = 159, capacity = 200
-line: 94 pushed value = 0x7bf38f1e27d0
+line: 94 pushed value = 0x7b46b75e27d0
 TokStackPush:94 Tokstack size = 160, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2810
+line: 157 pushed value = 0x7b46b75e2810
 TokStackPush:157 Tokstack size = 161, capacity = 200
-line: 103 pushed value = 0x7bf38f1e2850
-TokStackPush:103 Tokstack size = 162, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2890
+line: 157 pushed value = 0x7b46b75e2850
+TokStackPush:157 Tokstack size = 162, capacity = 200
+line: 157 pushed value = 0x7b46b75e2890
 TokStackPush:157 Tokstack size = 163, capacity = 200
-line: 157 pushed value = 0x7bf38f1e28d0
-TokStackPush:157 Tokstack size = 164, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2910
+line: 103 pushed value = 0x7b46b75e28d0
+TokStackPush:103 Tokstack size = 164, capacity = 200
+line: 157 pushed value = 0x7b46b75e2910
 TokStackPush:157 Tokstack size = 165, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2950
+line: 94 pushed value = 0x7b46b75e2950
 TokStackPush:94 Tokstack size = 166, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2990
+line: 157 pushed value = 0x7b46b75e2990
 TokStackPush:157 Tokstack size = 167, capacity = 200
-line: 157 pushed value = 0x7bf38f1e29d0
+line: 157 pushed value = 0x7b46b75e29d0
 TokStackPush:157 Tokstack size = 168, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2a10
+line: 157 pushed value = 0x7b46b75e2a10
 TokStackPush:157 Tokstack size = 169, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2a50
+line: 157 pushed value = 0x7b46b75e2a50
 TokStackPush:157 Tokstack size = 170, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2a90
+line: 94 pushed value = 0x7b46b75e2a90
 TokStackPush:94 Tokstack size = 171, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2ad0
+line: 157 pushed value = 0x7b46b75e2ad0
 TokStackPush:157 Tokstack size = 172, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2b10
+line: 157 pushed value = 0x7b46b75e2b10
 TokStackPush:157 Tokstack size = 173, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2b50
+line: 157 pushed value = 0x7b46b75e2b50
 TokStackPush:157 Tokstack size = 174, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2b90
-TokStackPush:157 Tokstack size = 175, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2bd0
-TokStackPush:94 Tokstack size = 176, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2c10
+line: 103 pushed value = 0x7b46b75e2b90
+TokStackPush:103 Tokstack size = 175, capacity = 200
+line: 157 pushed value = 0x7b46b75e2bd0
+TokStackPush:157 Tokstack size = 176, capacity = 200
+line: 157 pushed value = 0x7b46b75e2c10
 TokStackPush:157 Tokstack size = 177, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2c50
+line: 157 pushed value = 0x7b46b75e2c50
 TokStackPush:157 Tokstack size = 178, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2c90
+line: 157 pushed value = 0x7b46b75e2c90
 TokStackPush:157 Tokstack size = 179, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2cd0
-TokStackPush:157 Tokstack size = 180, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2d10
-TokStackPush:94 Tokstack size = 181, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2d50
+line: 94 pushed value = 0x7b46b75e2cd0
+TokStackPush:94 Tokstack size = 180, capacity = 200
+line: 157 pushed value = 0x7b46b75e2d10
+TokStackPush:157 Tokstack size = 181, capacity = 200
+line: 157 pushed value = 0x7b46b75e2d50
 TokStackPush:157 Tokstack size = 182, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2d90
+line: 157 pushed value = 0x7b46b75e2d90
 TokStackPush:157 Tokstack size = 183, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2dd0
-TokStackPush:157 Tokstack size = 184, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2e10
+line: 94 pushed value = 0x7b46b75e2dd0
+TokStackPush:94 Tokstack size = 184, capacity = 200
+line: 157 pushed value = 0x7b46b75e2e10
 TokStackPush:157 Tokstack size = 185, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2e50
-TokStackPush:94 Tokstack size = 186, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2e90
+line: 157 pushed value = 0x7b46b75e2e50
+TokStackPush:157 Tokstack size = 186, capacity = 200
+line: 157 pushed value = 0x7b46b75e2e90
 TokStackPush:157 Tokstack size = 187, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2ed0
-TokStackPush:157 Tokstack size = 188, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2f10
+line: 94 pushed value = 0x7b46b75e2ed0
+TokStackPush:94 Tokstack size = 188, capacity = 200
+line: 157 pushed value = 0x7b46b75e2f10
 TokStackPush:157 Tokstack size = 189, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2f50
-TokStackPush:94 Tokstack size = 190, capacity = 200
-line: 157 pushed value = 0x7bf38f1e2f90
-TokStackPush:157 Tokstack size = 191, capacity = 200
-line: 94 pushed value = 0x7bf38f1e2fd0
-TokStackPush:94 Tokstack size = 192, capacity = 200
-line: 157 pushed value = 0x7bf38f1e3010
-TokStackPush:157 Tokstack size = 193, capacity = 200
-line: 94 pushed value = 0x7bf38f1e3050
-TokStackPush:94 Tokstack size = 194, capacity = 200
-line: 157 pushed value = 0x7bf38f1e3090
-TokStackPush:157 Tokstack size = 195, capacity = 200
-line: 157 pushed value = 0x7bf38f1e30d0
+line: 157 pushed value = 0x7b46b75e2f50
+TokStackPush:157 Tokstack size = 190, capacity = 200
+line: 103 pushed value = 0x7b46b75e2f90
+TokStackPush:103 Tokstack size = 191, capacity = 200
+line: 157 pushed value = 0x7b46b75e2fd0
+TokStackPush:157 Tokstack size = 192, capacity = 200
+line: 94 pushed value = 0x7b46b75e3010
+TokStackPush:94 Tokstack size = 193, capacity = 200
+line: 157 pushed value = 0x7b46b75e3050
+TokStackPush:157 Tokstack size = 194, capacity = 200
+line: 94 pushed value = 0x7b46b75e3090
+TokStackPush:94 Tokstack size = 195, capacity = 200
+line: 157 pushed value = 0x7b46b75e30d0
 TokStackPush:157 Tokstack size = 196, capacity = 200
-line: 157 pushed value = 0x7bf38f1e3110
+line: 157 pushed value = 0x7b46b75e3110
 TokStackPush:157 Tokstack size = 197, capacity = 200
-line: 94 pushed value = 0x7bf38f1e3150
-TokStackPush:94 Tokstack size = 198, capacity = 200
-line: 157 pushed value = 0x7bf38f1e3190
-TokStackPush:157 Tokstack size = 199, capacity = 200
+line: 157 pushed value = 0x7b46b75e3150
+TokStackPush:157 Tokstack size = 198, capacity = 200
+line: 103 pushed value = 0x7b46b75e3190
+TokStackPush:103 Tokstack size = 199, capacity = 200
 succesful reallocation
-line: 94 pushed value = 0x7bf38f1e31d0
-TokStackPush:94 Tokstack size = 200, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3210
-TokStackPush:157 Tokstack size = 201, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3250
+line: 157 pushed value = 0x7b46b75e31d0
+TokStackPush:157 Tokstack size = 200, capacity = 400
+line: 94 pushed value = 0x7b46b75e3210
+TokStackPush:94 Tokstack size = 201, capacity = 400
+line: 157 pushed value = 0x7b46b75e3250
 TokStackPush:157 Tokstack size = 202, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3290
+line: 157 pushed value = 0x7b46b75e3290
 TokStackPush:157 Tokstack size = 203, capacity = 400
-line: 94 pushed value = 0x7bf38f1e32d0
-TokStackPush:94 Tokstack size = 204, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3310
-TokStackPush:157 Tokstack size = 205, capacity = 400
-line: 74 pushed value = 0x7bf38f1e3350
-TokStackPush:74 Tokstack size = 206, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3390
+line: 157 pushed value = 0x7b46b75e32d0
+TokStackPush:157 Tokstack size = 204, capacity = 400
+line: 94 pushed value = 0x7b46b75e3310
+TokStackPush:94 Tokstack size = 205, capacity = 400
+line: 157 pushed value = 0x7b46b75e3350
+TokStackPush:157 Tokstack size = 206, capacity = 400
+line: 157 pushed value = 0x7b46b75e3390
 TokStackPush:157 Tokstack size = 207, capacity = 400
-line: 94 pushed value = 0x7bf38f1e33d0
-TokStackPush:94 Tokstack size = 208, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3410
+line: 103 pushed value = 0x7b46b75e33d0
+TokStackPush:103 Tokstack size = 208, capacity = 400
+line: 157 pushed value = 0x7b46b75e3410
 TokStackPush:157 Tokstack size = 209, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3450
+line: 94 pushed value = 0x7b46b75e3450
 TokStackPush:94 Tokstack size = 210, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3490
+line: 157 pushed value = 0x7b46b75e3490
 TokStackPush:157 Tokstack size = 211, capacity = 400
-line: 94 pushed value = 0x7bf38f1e34d0
+line: 94 pushed value = 0x7b46b75e34d0
 TokStackPush:94 Tokstack size = 212, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3510
+line: 157 pushed value = 0x7b46b75e3510
 TokStackPush:157 Tokstack size = 213, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3550
+line: 157 pushed value = 0x7b46b75e3550
 TokStackPush:157 Tokstack size = 214, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3590
-TokStackPush:94 Tokstack size = 215, capacity = 400
-line: 157 pushed value = 0x7bf38f1e35d0
-TokStackPush:157 Tokstack size = 216, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3610
+line: 157 pushed value = 0x7b46b75e3590
+TokStackPush:157 Tokstack size = 215, capacity = 400
+line: 103 pushed value = 0x7b46b75e35d0
+TokStackPush:103 Tokstack size = 216, capacity = 400
+line: 157 pushed value = 0x7b46b75e3610
 TokStackPush:157 Tokstack size = 217, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3650
+line: 94 pushed value = 0x7b46b75e3650
 TokStackPush:94 Tokstack size = 218, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3690
+line: 157 pushed value = 0x7b46b75e3690
 TokStackPush:157 Tokstack size = 219, capacity = 400
-line: 74 pushed value = 0x7bf38f1e36d0
-TokStackPush:74 Tokstack size = 220, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3710
+line: 157 pushed value = 0x7b46b75e36d0
+TokStackPush:157 Tokstack size = 220, capacity = 400
+line: 157 pushed value = 0x7b46b75e3710
 TokStackPush:157 Tokstack size = 221, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3750
-TokStackPush:94 Tokstack size = 222, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3790
-TokStackPush:157 Tokstack size = 223, capacity = 400
-line: 94 pushed value = 0x7bf38f1e37d0
-TokStackPush:94 Tokstack size = 224, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3810
+line: 157 pushed value = 0x7b46b75e3750
+TokStackPush:157 Tokstack size = 222, capacity = 400
+line: 94 pushed value = 0x7b46b75e3790
+TokStackPush:94 Tokstack size = 223, capacity = 400
+line: 157 pushed value = 0x7b46b75e37d0
+TokStackPush:157 Tokstack size = 224, capacity = 400
+line: 157 pushed value = 0x7b46b75e3810
 TokStackPush:157 Tokstack size = 225, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3850
-TokStackPush:94 Tokstack size = 226, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3890
+line: 157 pushed value = 0x7b46b75e3850
+TokStackPush:157 Tokstack size = 226, capacity = 400
+line: 157 pushed value = 0x7b46b75e3890
 TokStackPush:157 Tokstack size = 227, capacity = 400
-line: 157 pushed value = 0x7bf38f1e38d0
-TokStackPush:157 Tokstack size = 228, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3910
-TokStackPush:94 Tokstack size = 229, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3950
+line: 94 pushed value = 0x7b46b75e38d0
+TokStackPush:94 Tokstack size = 228, capacity = 400
+line: 157 pushed value = 0x7b46b75e3910
+TokStackPush:157 Tokstack size = 229, capacity = 400
+line: 157 pushed value = 0x7b46b75e3950
 TokStackPush:157 Tokstack size = 230, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3990
+line: 157 pushed value = 0x7b46b75e3990
 TokStackPush:157 Tokstack size = 231, capacity = 400
-line: 94 pushed value = 0x7bf38f1e39d0
-TokStackPush:94 Tokstack size = 232, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3a10
+line: 103 pushed value = 0x7b46b75e39d0
+TokStackPush:103 Tokstack size = 232, capacity = 400
+line: 157 pushed value = 0x7b46b75e3a10
 TokStackPush:157 Tokstack size = 233, capacity = 400
-line: 74 pushed value = 0x7bf38f1e3a50
-TokStackPush:74 Tokstack size = 234, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3a90
+line: 157 pushed value = 0x7b46b75e3a50
+TokStackPush:157 Tokstack size = 234, capacity = 400
+line: 157 pushed value = 0x7b46b75e3a90
 TokStackPush:157 Tokstack size = 235, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3ad0
-TokStackPush:94 Tokstack size = 236, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3b10
-TokStackPush:157 Tokstack size = 237, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3b50
-TokStackPush:94 Tokstack size = 238, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3b90
-TokStackPush:157 Tokstack size = 239, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3bd0
-TokStackPush:157 Tokstack size = 240, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3c10
-TokStackPush:157 Tokstack size = 241, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3c50
-TokStackPush:157 Tokstack size = 242, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3c90
-TokStackPush:94 Tokstack size = 243, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3cd0
-TokStackPush:157 Tokstack size = 244, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3d10
-TokStackPush:94 Tokstack size = 245, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3d50
-TokStackPush:157 Tokstack size = 246, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3d90
-TokStackPush:157 Tokstack size = 247, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3dd0
-TokStackPush:157 Tokstack size = 248, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3e10
-TokStackPush:157 Tokstack size = 249, capacity = 400
-line: 94 pushed value = 0x7bf38f1e3e50
-TokStackPush:94 Tokstack size = 250, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3e90
-TokStackPush:157 Tokstack size = 251, capacity = 400
-line: 103 pushed value = 0x7bf38f1e3ed0
-TokStackPush:103 Tokstack size = 252, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3f10
-TokStackPush:157 Tokstack size = 253, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3f50
-TokStackPush:157 Tokstack size = 254, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3f90
-TokStackPush:157 Tokstack size = 255, capacity = 400
-line: 157 pushed value = 0x7bf38f1e3fd0
-TokStackPush:157 Tokstack size = 256, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4010
-TokStackPush:157 Tokstack size = 257, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4050
-TokStackPush:157 Tokstack size = 258, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4090
-TokStackPush:94 Tokstack size = 259, capacity = 400
-line: 157 pushed value = 0x7bf38f1e40d0
-TokStackPush:157 Tokstack size = 260, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4110
-TokStackPush:157 Tokstack size = 261, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4150
-TokStackPush:94 Tokstack size = 262, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4190
-TokStackPush:157 Tokstack size = 263, capacity = 400
-line: 94 pushed value = 0x7bf38f1e41d0
-TokStackPush:94 Tokstack size = 264, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4210
-TokStackPush:157 Tokstack size = 265, capacity = 400
-line: 103 pushed value = 0x7bf38f1e4250
-TokStackPush:103 Tokstack size = 266, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4290
-TokStackPush:157 Tokstack size = 267, capacity = 400
-line: 157 pushed value = 0x7bf38f1e42d0
-TokStackPush:157 Tokstack size = 268, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4310
-TokStackPush:157 Tokstack size = 269, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4350
-TokStackPush:157 Tokstack size = 270, capacity = 400
-line: 103 pushed value = 0x7bf38f1e4390
-TokStackPush:103 Tokstack size = 271, capacity = 400
-line: 157 pushed value = 0x7bf38f1e43d0
-TokStackPush:157 Tokstack size = 272, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4410
-TokStackPush:157 Tokstack size = 273, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4450
-TokStackPush:157 Tokstack size = 274, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4490
-TokStackPush:157 Tokstack size = 275, capacity = 400
-line: 74 pushed value = 0x7bf38f1e44d0
-TokStackPush:74 Tokstack size = 276, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4510
-TokStackPush:157 Tokstack size = 277, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4550
-TokStackPush:94 Tokstack size = 278, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4590
-TokStackPush:157 Tokstack size = 279, capacity = 400
-line: 94 pushed value = 0x7bf38f1e45d0
-TokStackPush:94 Tokstack size = 280, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4610
-TokStackPush:157 Tokstack size = 281, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4650
-TokStackPush:94 Tokstack size = 282, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4690
-TokStackPush:157 Tokstack size = 283, capacity = 400
-line: 157 pushed value = 0x7bf38f1e46d0
-TokStackPush:157 Tokstack size = 284, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4710
-TokStackPush:157 Tokstack size = 285, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4750
-TokStackPush:94 Tokstack size = 286, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4790
-TokStackPush:157 Tokstack size = 287, capacity = 400
-line: 94 pushed value = 0x7bf38f1e47d0
-TokStackPush:94 Tokstack size = 288, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4810
-TokStackPush:157 Tokstack size = 289, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4850
-TokStackPush:94 Tokstack size = 290, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4890
-TokStackPush:157 Tokstack size = 291, capacity = 400
-line: 157 pushed value = 0x7bf38f1e48d0
-TokStackPush:157 Tokstack size = 292, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4910
-TokStackPush:94 Tokstack size = 293, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4950
-TokStackPush:157 Tokstack size = 294, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4990
-TokStackPush:94 Tokstack size = 295, capacity = 400
-line: 157 pushed value = 0x7bf38f1e49d0
-TokStackPush:157 Tokstack size = 296, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4a10
-TokStackPush:157 Tokstack size = 297, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4a50
-TokStackPush:94 Tokstack size = 298, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4a90
-TokStackPush:157 Tokstack size = 299, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4ad0
-TokStackPush:94 Tokstack size = 300, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4b10
-TokStackPush:157 Tokstack size = 301, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4b50
-TokStackPush:157 Tokstack size = 302, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4b90
-TokStackPush:157 Tokstack size = 303, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4bd0
-TokStackPush:94 Tokstack size = 304, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4c10
-TokStackPush:157 Tokstack size = 305, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4c50
-TokStackPush:157 Tokstack size = 306, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4c90
-TokStackPush:157 Tokstack size = 307, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4cd0
-TokStackPush:157 Tokstack size = 308, capacity = 400
-line: 74 pushed value = 0x7bf38f1e4d10
-TokStackPush:74 Tokstack size = 309, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4d50
-TokStackPush:157 Tokstack size = 310, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4d90
-TokStackPush:94 Tokstack size = 311, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4dd0
-TokStackPush:157 Tokstack size = 312, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4e10
-TokStackPush:94 Tokstack size = 313, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4e50
-TokStackPush:157 Tokstack size = 314, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4e90
-TokStackPush:94 Tokstack size = 315, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4ed0
-TokStackPush:157 Tokstack size = 316, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4f10
-TokStackPush:157 Tokstack size = 317, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4f50
-TokStackPush:157 Tokstack size = 318, capacity = 400
-line: 94 pushed value = 0x7bf38f1e4f90
-TokStackPush:94 Tokstack size = 319, capacity = 400
-line: 157 pushed value = 0x7bf38f1e4fd0
-TokStackPush:157 Tokstack size = 320, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5010
-TokStackPush:94 Tokstack size = 321, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5050
-TokStackPush:157 Tokstack size = 322, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5090
-TokStackPush:94 Tokstack size = 323, capacity = 400
-line: 157 pushed value = 0x7bf38f1e50d0
-TokStackPush:157 Tokstack size = 324, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5110
-TokStackPush:157 Tokstack size = 325, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5150
-TokStackPush:94 Tokstack size = 326, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5190
-TokStackPush:157 Tokstack size = 327, capacity = 400
-line: 157 pushed value = 0x7bf38f1e51d0
-TokStackPush:157 Tokstack size = 328, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5210
-TokStackPush:157 Tokstack size = 329, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5250
-TokStackPush:157 Tokstack size = 330, capacity = 400
-line: 74 pushed value = 0x7bf38f1e5290
-TokStackPush:74 Tokstack size = 331, capacity = 400
-line: 157 pushed value = 0x7bf38f1e52d0
-TokStackPush:157 Tokstack size = 332, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5310
-TokStackPush:94 Tokstack size = 333, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5350
-TokStackPush:157 Tokstack size = 334, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5390
-TokStackPush:94 Tokstack size = 335, capacity = 400
-line: 157 pushed value = 0x7bf38f1e53d0
-TokStackPush:157 Tokstack size = 336, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5410
-TokStackPush:157 Tokstack size = 337, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5450
-TokStackPush:157 Tokstack size = 338, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5490
-TokStackPush:94 Tokstack size = 339, capacity = 400
-line: 157 pushed value = 0x7bf38f1e54d0
-TokStackPush:157 Tokstack size = 340, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5510
-TokStackPush:157 Tokstack size = 341, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5550
-TokStackPush:94 Tokstack size = 342, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5590
-TokStackPush:157 Tokstack size = 343, capacity = 400
-line: 94 pushed value = 0x7bf38f1e55d0
-TokStackPush:94 Tokstack size = 344, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5610
-TokStackPush:157 Tokstack size = 345, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5650
-TokStackPush:157 Tokstack size = 346, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5690
-TokStackPush:157 Tokstack size = 347, capacity = 400
-line: 94 pushed value = 0x7bf38f1e56d0
-TokStackPush:94 Tokstack size = 348, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5710
-TokStackPush:157 Tokstack size = 349, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5750
-TokStackPush:94 Tokstack size = 350, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5790
-TokStackPush:157 Tokstack size = 351, capacity = 400
-line: 157 pushed value = 0x7bf38f1e57d0
-TokStackPush:157 Tokstack size = 352, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5810
-TokStackPush:157 Tokstack size = 353, capacity = 400
-line: 94 pushed value = 0x7bf38f1e5850
-TokStackPush:94 Tokstack size = 354, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5890
-TokStackPush:157 Tokstack size = 355, capacity = 400
-line: 157 pushed value = 0x7bf38f1e58d0
-TokStackPush:157 Tokstack size = 356, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5910
-TokStackPush:157 Tokstack size = 357, capacity = 400
-line: 157 pushed value = 0x7bf38f1e5950
-TokStackPush:157 Tokstack size = 358, capacity = 400
+line: 157 pushed value = 0x7b46b75e3ad0
+TokStackPush:157 Tokstack size = 236, capacity = 400
 
 info about Tokstack before death:
-TokStackDestroy:189 Tokstack size = 358, capacity = 400
+TokStackDestroy:189 Tokstack size = 236, capacity = 400

@@ -1,4 +1,4 @@
-./objects/front my_progs/circle.txt ast_trees/front.txt
-./objects/back ast_trees/front.txt nasm_code/circle.asm
-nasm -f elf64 nasm_code/circle.asm -o circle.o
-gcc circle.o my_scanf.o -o circle -fPIE
+./objects/front my_progs/square.txt ast_trees/front.txt
+./objects/back ast_trees/front.txt nasm_code/square.asm
+nasm -f elf64 nasm_code/square.asm -o square.o
+gcc square.o my_scanf.o -o square -fPIE
