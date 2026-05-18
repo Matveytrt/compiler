@@ -6,42 +6,50 @@
     DECL_S_FUNC_(op)                   \
     {                                  \
         assert(node);                  \
-        POP_(rcx);                     \
-        POP_(rax);                     \
-        op##_RR_(rax, rcx);            \
-        PUSH_(rax);                    \
+        POP_(RCX);                     \
+        POP_(RAX);                     \
+        ADD_RR_(RAX, RCX);             \
+        PUSH_(RAX);                    \
     }
 
 #define DEF_BIN_OP_SINGLE(op)          \
     DECL_S_FUNC_(op)                   \
     {                                  \
         assert(node);                  \
-        POP_(rcx);                     \
-        POP_(rax);                     \
-        TEXT_("cqo");                  \
-        op##_R_(rcx);                  \
-        PUSH_(rax);                    \
-    }
-
-#define DEF_CMP_OP(name, set_inst)       \
-    void Do_S_##name(const Node_t *node) \
-    {                                    \
-        assert(node);                    \
-        POP_(rcx);                       \
-        POP_(rax);                       \
-        CMP_RR_(rax, rcx);               \
-        TEXT_(#set_inst " al");          \
-        AND_RI_(rax, 0x1);               \
-        PUSH_(rax);                      \
+        POP_(RCX);                     \
+        POP_(RAX);                     \
+        CQO_();                        \
+        DIV_R_(RCX);                   \
+        PUSH_(RAX);                    \
     }
 
 #define DEF_S_LABEL(name)                       \
     void Do_S_##name(const Node_t *node)        \
     {                                           \
         assert(node);                           \
-        LBL_("end_" #name, node);               \
+        LBL_BIN("end_" #name, node);            \
     }
 
+#define DEF_CMP_OP(name, set_inst, set_op)           \
+    void Do_S_##name(const Node_t *node)             \
+    {                                                \
+        assert(node);                                \
+        POP_(RCX);                                   \
+        POP_(RAX);                                   \
+        CMP_RR_(RAX, RCX);                           \
+        TEXT_(#set_inst " al");                      \
+        BIN_SETCC(set_op, REG_AL);                   \
+        MOVZX_RR_(RAX, AL);                          \
+        PUSH_(RAX);                                  \
+    }
+
+DEF_CMP_OP(EQ, sete, SET_E);
+DEF_CMP_OP(NEQ, setne, SET_NE);
+DEF_CMP_OP(BELOW, setl, SET_L);
+DEF_CMP_OP(ABOVE, setg, SET_G);
+DEF_CMP_OP(BELOW_EQ, setle, SET_LE);
+DEF_CMP_OP(ABOVE_EQ, setge, SET_GE);
+    
 DEF_BIN_OP(ADD);
 DEF_BIN_OP(SUB);
 DEF_BIN_OP(MUL);
@@ -49,15 +57,8 @@ DEF_BIN_OP_SINGLE(DIV);
 DEF_BIN_OP(AND);
 DEF_BIN_OP(OR);
 
-DEF_CMP_OP(EQ, sete);
-DEF_CMP_OP(NEQ, setne);
-DEF_CMP_OP(BELOW, setl);
-DEF_CMP_OP(ABOVE, setg);
-DEF_CMP_OP(BELOW_EQ, setle);
-DEF_CMP_OP(ABOVE_EQ, setge);
-
 DEF_S_LABEL(ELSE);
-DEF_S_LABEL(FOR);
+DEF_S_LABEL(FOR); //fix
 
 void Do_S_IF(const Node_t *node)
 {
@@ -66,46 +67,67 @@ void Do_S_IF(const Node_t *node)
     Node_t *else_node = NULL;
 
     if (GetParent(node) && GetRight(GetParent(node)) && ( else_node = GetLeft(GetRight(GetParent(node))) ) 
-        && IsOper(else_node, OP_ELSE)) JMP_(jmp, "end_ELSE", else_node);
+        && IsOper(else_node, OP_ELSE)) {
+        JMP_BIN(0xEB, "end_ELSE", else_node);
+    }
 
-    LBL_("end_IF", node);
+    LBL_BIN("end_IF", node);
 }
 
 void Do_S_WHILE(const Node_t *node)
 {
     assert(node);
 
-    JMP_(jmp, "WHILE", node);
-    LBL_("end_WHILE", node);
+    JMP_SHORT_BIN(0xEB, "start_WHILE", node);
+    LBL_BIN("end_WHILE", node);
 }
 
 void Do_S_NOT(const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);
-    NOT_R(rax);
-    PUSH_(rax); 
+    POP_(RAX);
+    NOT_R_(RAX);
+    PUSH_(RAX); 
 }
 
 void Do_S_SQRT(const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);
+    POP_(RAX);
+
     TEXT_("cvtsi2sd xmm0, rax");
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x2A);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+
     TEXT_("sqrtsd xmm0, xmm0");
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x51);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+
     TEXT_("cvttsd2si rax, xmm0");
-    PUSH_(rax);
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x2C);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+
+    PUSH_(RAX);
 }
 
 void Do_S_POW(const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);
-    MUL_RR_(rax, rax);
-    PUSH_(rax);
+    POP_(RAX);
+    MUL_RR_(RAX, RAX);
+    PUSH_(RAX);
 }
 
 void Do_S_ASSIGN(const Node_t *node)
@@ -116,19 +138,22 @@ void Do_S_ASSIGN(const Node_t *node)
 
     if (GetVarScope(assign_node) == GLOBAL)
     {
-        if (IsOper(GetParent(assign_node), OP_V_DCLR)) { DATA_("%s dq 0", GetVarName(assign_node)); }
+        if (IsOper(GetParent(assign_node), OP_V_DCLR)) 
+        { 
+            DATA_("%s dq 0", GetVarName(assign_node));
+            AddPatch(GetVarName(assign_node));
+        }
 
-        POP_(rax);
-        TEXT_("mov [%s], rax", GetVarName(assign_node));
-}
-    
+        POP_(RAX);
+        // TODO: binary label address resolution for global variable
+        MOV_MR_LABEL_(GetVarName(assign_node), RAX);
+    }
     else
     {
         int var_ofs = GetVarOfs(assign_node);
-        POP_(rax);
-        MOV_MR_OFS_(var_ofs, rax);
+        POP_(RAX);
+        MOV_MR_OFS_(var_ofs, RAX);
     }
-
 }
 
 void Do_S_SKIP(const Node_t *node) { assert(node); }
@@ -137,52 +162,56 @@ void Do_S_InfixIF(const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);
-    TEST_RR_(al, al);
-    JMP_(jz, "end_IF", node);
+    POP_(RAX);
+    TEST_RR_(AL, AL);
+    JMP_BIN(0x84, "end_IF", node);
 }
 
 void Do_S_InfixWHILE (const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);
-    TEST_RR_(al, al);
-    JMP_(jz, "end_WHILE", node);
+    LBL_BIN("start_WHILE", node);
+    
+    POP_(RAX);
+    TEST_RR_(AL, AL);
+    JMP_BIN(0x84, "end_WHILE", node);
 }
 
 void Do_S_MEMGET(const Node_t *node)
 {
     assert(node);
 
-    POP_(rbx);  // idx (pos)
+    POP_(RBX);
+    LEA_LABEL_(RCX, "vmem_buf");
+    ADD_RR_(RCX, RBX);
 
-    LEA_(rcx, vmem_buf);
-    ADD_RR_(rcx, rbx);           // rcx = vmem_buf + pos
-    TEXT_("movzx rax, byte [rcx]");  
-    PUSH_(rax);
+    MOV_RM_(RAX, RCX, 0);
+    AND_RI_(RAX, 0xFF);
+
+    PUSH_(RAX);
 }
 
 void Do_S_MEMSET (const Node_t *node)
 {
     assert(node);
 
-    POP_(rax);  // ascii (value)
-    POP_(rbx);  // idx (pos)
-
-    LEA_(rcx, vmem_buf);
-    ADD_RR_(rcx, rbx);           // rcx = vmem_buf + pos
-    TEXT_("mov byte [rcx], al");
+    POP_(RBX);
+    POP_(RAX);
+    LEA_LABEL_(RCX, "vmem_buf");
+    ADD_RR_(RCX, RBX);
+    MOV_MR_(RCX, 0, AL);
 }
 
 void Do_S_PRINT (const Node_t *node)
 {
     assert(node);
 
-    LEA_(rdi, fmt_int);
-    POP_(rax);
-    MOV_RR_(rsi, rax);
-    TEXT_("xor rax, rax");
+    LEA_LABEL_(RDI, "fmt_int");
+    POP_(RAX);
+    MOV_RR_(RSI, RAX);
+    XOR_RR_(RAX, RAX);
+    // TODO: BIN_CALL for printf with PLT
     CALL_("printf WRT ..plt");
 }
 
@@ -190,23 +219,29 @@ void Do_S_SCAN (const Node_t *node)
 {
     assert(node);
 
+    // TODO: BIN_CALL for scanf with PLT
     CALL_("my_scanf WRT ..plt");
-    MOV_MR_OFS_(GetVarOfs(GetLeft(node)), rax);
+    MOV_MR_OFS_(GetVarOfs(GetLeft(node)), RAX);
 }
 
 void Do_S_VDECL (const Node_t *node)
 {
     assert(node);
 
-    if (GetVarScope(GetLeft(node)) == GLOBAL) DATA_("%s dq 0", GetVarName(GetLeft(node)));
+    if (GetVarScope(GetLeft(node)) == GLOBAL) 
+    {
+        DATA_("%s dq 0", GetVarName(GetLeft(node)));         
+        AddPatch(GetVarName(GetLeft(node)));
+    }
 }
 
 void Do_S_PRINTCHAR(const Node_t *node)
 {
     assert(node);
 
-    POP_(rsi);
-    LEA_(rdi, fmt_char);
-    TEXT_("xor rax, rax");
+    POP_(RSI);
+    LEA_LABEL_(RDI, "fmt_char");
+    XOR_RR_(RAX, RAX);  
+    // TODO: BIN_CALL for printf with PLT
     CALL_("printf WRT ..plt");
 }

@@ -5,9 +5,11 @@
 #include <cstddef>
 #include <sys/types.h>
 
+#define _LBL_SIZE_ 64
 #define _NAME_SIZE_ 16
 #define _TEXT_SEC_SIZE_ 16000
 #define _DATA_SEC_SIZE_ 8000
+#define _MAX_PATCHES_ 256
 
 typedef struct 
 {
@@ -21,11 +23,32 @@ typedef struct
 } Section_t;
 
 typedef struct {
+    uint32_t patch_pos;
+    uint32_t target_pos;
+    char     label_name[_LBL_SIZE_];
+    int      is_resolved;
+} Patch_t;
+
+typedef struct {
     Section_t text;
     Section_t data;
     Section_t rodata;
+    Patch_t   patches[_MAX_PATCHES_];
+    int       patch_count;
 } Binary_t;
 
 extern Binary_t Binary;
+
+#define TEXT_SEC Binary.text
+#define DATA_SEC Binary.data
+#define RODATA_SEC Binary.rodata
+
+#define S_DATA_(sec)   sec.s_data
+#define S_SIZE_(sec)   sec.s_size
+#define S_CAP_(sec)    sec.s_cap
+
+#define BIN_DATA_(sec) sec.bin_data
+#define BIN_SIZE_(sec) sec.bin_size
+#define BIN_CAP_(sec)  sec.bin_cap
 
 #endif

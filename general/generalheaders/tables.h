@@ -1,5 +1,5 @@
-#ifndef FRONTSTRUCT_H
-#define FRONTSTRUCT_H
+#ifndef TABLES_H
+#define TABLES_H
 
 #include "varstack.h"
 #include "funcstack.h"

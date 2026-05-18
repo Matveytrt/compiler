@@ -16,23 +16,23 @@ void CtorSections()
 
     DATA_ALLOC_(S, TEXT_SEC, char);
     DATA_ALLOC_(S, DATA_SEC, char);
-    // DATA_ALLOC_(S, RODATA_SEC, char);    
+    DATA_ALLOC_(S, RODATA_SEC, char);    
 
     DATA_ALLOC_(BIN, TEXT_SEC, uint8_t);
     DATA_ALLOC_(BIN, DATA_SEC, uint8_t);
-    // DATA_ALLOC_(BIN, RODATA_SEC, uint8_t); 
+    DATA_ALLOC_(BIN, RODATA_SEC, uint8_t); 
 
     TEXT_("default rel");
     TEXT_("extern printf");
     TEXT_("extern my_scanf");
     TEXT_("global main\n");
     TEXT_("section .text");
-    TAG_("main");
+    TEXT_("main");
     DATA_("section .data");
     DATA_("vmem_buf db 901 dup('*')");
 }
 
-void StoreBuf(const char *output_file)
+void Store_S_Buf(const char *output_file)
 {
     assert(output_file);
 
@@ -51,11 +51,11 @@ void DtorSections()
 {
     free(S_DATA_(TEXT_SEC));
     free(S_DATA_(DATA_SEC));
-    // free(S_DATA_(RODATA_SEC));
+    free(S_DATA_(RODATA_SEC));
 
     free(BIN_DATA_(TEXT_SEC));
     free(BIN_DATA_(DATA_SEC));
-    // free(BIN_DATA_(RODATA_SEC));    
+    free(BIN_DATA_(RODATA_SEC));    
 }
 
 void MakeCode(const Node_t *node, const char *output_file)
@@ -66,16 +66,16 @@ void MakeCode(const Node_t *node, const char *output_file)
     CtorSections();
     
     CALL_("Main");
-    MOV_RI_(rax, 0x3C);
-    TEXT_("xor rdi, rdi");
-    TEXT_("syscall\n");
+    MOV_RI_(RAX, 0x3C);
+    XOR_RR_(RDI, RDI);
+    SYSCALL_();
 
     DATA_("fmt_int db \"%%d\", 10, 0");
     DATA_("fmt_char db \"%%c\", 0");
 
     Translate_AST(node, NULL);
     
-    StoreBuf(output_file);
+    Store_S_Buf(output_file);
     DtorSections();
 }
 
@@ -90,7 +90,7 @@ void Translate_AST(const Node_t *node, char *func_name)
         return;
     }
 
-    if (IsOper(node, OP_WHILE)) LBL_("WHILE", node);
+    if (IsOper(node, OP_WHILE)) LBL_BIN("WHILE", node);
 
     if (!IsOper(node, OP_ASSIGN) && !IsOper(node, OP_SCAN) && !IsFuncType(node)) Translate_AST(GetLeft(node), func_name);    
 
@@ -109,16 +109,16 @@ void Translate_AST(const Node_t *node, char *func_name)
             break;
 
         case TYPE_NUM:
-            MOV_RI_(rax, GetNum(node));
-            PUSH_(rax);
+            MOV_RI_(RAX, GetNum(node));
+            PUSH_(RAX);
             break;
 
         case TYPE_UFUNC: {
             int n_args = GetFuncArgEndIdx(node) - GetFuncStartIdx(node);
             CALL_(GetFuncName(node));
-            ADD_RI_(rsp, n_args * (_REG_SIZE_));
+            ADD_RI_(RSP, n_args * (_REG_SIZE_));
 
-            if (!IsOper(GetParent(node), OP_STR_END)) PUSH_(rax);    
+            if (!IsOper(GetParent(node), OP_STR_END)) PUSH_(RAX);    
             break;
         }
         case TYPE_ERR:
@@ -150,16 +150,16 @@ void PushFuncArgs(const Node_t *node)
 
     if (IsVarType(node)) PushVar(node);
 
-    else if (IsNumType(node)) { MOV_RI_(rax, GetNum(node)); PUSH_(rax); }
+    else if (IsNumType(node)) { MOV_RI_(RAX, GetNum(node)); PUSH_(RAX); }
 }
 
 void PushVar(const Node_t *node)
 {
     assert(node);
 
-    if (GetVarScope(node) != GLOBAL) { MOV_RM_OFS_(rax, GetVarOfs(node)); }
-    else TEXT_("mov rax, [%s]", GetVarName(node));
-    PUSH_(rax);
+    if (GetVarScope(node) != GLOBAL) { MOV_RM_OFS_(RAX, GetVarOfs(node)); }
+    else MOV_RM_LABEL_(RAX, GetVarName(node));
+    PUSH_(RAX);
 }
 
 void WriteFunc(const Node_t *node)
@@ -173,18 +173,18 @@ void WriteFunc(const Node_t *node)
     TEXT_("jmp end_func_%s\n; / FUNC %s /", name, name);
     TEXT_(";==========================================================================");
 
-    TAG_(name);
-    PUSH_(rbp);
-    MOV_RR_(rbp, rsp);
-    SUB_RI_(rsp, n_local_vars * (_REG_SIZE_));
+    TEXT_("%s:", name);
+    PUSH_(RBP);
+    MOV_RR_(RBP, RSP);
+    SUB_RI_(RSP, n_local_vars * (_REG_SIZE_));
 
     Translate_AST(GetRight(node), name);
     TEXT_("exit_%s:", GetFuncName(node));
-    POP_(rax);
+    POP_(RAX);
 
-    ADD_RI_(rsp, n_local_vars * (_REG_SIZE_));
-    POP_(rbp);
-    TEXT_("ret");
+    ADD_RI_(RSP, n_local_vars * (_REG_SIZE_));
+    POP_(RBP);
+    RET_();
 
     TEXT_(";==========================================================================");
     TEXT_("end_func_%s:", name);
