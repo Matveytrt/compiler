@@ -1,15 +1,8 @@
 BUYSTRAT Main ()
 BUYIN
-    FREEBET res BET 100 $
-    MEMSET (2, 100) $
-    FREEBET x BET MEMGET (2) $
-    CALL (x) $    
+    MEMSET (0, 10) $
+    PRINTCHAR (0) $
+    PRINTCHAR (42) $
+    BOUNTY 0 $
 CASHOUT $ 
-
-BUYSTRAT Myaufunc (a, b, c, d)
-BUYIN
-    FREEBET f BET a RAISE b FOLD c ALLIN d $
-
-    BOUNTY f $
-CASHOUT $  
 TURN

@@ -71,7 +71,7 @@ void PrintAsmCode(Node_t *node, FILE *file) //todo visitor pattern projection
             break;
 
         case TYPE_VAR:
-            PushVar(node, file);            
+            VM_PushVar(node, file);            
             break;
 
         case TYPE_NUM:

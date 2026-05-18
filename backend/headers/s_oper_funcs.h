@@ -38,7 +38,7 @@ DECL_S_FUNC_(MEMSET);
 DECL_S_FUNC_(PRINT);
 DECL_S_FUNC_(SCAN);
 DECL_S_FUNC_(VDECL);
-DECL_S_FUNC_(DRAW);
+DECL_S_FUNC_(PRINTCHAR);
 
 #define TEXT_SEC Binary.text
 #define DATA_SEC Binary.data
@@ -67,8 +67,8 @@ DECL_S_FUNC_(DRAW);
 #define SUB_RI_(dst, src)       TEXT_("sub %s, %d", #dst, src)
 #define MUL_RR_(dst, src)       TEXT_("imul %s, %s", #dst, #src)
 #define MUL_RI_(dst, src)       TEXT_("imul %s, %d", #dst, src)
-#define DIV_RR_(dst, src)       TEXT_("idiv %s, %s", #dst, #src)
-#define DIV_RI_(dst, src)       TEXT_("idiv %s, %d", #dst, src)
+#define DIV_R_(src)             TEXT_("idiv %s", #src)
+#define DIV_I_(src)             TEXT_("idiv %d", src)
 
 #define CMP_RR_(reg1, reg2)     TEXT_("cmp %s, %s", #reg1, #reg2)
 #define CMP_RI_(reg, num)       TEXT_("cmp %s, %d", #reg, num)
@@ -97,7 +97,5 @@ DECL_S_FUNC_(DRAW);
 #define LBL_(name, ptr)         TEXT_("%s_%p:", name, ptr)
 #define TAG_(name)              TEXT_("%s:", name)
 #define JMP_(cond, lbl, ptr)    TEXT_("%s %s_%p", #cond, lbl, ptr)
-
-
 
 #endif

@@ -1,19 +1,71 @@
-VarStackInit:15 Varstack size = 0, capacity = 50
+VarStackInit:12 Varstack size = 0, capacity = 50
 Initialisation succses
-line: 208 pushed value = res
+line: 208 pushed value = r
 VarStackPush:208 Varstack size = 1, capacity = 50
-line: 208 pushed value = x
+line: 208 pushed value = x0
 VarStackPush:208 Varstack size = 2, capacity = 50
-line: 208 pushed value = a
+line: 208 pushed value = y0
 VarStackPush:208 Varstack size = 3, capacity = 50
-line: 208 pushed value = b
+line: 208 pushed value = wdth
 VarStackPush:208 Varstack size = 4, capacity = 50
-line: 208 pushed value = c
+line: 208 pushed value = hght
 VarStackPush:208 Varstack size = 5, capacity = 50
-line: 208 pushed value = d
+line: 208 pushed value = r2
 VarStackPush:208 Varstack size = 6, capacity = 50
-line: 208 pushed value = f
+line: 208 pushed value = row
 VarStackPush:208 Varstack size = 7, capacity = 50
+line: 208 pushed value = col
+VarStackPush:208 Varstack size = 8, capacity = 50
+line: 208 pushed value = pos
+VarStackPush:208 Varstack size = 9, capacity = 50
+line: 208 pushed value = ascii
+VarStackPush:208 Varstack size = 10, capacity = 50
+line: 208 pushed value = nl
+VarStackPush:208 Varstack size = 11, capacity = 50
+line: 208 pushed value = x0
+VarStackPush:208 Varstack size = 12, capacity = 50
+line: 208 pushed value = y0
+VarStackPush:208 Varstack size = 13, capacity = 50
+line: 208 pushed value = r2
+VarStackPush:208 Varstack size = 14, capacity = 50
+line: 208 pushed value = wdth
+VarStackPush:208 Varstack size = 15, capacity = 50
+line: 208 pushed value = hght
+VarStackPush:208 Varstack size = 16, capacity = 50
+line: 208 pushed value = pos
+VarStackPush:208 Varstack size = 17, capacity = 50
+line: 208 pushed value = size
+VarStackPush:208 Varstack size = 18, capacity = 50
+line: 208 pushed value = dx
+VarStackPush:208 Varstack size = 19, capacity = 50
+line: 208 pushed value = dy
+VarStackPush:208 Varstack size = 20, capacity = 50
+line: 208 pushed value = dist
+VarStackPush:208 Varstack size = 21, capacity = 50
+line: 208 pushed value = pos
+VarStackPush:208 Varstack size = 22, capacity = 50
+line: 208 pushed value = wdth
+VarStackPush:208 Varstack size = 23, capacity = 50
+line: 208 pushed value = hght
+VarStackPush:208 Varstack size = 24, capacity = 50
+line: 208 pushed value = y
+VarStackPush:208 Varstack size = 25, capacity = 50
+line: 208 pushed value = x
+VarStackPush:208 Varstack size = 26, capacity = 50
+line: 208 pushed value = pos
+VarStackPush:208 Varstack size = 27, capacity = 50
+line: 208 pushed value = wdth
+VarStackPush:208 Varstack size = 28, capacity = 50
+line: 208 pushed value = hght
+VarStackPush:208 Varstack size = 29, capacity = 50
+line: 208 pushed value = y
+VarStackPush:208 Varstack size = 30, capacity = 50
+line: 208 pushed value = dx
+VarStackPush:208 Varstack size = 31, capacity = 50
+line: 208 pushed value = dy
+VarStackPush:208 Varstack size = 32, capacity = 50
+line: 208 pushed value = dist
+VarStackPush:208 Varstack size = 33, capacity = 50
 
 info about Varstack before death:
-VarStackDestroy:412 Varstack size = 7, capacity = 50
+VarStackDestroy:412 Varstack size = 33, capacity = 50

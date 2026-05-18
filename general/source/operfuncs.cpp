@@ -99,12 +99,12 @@ void Do_VM_ASSIGN  (Node_t *node, FILE *file)
 
     if (IsOper(GetLeft(node), OP_V_DCLR))
     {
-        PopVar(GetLeft(GetLeft(node)), file);
+        VM_PopVar(GetLeft(GetLeft(node)), file);
     }
 
     else
     {
-        PopVar(GetLeft(node), file);
+        VM_PopVar(GetLeft(node), file);
     }
 
     VM_TEXT_(";assign end");//func!
@@ -139,7 +139,7 @@ void Do_VM_Scanf   (Node_t *node, FILE *file)
     VM_TEXT_("IN");
 }     
 
-void PushVar(Node_t *node, FILE *file)
+void VM_PushVar(Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);
@@ -151,7 +151,7 @@ void PushVar(Node_t *node, FILE *file)
     fprintf(file, ";pushed var [%s]\n", Var_table.data[GetVar(node)].name);
 }
 
-void PopVar(Node_t *node, FILE *file)
+void VM_PopVar(Node_t *node, FILE *file)
 {
     assert(node);
     assert(file);

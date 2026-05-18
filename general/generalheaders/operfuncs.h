@@ -33,8 +33,8 @@ void Do_VM_MEMSET          (Node_t *node, FILE *file);
 void Do_VM_Print           (Node_t *node, FILE *file);     
 void Do_VM_Scanf           (Node_t *node, FILE *file);     
 
-void PushVar               (Node_t *node, FILE *file);
-void PopVar                (Node_t *node, FILE *file);
+void VM_PushVar               (Node_t *node, FILE *file);
+void VM_PopVar                (Node_t *node, FILE *file);
 
 #define VM_PUSH_(value)         fprintf(file, "PUSH %d\n", value)
 #define VM_PUSHR_(name)         fprintf(file, "PUSHR %s\n", name)

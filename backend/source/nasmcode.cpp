@@ -9,18 +9,18 @@
 
 void CtorSections()
 {
-    S_CAP_(TEXT_SEC) = _S_BUF_SIZE_;
-    S_CAP_(DATA_SEC) = _S_BUF_SIZE_;
-    S_CAP_(RODATA_SEC) = _S_BUF_SIZE_;
+    S_CAP_(TEXT_SEC) = _TEXT_SEC_SIZE_;
+    S_CAP_(DATA_SEC) = _TEXT_SEC_SIZE_;
+    S_CAP_(RODATA_SEC) = _TEXT_SEC_SIZE_;
 
 
     DATA_ALLOC_(S, TEXT_SEC, char);
     DATA_ALLOC_(S, DATA_SEC, char);
-    DATA_ALLOC_(S, RODATA_SEC, char);    
+    // DATA_ALLOC_(S, RODATA_SEC, char);    
 
     DATA_ALLOC_(BIN, TEXT_SEC, uint8_t);
     DATA_ALLOC_(BIN, DATA_SEC, uint8_t);
-    DATA_ALLOC_(BIN, RODATA_SEC, uint8_t); 
+    // DATA_ALLOC_(BIN, RODATA_SEC, uint8_t); 
 
     TEXT_("default rel");
     TEXT_("extern printf");
@@ -29,7 +29,7 @@ void CtorSections()
     TEXT_("section .text");
     TAG_("main");
     DATA_("section .data");
-    DATA_("vmem_buf db 900 dup(0)");
+    DATA_("vmem_buf db 901 dup('*')");
 }
 
 void StoreBuf(const char *output_file)
@@ -51,11 +51,11 @@ void DtorSections()
 {
     free(S_DATA_(TEXT_SEC));
     free(S_DATA_(DATA_SEC));
-    free(S_DATA_(RODATA_SEC));
+    // free(S_DATA_(RODATA_SEC));
 
     free(BIN_DATA_(TEXT_SEC));
     free(BIN_DATA_(DATA_SEC));
-    free(BIN_DATA_(RODATA_SEC));    
+    // free(BIN_DATA_(RODATA_SEC));    
 }
 
 void MakeCode(const Node_t *node, const char *output_file)
@@ -71,7 +71,7 @@ void MakeCode(const Node_t *node, const char *output_file)
     TEXT_("syscall\n");
 
     DATA_("fmt_int db \"%%d\", 10, 0");
-    DATA_("fmt_char db \"%%c\", 10, 0");
+    DATA_("fmt_char db \"%%c\", 0");
 
     Translate_AST(node, NULL);
     
@@ -83,7 +83,7 @@ void Translate_AST(const Node_t *node, char *func_name)
 {
     if (!node) return;
 
-    WriteNodeInfo(node);
+    // WriteNodeInfo(node);
 
     if (IsOper(node, OP_F_DCLR)) {
         WriteFunc(GetLeft(node));
@@ -92,7 +92,7 @@ void Translate_AST(const Node_t *node, char *func_name)
 
     if (IsOper(node, OP_WHILE)) LBL_("WHILE", node);
 
-    if (!IsOper(node, OP_ASSIGN) && !IsOper(node, OP_SCAN)) Translate_AST(GetLeft(node), func_name);    
+    if (!IsOper(node, OP_ASSIGN) && !IsOper(node, OP_SCAN) && !IsFuncType(node)) Translate_AST(GetLeft(node), func_name);    
 
     PrintInfixOps(node);
 
@@ -105,11 +105,7 @@ void Translate_AST(const Node_t *node, char *func_name)
             break;
 
         case TYPE_VAR:
-            if (GetVarScope(node) != GLOBAL) { MOV_RM_OFS_(rax, GetVarOfs(node)); }//fix for global
-
-            else TEXT_("mov rax, [%s]", GetVarName(node));
-            
-            PUSH_(rax);
+            PushVar(node);
             break;
 
         case TYPE_NUM:
@@ -137,9 +133,33 @@ void PrintInfixOps(const Node_t *node)
 {
     assert(node);
 
+    if (IsFuncType(node)) PushFuncArgs(node);
+
     if (IsOper(node, OP_IF)) Do_S_InfixIF(node);
 
     if (IsOper(node, OP_WHILE)) Do_S_InfixWHILE(node);
+}
+
+void PushFuncArgs(const Node_t *node)
+{
+    if (!node) return;
+
+    PushFuncArgs(GetRight(node));
+
+    PushFuncArgs(GetLeft(node));
+
+    if (IsVarType(node)) PushVar(node);
+
+    else if (IsNumType(node)) { MOV_RI_(rax, GetNum(node)); PUSH_(rax); }
+}
+
+void PushVar(const Node_t *node)
+{
+    assert(node);
+
+    if (GetVarScope(node) != GLOBAL) { MOV_RM_OFS_(rax, GetVarOfs(node)); }
+    else TEXT_("mov rax, [%s]", GetVarName(node));
+    PUSH_(rax);
 }
 
 void WriteFunc(const Node_t *node)

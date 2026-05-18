@@ -12,6 +12,17 @@
         PUSH_(rax);                    \
     }
 
+#define DEF_BIN_OP_SINGLE(op)          \
+    DECL_S_FUNC_(op)                   \
+    {                                  \
+        assert(node);                  \
+        POP_(rcx);                     \
+        POP_(rax);                     \
+        TEXT_("cqo");                  \
+        op##_R_(rcx);                  \
+        PUSH_(rax);                    \
+    }
+
 #define DEF_CMP_OP(name, set_inst)       \
     void Do_S_##name(const Node_t *node) \
     {                                    \
@@ -34,7 +45,7 @@
 DEF_BIN_OP(ADD);
 DEF_BIN_OP(SUB);
 DEF_BIN_OP(MUL);
-DEF_BIN_OP(DIV);
+DEF_BIN_OP_SINGLE(DIV);
 DEF_BIN_OP(AND);
 DEF_BIN_OP(OR);
 
@@ -140,13 +151,15 @@ void Do_S_InfixWHILE (const Node_t *node)
     JMP_(jz, "end_WHILE", node);
 }
 
-void Do_S_MEMGET (const Node_t *node)
+void Do_S_MEMGET(const Node_t *node)
 {
     assert(node);
 
-    POP_(rbx); //idx
-    LEA_(r8, vmem_buf);
-    MOV_RM_(rax, r8 + rbx);
+    POP_(rbx);  // idx (pos)
+
+    LEA_(rcx, vmem_buf);
+    ADD_RR_(rcx, rbx);           // rcx = vmem_buf + pos
+    TEXT_("movzx rax, byte [rcx]");  
     PUSH_(rax);
 }
 
@@ -154,10 +167,12 @@ void Do_S_MEMSET (const Node_t *node)
 {
     assert(node);
 
-    POP_(rax); //ascii
-    POP_(rbx); //idx
-    LEA_(r8, vmem_buf);
-    MOV_MR_(r8 + rbx, rax);
+    POP_(rax);  // ascii (value)
+    POP_(rbx);  // idx (pos)
+
+    LEA_(rcx, vmem_buf);
+    ADD_RR_(rcx, rbx);           // rcx = vmem_buf + pos
+    TEXT_("mov byte [rcx], al");
 }
 
 void Do_S_PRINT (const Node_t *node)
@@ -186,4 +201,12 @@ void Do_S_VDECL (const Node_t *node)
     if (GetVarScope(GetLeft(node)) == GLOBAL) DATA_("%s dq 0", GetVarName(GetLeft(node)));
 }
 
-DECL_S_FUNC_(DRAW) {}
+void Do_S_PRINTCHAR(const Node_t *node)
+{
+    assert(node);
+
+    POP_(rsi);
+    LEA_(rdi, fmt_char);
+    TEXT_("xor rax, rax");
+    CALL_("printf WRT ..plt");
+}

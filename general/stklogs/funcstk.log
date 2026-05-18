@@ -1,9 +1,15 @@
-FuncStackInit:16 Funcstack size = 0, capacity = 50
+FuncStackInit:13 Funcstack size = 0, capacity = 50
 Initialisation succses
 line: 224 pushed value = Main
 FuncStackPush:224 Funcstack size = 1, capacity = 50
-line: 224 pushed value = Myaufunc
+line: 224 pushed value = MakeCircle
 FuncStackPush:224 Funcstack size = 2, capacity = 50
+line: 224 pushed value = GetX
+FuncStackPush:224 Funcstack size = 3, capacity = 50
+line: 224 pushed value = GetY
+FuncStackPush:224 Funcstack size = 4, capacity = 50
+line: 224 pushed value = GetDist
+FuncStackPush:224 Funcstack size = 5, capacity = 50
 
 info about Funcstack before death:
-FuncStackDestroy:421 Funcstack size = 2, capacity = 50
+FuncStackDestroy:421 Funcstack size = 5, capacity = 50

@@ -5,7 +5,6 @@
 #include "backendfuncs.h"
 #include "s_oper_funcs.h"
 
-#define _S_BUF_SIZE_ 10000
 #define _BIN_BUF_SIZE_ 10000
 
 void CtorSections       ();
@@ -14,6 +13,8 @@ void DtorSections       ();
 void MakeCode           (const Node_t *node, const char *output_file);
 void Translate_AST      (const Node_t *node, char *func_name);
 void PrintInfixOps      (const Node_t *node);
+void PushFuncArgs       (const Node_t *node);
+void PushVar            (const Node_t *node);
 void WriteFunc          (const Node_t *node);
 void WriteNodeInfo      (const Node_t *node);
 #endif

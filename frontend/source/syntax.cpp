@@ -363,7 +363,7 @@ Node_t *GetFunction(const TokStack_t *stk, int *stk_index)
     assert(stk);
     assert(stk_index);
 
-    if (!IsFuncType(_TOKEN_) && !IsOper(_TOKEN_, OP_SQRT) && !IsOper(_TOKEN_, OP_PRINT) && !IsOper(_TOKEN_, OP_MEMGET) && !IsOper(_TOKEN_, OP_MEMSET) && !IsOper(_TOKEN_, OP_SCAN))
+    if (!IsFuncType(_TOKEN_) && !IsOper(_TOKEN_, OP_SQRT) && !IsOper(_TOKEN_, OP_PRINT) && !IsOper(_TOKEN_, OP_MEMGET) && !IsOper(_TOKEN_, OP_MEMSET) && !IsOper(_TOKEN_, OP_SCAN) && !IsOper(_TOKEN_, OP_PRINTCHAR))
     {
         return NULL;
     }

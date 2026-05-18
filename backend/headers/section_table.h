@@ -6,7 +6,8 @@
 #include <sys/types.h>
 
 #define _NAME_SIZE_ 16
-#define _SECTION_SIZE_ 10000
+#define _TEXT_SEC_SIZE_ 16000
+#define _DATA_SEC_SIZE_ 8000
 
 typedef struct 
 {
