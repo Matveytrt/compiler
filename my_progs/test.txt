@@ -1,8 +1,5 @@
 BUYSTRAT Main ()
 BUYIN
-    MEMSET (0, 10) $
-    PRINTCHAR (0) $
-    PRINTCHAR (42) $
     BOUNTY 0 $
 CASHOUT $ 
 TURN

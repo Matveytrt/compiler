@@ -1,19 +1,5 @@
 VarStackInit:12 Varstack size = 0, capacity = 50
 Initialisation succses
-line: 208 pushed value = a
-VarStackPush:208 Varstack size = 1, capacity = 50
-line: 208 pushed value = b
-VarStackPush:208 Varstack size = 2, capacity = 50
-line: 208 pushed value = c
-VarStackPush:208 Varstack size = 3, capacity = 50
-line: 208 pushed value = d
-VarStackPush:208 Varstack size = 4, capacity = 50
-line: 208 pushed value = x1
-VarStackPush:208 Varstack size = 5, capacity = 50
-line: 208 pushed value = x2
-VarStackPush:208 Varstack size = 6, capacity = 50
-line: 208 pushed value = sqrtd
-VarStackPush:208 Varstack size = 7, capacity = 50
 
 info about Varstack before death:
-VarStackDestroy:412 Varstack size = 7, capacity = 50
+VarStackDestroy:412 Varstack size = 0, capacity = 50

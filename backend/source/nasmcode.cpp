@@ -10,33 +10,35 @@
 void CtorSections()
 {
     S_CAP_(TEXT_SEC) = _TEXT_SEC_SIZE_;
-    S_CAP_(DATA_SEC) = _TEXT_SEC_SIZE_;
-    S_CAP_(RODATA_SEC) = _TEXT_SEC_SIZE_;
-
+    S_CAP_(DATA_SEC) = _DATA_SEC_SIZE_;
+    BIN_CAP_(TEXT_SEC) = _TEXT_SEC_SIZE_;
+    BIN_CAP_(DATA_SEC) = _DATA_SEC_SIZE_;
 
     DATA_ALLOC_(S, TEXT_SEC, char);
-    DATA_ALLOC_(S, DATA_SEC, char);
-    DATA_ALLOC_(S, RODATA_SEC, char);    
+    DATA_ALLOC_(S, DATA_SEC, char);   
 
     DATA_ALLOC_(BIN, TEXT_SEC, uint8_t);
-    DATA_ALLOC_(BIN, DATA_SEC, uint8_t);
-    DATA_ALLOC_(BIN, RODATA_SEC, uint8_t); 
+    DATA_ALLOC_(BIN, DATA_SEC, uint8_t); 
 
-    TEXT_("default rel");
-    TEXT_("extern printf");
+    TEXT_("default abs");
+    TEXT_("extern print");
+    TEXT_("extern printchar");
     TEXT_("extern my_scanf");
     TEXT_("global main\n");
     TEXT_("section .text");
     TEXT_("main");
     DATA_("section .data");
-    DATA_("vmem_buf db 901 dup('*')");
+    // EmitDataArray("vmem_buf", '*', 901);
 }
 
 void Store_S_Buf(const char *output_file)
 {
     assert(output_file);
 
-    FILE *s_file = fopen(output_file, "w");
+    char filename[STRSIZE] = "";
+    sprintf(filename, "binary/%s.asm", output_file);
+
+    FILE *s_file = fopen(filename, "w");
     assert(s_file);
 
     if (s_file) 
@@ -47,15 +49,22 @@ void Store_S_Buf(const char *output_file)
     }
 }
 
+void Store_Bin_Buf(const char *output_file)
+{
+    assert(output_file);
+
+    printf("code_size: %zu\n", BIN_SIZE_(TEXT_SEC));
+    ResolveLabels();
+    Build_Elf(output_file);
+}
+
 void DtorSections()
 {
     free(S_DATA_(TEXT_SEC));
     free(S_DATA_(DATA_SEC));
-    free(S_DATA_(RODATA_SEC));
 
     free(BIN_DATA_(TEXT_SEC));
-    free(BIN_DATA_(DATA_SEC));
-    free(BIN_DATA_(RODATA_SEC));    
+    free(BIN_DATA_(DATA_SEC));   
 }
 
 void MakeCode(const Node_t *node, const char *output_file)
@@ -64,18 +73,17 @@ void MakeCode(const Node_t *node, const char *output_file)
     assert(output_file);
 
     CtorSections();
+    InitPatches();
     
     CALL_("Main");
     MOV_RI_(RAX, 0x3C);
     XOR_RR_(RDI, RDI);
     SYSCALL_();
 
-    DATA_("fmt_int db \"%%d\", 10, 0");
-    DATA_("fmt_char db \"%%c\", 0");
-
     Translate_AST(node, NULL);
     
     Store_S_Buf(output_file);
+    Store_Bin_Buf(output_file);
     DtorSections();
 }
 
@@ -100,7 +108,7 @@ void Translate_AST(const Node_t *node, char *func_name)
     
     switch (GetType(node)) {
         case TYPE_OP:
-            if (IsOper(node, OP_RET)) TEXT_("jmp exit_%s", func_name);
+            if (IsOper(node, OP_RET)) TEXT_("jmp exit_%s", func_name); //fix
             Do_S_Oper(node);
             break;
 
@@ -166,6 +174,8 @@ void WriteFunc(const Node_t *node)
 {
     assert(node);
 
+    char _label[_LBL_SIZE_] = "";
+
     char *name = GetFuncName(node);
     int n_local_vars = GetFuncEndIdx(node) - GetFuncArgEndIdx(node) + 1;
 
@@ -174,12 +184,17 @@ void WriteFunc(const Node_t *node)
     TEXT_(";==========================================================================");
 
     TEXT_("%s:", name);
+    AddLabel(name);
     PUSH_(RBP);
     MOV_RR_(RBP, RSP);
     SUB_RI_(RSP, n_local_vars * (_REG_SIZE_));
 
     Translate_AST(GetRight(node), name);
+    
+    sprintf(_label, "exit_%s", GetFuncName(node));
+    AddLabel(_label);
     TEXT_("exit_%s:", GetFuncName(node));
+    
     POP_(RAX);
 
     ADD_RI_(RSP, n_local_vars * (_REG_SIZE_));

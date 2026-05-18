@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/matt/Documents/projects/rtproga/compiler/general/source",
-      "program": "/home/matt/Documents/projects/rtproga/compiler/general/source/build/Debug/outDebug",
+      "cwd": "/home/matt/Documents/projects/rtproga/compiler/backend/source",
+      "program": "/home/matt/Documents/projects/rtproga/compiler/backend/source/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

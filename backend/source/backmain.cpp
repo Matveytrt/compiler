@@ -4,7 +4,7 @@
 int main(int argc, const char *argv[])
 {
     const char *input_file = (argc >= 2) ? argv[1] : "ast_trees/mid.txt";
-    const char *output_file = (argc == 3) ? argv[2] : "asm_code/out.asm";
+    const char *output_file = (argc == 3) ? argv[2] : "out";
 
     Logfile = fopen("logfiles/backlog.htm", "w");
     fflush(Logfile);

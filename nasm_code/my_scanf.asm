@@ -1,4 +1,3 @@
-extern read
 global my_scanf
 
 section .text
@@ -10,11 +9,11 @@ my_scanf:
     mov qword [rbp - 16], 1
     mov qword [rbp - 24], 0
 .read_loop:
-    mov rax, 0
-    mov rdi, 0
-    lea rsi, [rbp - 25]
-    mov rdx, 1
-    call read WRT ..plt
+    mov rax, 0          ; syscall number for sys_read
+    mov rdi, 0          ; stdin
+    lea rsi, [rbp - 25] ; buffer
+    mov rdx, 1          ; count (1 byte)
+    syscall
     cmp rax, 0
     je .done_func
     mov cl, [rbp - 25]

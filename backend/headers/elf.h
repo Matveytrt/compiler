@@ -53,8 +53,13 @@ typedef struct {
 
 int      Build_Elf          (const char *output_filename);
 uint32_t GetCurrentBinPos   ();
+void     InitPatches        ();
 void     AddLabel           (const char *name);
 void     AddPatch           (const char *label_name);
 void     ResolveLabels      ();
+
+void EmitDataArray(const char *name, uint64_t value, int count);
+void EmitDataValue(const char *name, uint64_t value);
+
 
 #endif

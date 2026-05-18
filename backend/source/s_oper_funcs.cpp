@@ -68,7 +68,7 @@ void Do_S_IF(const Node_t *node)
 
     if (GetParent(node) && GetRight(GetParent(node)) && ( else_node = GetLeft(GetRight(GetParent(node))) ) 
         && IsOper(else_node, OP_ELSE)) {
-        JMP_BIN(0xEB, "end_ELSE", else_node);
+        JMP_BIN_UNCOND("end_ELSE", else_node);
     }
 
     LBL_BIN("end_IF", node);
@@ -78,7 +78,7 @@ void Do_S_WHILE(const Node_t *node)
 {
     assert(node);
 
-    JMP_SHORT_BIN(0xEB, "start_WHILE", node);
+    JMP_BIN_UNCOND("start_WHILE", node);
     LBL_BIN("end_WHILE", node);
 }
 
@@ -140,12 +140,10 @@ void Do_S_ASSIGN(const Node_t *node)
     {
         if (IsOper(GetParent(assign_node), OP_V_DCLR)) 
         { 
-            DATA_("%s dq 0", GetVarName(assign_node));
-            AddPatch(GetVarName(assign_node));
+            EmitDataValue(GetVarName(assign_node), 0);
         }
 
         POP_(RAX);
-        // TODO: binary label address resolution for global variable
         MOV_MR_LABEL_(GetVarName(assign_node), RAX);
     }
     else
@@ -164,7 +162,7 @@ void Do_S_InfixIF(const Node_t *node)
 
     POP_(RAX);
     TEST_RR_(AL, AL);
-    JMP_BIN(0x84, "end_IF", node);
+    JMP_BIN(JCC_JE, jz, "end_IF", node);
 }
 
 void Do_S_InfixWHILE (const Node_t *node)
@@ -175,7 +173,7 @@ void Do_S_InfixWHILE (const Node_t *node)
     
     POP_(RAX);
     TEST_RR_(AL, AL);
-    JMP_BIN(0x84, "end_WHILE", node);
+    JMP_BIN(JCC_JE, jz, "end_WHILE", node);
 }
 
 void Do_S_MEMGET(const Node_t *node)
@@ -207,19 +205,14 @@ void Do_S_PRINT (const Node_t *node)
 {
     assert(node);
 
-    LEA_LABEL_(RDI, "fmt_int");
     POP_(RAX);
-    MOV_RR_(RSI, RAX);
-    XOR_RR_(RAX, RAX);
-    // TODO: BIN_CALL for printf with PLT
-    CALL_("printf WRT ..plt");
+    CALL_("print WRT ..plt");
 }
 
 void Do_S_SCAN (const Node_t *node)
 {
     assert(node);
 
-    // TODO: BIN_CALL for scanf with PLT
     CALL_("my_scanf WRT ..plt");
     MOV_MR_OFS_(GetVarOfs(GetLeft(node)), RAX);
 }
@@ -230,8 +223,7 @@ void Do_S_VDECL (const Node_t *node)
 
     if (GetVarScope(GetLeft(node)) == GLOBAL) 
     {
-        DATA_("%s dq 0", GetVarName(GetLeft(node)));         
-        AddPatch(GetVarName(GetLeft(node)));
+        EmitDataValue(GetVarName(GetLeft(node)), 0);
     }
 }
 
@@ -239,9 +231,6 @@ void Do_S_PRINTCHAR(const Node_t *node)
 {
     assert(node);
 
-    POP_(RSI);
-    LEA_LABEL_(RDI, "fmt_char");
-    XOR_RR_(RAX, RAX);  
-    // TODO: BIN_CALL for printf with PLT
-    CALL_("printf WRT ..plt");
+    POP_(RAX);
+    CALL_("printchar WRT ..plt");
 }

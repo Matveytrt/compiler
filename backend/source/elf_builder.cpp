@@ -1,9 +1,15 @@
 #include "../headers/elf.h"
-#include "../headers/section_table.h"
+#include "../headers/s_oper_funcs.h"
 #include <cassert>
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
+
+void InitPatches()
+{
+    memset(Binary.patches, 0, sizeof(Binary.patches));
+    Binary.patch_count = 0;
+}
 
 static void Fill_Elf_Ident(unsigned char *e_ident)
 {
@@ -27,7 +33,10 @@ int Build_Elf(const char *output_filename)
 {
     assert(output_filename);
 
-    FILE *out = fopen(output_filename, "wb");
+    char filename[STRSIZE] = "";
+    sprintf(filename, "binary/%s.bin", output_filename);
+
+    FILE *out = fopen(filename, "wb");
     if (!out) {
         fprintf(stderr, "Error: cannot open %s for writing\n", output_filename);
         return -1;
@@ -59,8 +68,8 @@ int Build_Elf(const char *output_filename)
     ehdr.e_phoff     = phdr_offset;
     ehdr.e_shoff     = 0;
     ehdr.e_flags     = 0;
-    ehdr.e_ehsize    = ehdr_size;
-    ehdr.e_phentsize = phdr_size;
+    ehdr.e_ehsize    = (uint16_t)ehdr_size;
+    ehdr.e_phentsize = (uint16_t)phdr_size;
     ehdr.e_phnum     = 1;
     ehdr.e_shentsize = 0;
     ehdr.e_shnum     = 0;
@@ -84,12 +93,18 @@ int Build_Elf(const char *output_filename)
 
     fclose(out);
 
+    printf("First 20 bytes: ");
+    for (int i = 0; i < 20; i++) {
+        printf("%02X ", BIN_DATA_(TEXT_SEC)[i]);
+    }
+    printf("\n");
+
     return 0;
 }
 
 uint32_t GetCurrentBinPos()
 {
-    return BIN_SIZE_(TEXT_SEC);
+    return (uint32_t)BIN_SIZE_(TEXT_SEC);
 }
 
 void AddLabel(const char *name)
@@ -98,9 +113,11 @@ void AddLabel(const char *name)
 
     uint32_t pos = GetCurrentBinPos();
     
-    for (int i = 0; i < Binary.patch_count; i++) {
+    for (int i = 0; i < Binary.patch_count; i++) 
+    {
         if (Binary.patches[i].is_resolved == 0 && 
-            strcmp(Binary.patches[i].label_name, name) == 0) {
+            strcmp(Binary.patches[i].label_name, name) == 0)
+        {
             Binary.patches[i].target_pos = pos;
             Binary.patches[i].is_resolved = 1;
         }
@@ -109,6 +126,8 @@ void AddLabel(const char *name)
 
 void AddPatch(const char *label_name)
 {
+    assert(label_name);
+
     int idx = Binary.patch_count++;
     Binary.patches[idx].patch_pos = GetCurrentBinPos();
     Binary.patches[idx].target_pos = 0;
@@ -119,16 +138,43 @@ void AddPatch(const char *label_name)
     EMIT_DWORD(&Binary.text, 0xAAAAAAAA);
 }
 
-void ResolveLabels()
+#include <string.h>
+
+void ResolveLabels(void)
 {
     for (int i = 0; i < Binary.patch_count; i++) {
         if (Binary.patches[i].is_resolved) {
-            uint32_t offset = Binary.patches[i].target_pos - (Binary.patches[i].patch_pos + 4);
-            *(uint32_t*)(Binary.text.bin_data + Binary.patches[i].patch_pos) = offset;
+            uint32_t offset = Binary.patches[i].target_pos - 
+                              (Binary.patches[i].patch_pos + 4);
+            memcpy(Binary.text.bin_data + Binary.patches[i].patch_pos, &offset, 4);
         } 
+
         else {
             fprintf(stderr, "ERROR: unresolved label: %s\n", 
                     Binary.patches[i].label_name);
         }
     }
+}
+
+void EmitDataArray(const char *name, uint64_t value, int count)
+{
+    assert(name);
+
+    AddLabel(name);
+    
+    for (int i = 0; i < count; i++) {
+        EMIT_BYTE(BIN_DATA, value);
+    }
+    
+    DATA_("%s db %d dup(%lu)", name, count, value);
+}
+
+void EmitDataValue(const char *name, uint64_t value)
+{
+    assert(name);
+
+    AddLabel(name);
+    
+    DATA_("%s dq %lu", name, value);
+    EMIT_QWORD(BIN_DATA, value);    
 }

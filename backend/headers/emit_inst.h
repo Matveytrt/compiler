@@ -31,15 +31,18 @@ typedef enum {
 } ModRM_Mod_t;
 
 typedef enum {
-    OPC_MOV_RM = 0x8A,
-    OPC_MOV_MR = 0x88,
+    OPC_MOV_RM8 = 0x8A,
+    OPC_MOV_RM64 = 0x8B,
+    OPC_MOV_MR8 = 0x88,
+    OPC_MOV_MR64 = 0x89,
     OPC_MOV_RR = 0x89,
-    OPC_MOV_Ri = 0xB8,
-    OPC_ADD = 0x01,
-    OPC_SUB = 0x29,
-    OPC_XOR = 0x31,
-    OPC_IMUL = 0xAF,
-    OPC_CMP = 0x39,
+    OPC_MOV_RI = 0xB8,
+    OPC_ADD_RR = 0x01,
+    OPC_SUB_RR = 0x29,
+    OPC_XOR_RR = 0x31,
+    OPC_IMUL_RR = 0xAF,
+    OPC_IDIV = 0xF7,
+    OPC_CMP_RR = 0x39,
     OPC_CMP_IMM = 0x81,
     OPC_JMP = 0xE9,
     OPC_CALL = 0xE8,
@@ -47,22 +50,21 @@ typedef enum {
     OPC_PUSH = 0x50,
     OPC_POP = 0x58,
     OPC_RET = 0xC3,
-    OPC_SYSCALL_0 = 0x0F,
-    OPC_SYSCALL_1 = 0x05,
+    OPC_SYSCALL = 0x05,
     OPC_NOP = 0x90,
     OPC_LEA = 0x8D,
-    OPC_IDIV = 0xF7,
     OPC_AND_RR = 0x21,
     OPC_OR_RR = 0x09,
     OPC_TEST_RR = 0x85,
-    OPC_SHL = 0xE0,
-    OPC_SHR = 0xE8,
+    OPC_SHIFT = 0xC1,
     OPC_ADD_RI = 0x83,
     OPC_SUB_RI = 0x83,
     OPC_CMP_RI = 0x83,
     OPC_AND_RI = 0x83,
     OPC_OR_RI = 0x83,
     OPC_NOT_R = 0xF7,
+    OPC_SETCC = 0x0F,
+    OPC_MOVZX = 0xB6,
 } Opcodes_t;
 
 typedef enum {
@@ -77,50 +79,47 @@ typedef enum {
 } JCC_Cond_t;
 
 typedef enum {
-    SET_E = 0x94,   // sete
-    SET_NE = 0x95,  // setne
-    SET_L = 0x9C,   // setl
-    SET_G = 0x9F,   // setg
-    SET_LE = 0x9E,  // setle
-    SET_GE = 0x9D,  // setge
-    SET_B = 0x92,   // setb
-    SET_A = 0x97,   // seta
-    SET_BE = 0x96,  // setbe
-    SET_AE = 0x93,  // setae
+    SET_E = 0x94, SET_NE = 0x95,
+    SET_L = 0x9C, SET_G = 0x9F,
+    SET_LE = 0x9E, SET_GE = 0x9D,
+    SET_B = 0x92, SET_A = 0x97,
+    SET_BE = 0x96, SET_AE = 0x93,
 } SetCCOp_t;
 
-void emit_mov_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_mov_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_mov_rm  (Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
-void emit_mov_mr  (Section_t *sec, Reg_t dst, int32_t disp, Reg_t src);
-void emit_add_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_sub_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_xor_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_imul_rr (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_idiv    (Section_t *sec, Reg_t reg);
-void emit_cmp_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_cmp_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_jmp     (Section_t *sec, uint32_t offset);
-void emit_jcc     (Section_t *sec, JCC_Cond_t cond, uint32_t offset);
-void emit_push    (Section_t *sec, Reg_t reg);
-void emit_pop     (Section_t *sec, Reg_t reg);
-void emit_ret     (Section_t *sec);
-void emit_syscall (Section_t *sec);
-void emit_call    (Section_t *sec, uint32_t offset);
-void emit_nop     (Section_t *sec);
-void emit_lea_rm  (Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
-void emit_and_rr  (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_or_rr   (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_test_rr (Section_t *sec, Reg_t dst, Reg_t src);
-void emit_not_r   (Section_t *sec, Reg_t reg);
-void emit_shl     (Section_t *sec, Reg_t dst, uint8_t shift);
-void emit_shr     (Section_t *sec, Reg_t dst, uint8_t shift);
-void emit_add_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_sub_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_cmp_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_and_ri  (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_or_ri   (Section_t *sec, Reg_t dst, uint64_t imm);
-void emit_setcc   (Section_t *sec, SetCCOp_t op, Reg_t reg);
+void emit_mov_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_mov_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_mov_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
+void emit_mov_mr(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src);
+void emit_add_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_sub_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_xor_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_imul_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_idiv(Section_t *sec, Reg_t reg);
+void emit_cmp_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_cmp_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_jmp(Section_t *sec, int32_t offset);
+void emit_jcc(Section_t *sec, JCC_Cond_t cond, int32_t offset);
+void emit_push(Section_t *sec, Reg_t reg);
+void emit_pop(Section_t *sec, Reg_t reg);
+void emit_ret(Section_t *sec);
+void emit_syscall(Section_t *sec);
+void emit_call(Section_t *sec, int32_t offset);
+void emit_nop(Section_t *sec);
+void emit_lea_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
+void emit_and_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_or_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_test_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_not_r(Section_t *sec, Reg_t reg);
+void emit_shl(Section_t *sec, Reg_t dst, uint8_t shift);
+void emit_shr(Section_t *sec, Reg_t dst, uint8_t shift);
+void emit_add_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_sub_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_and_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_or_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_setcc(Section_t *sec, SetCCOp_t op, Reg_t reg);
 void emit_movzx_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_mov_mr_label(Section_t *sec, Reg_t src);
+void emit_mov_rm_label(Section_t *sec, Reg_t dst);
+void emit_lea_label(Section_t *sec, Reg_t dst);
 
 #endif
