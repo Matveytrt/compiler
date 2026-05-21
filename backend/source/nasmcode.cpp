@@ -1,4 +1,5 @@
 #include "../headers/nasmcode.h"
+#include "../headers/s_oper_funcs.h"
 #include <cassert>
 #include <cstdint>
 #include <cstdio>
@@ -19,16 +20,6 @@ void CtorSections()
 
     DATA_ALLOC_(BIN, TEXT_SEC, uint8_t);
     DATA_ALLOC_(BIN, DATA_SEC, uint8_t); 
-
-    TEXT_("default abs");
-    TEXT_("extern print");
-    TEXT_("extern printchar");
-    TEXT_("extern my_scanf");
-    TEXT_("global main\n");
-    TEXT_("section .text");
-    TEXT_("main");
-    DATA_("section .data");
-    // EmitDataArray("vmem_buf", '*', 901);
 }
 
 void Store_S_Buf(const char *output_file)
@@ -36,7 +27,7 @@ void Store_S_Buf(const char *output_file)
     assert(output_file);
 
     char filename[STRSIZE] = "";
-    sprintf(filename, "binary/%s.asm", output_file);
+    sprintf(filename, "nasm_code/%s.asm", output_file);
 
     FILE *s_file = fopen(filename, "w");
     assert(s_file);
@@ -55,6 +46,7 @@ void Store_Bin_Buf(const char *output_file)
 
     printf("code_size: %zu\n", BIN_SIZE_(TEXT_SEC));
     ResolveLabels();
+    PrintLabels();
     Build_Elf(output_file);
 }
 
@@ -67,66 +59,70 @@ void DtorSections()
     free(BIN_DATA_(DATA_SEC));   
 }
 
-void MakeCode(const Node_t *node, const char *output_file)
+void GenerateCode(const Node_t *node, const char *output_file)
 {
     assert(node);
     assert(output_file);
 
     CtorSections();
     InitPatches();
-    
-    CALL_("Main");
+    GenerateProlog();
+
+    char name[_LBL_SIZE_] = "Main";
+    CALL_(name);
     MOV_RI_(RAX, 0x3C);
     XOR_RR_(RDI, RDI);
     SYSCALL_();
-
-    Translate_AST(node, NULL);
+    Translate_AST(node, name);
     
     Store_S_Buf(output_file);
     Store_Bin_Buf(output_file);
     DtorSections();
 }
 
+void GenerateProlog()
+{
+    TEXT_("extern print");
+    TEXT_("extern printchar");
+    TEXT_("extern my_scanf");
+    TEXT_("global main\n");
+    TEXT_("section .text");
+    TEXT_("main:");
+    DATA_("section .data");
+    EmitDataArray("vmem_buf", '*', 901); 
+}
+
 void Translate_AST(const Node_t *node, char *func_name)
 {
     if (!node) return;
 
-    // WriteNodeInfo(node);
+    WriteNodeInfo(node);
 
-    if (IsOper(node, OP_F_DCLR)) {
-        WriteFunc(GetLeft(node));
-        return;
-    }
+    if (!IsOper(node, OP_ASSIGN) && !IsOper(node, OP_SCAN) 
+     && !IsOper(node, OP_WHILE) && !IsFuncType(node) 
+     && !IsOper(node, OP_F_DCLR) && !IsOper(node, OP_MEMSET))
+    {
+        Translate_AST(GetLeft(node), func_name);
+    }    
 
-    if (IsOper(node, OP_WHILE)) LBL_BIN("WHILE", node);
-
-    if (!IsOper(node, OP_ASSIGN) && !IsOper(node, OP_SCAN) && !IsFuncType(node)) Translate_AST(GetLeft(node), func_name);    
-
-    PrintInfixOps(node);
-
-    Translate_AST(GetRight(node), func_name);
-    
     switch (GetType(node)) {
         case TYPE_OP:
-            if (IsOper(node, OP_RET)) TEXT_("jmp exit_%s", func_name); //fix
-            Do_S_Oper(node);
+            Emit_Oper(node, func_name);
             break;
 
         case TYPE_VAR:
-            PushVar(node);
+            MovVarRax(node);
             break;
 
         case TYPE_NUM:
             MOV_RI_(RAX, GetNum(node));
-            PUSH_(RAX);
             break;
 
         case TYPE_UFUNC: {
+            PushFuncArgs(node, GetFuncName(node));
             int n_args = GetFuncArgEndIdx(node) - GetFuncStartIdx(node);
             CALL_(GetFuncName(node));
-            ADD_RI_(RSP, n_args * (_REG_SIZE_));
-
-            if (!IsOper(GetParent(node), OP_STR_END)) PUSH_(RAX);    
+            ADD_RI_(RSP, n_args * (_REG_SIZE_));  
             break;
         }
         case TYPE_ERR:
@@ -137,37 +133,31 @@ void Translate_AST(const Node_t *node, char *func_name)
     }
 }
 
-void PrintInfixOps(const Node_t *node)
-{
-    assert(node);
-
-    if (IsFuncType(node)) PushFuncArgs(node);
-
-    if (IsOper(node, OP_IF)) Do_S_InfixIF(node);
-
-    if (IsOper(node, OP_WHILE)) Do_S_InfixWHILE(node);
-}
-
-void PushFuncArgs(const Node_t *node)
+void PushFuncArgs(const Node_t *node, char *func_name)
 {
     if (!node) return;
 
-    PushFuncArgs(GetRight(node));
+    Translate_AST(GetRight(node), func_name);
 
-    PushFuncArgs(GetLeft(node));
+    Translate_AST(GetLeft(node), func_name);
 
-    if (IsVarType(node)) PushVar(node);
+    if (IsVarType(node)) {MovVarRax(node);} 
 
-    else if (IsNumType(node)) { MOV_RI_(RAX, GetNum(node)); PUSH_(RAX); }
+    else if (IsNumType(node)) {MOV_RI_(RAX, GetNum(node));}
+
+    PUSH_(RAX);
 }
 
-void PushVar(const Node_t *node)
+void MovVarRax(const Node_t *node)
 {
     assert(node);
 
-    if (GetVarScope(node) != GLOBAL) { MOV_RM_OFS_(RAX, GetVarOfs(node)); }
-    else MOV_RM_LABEL_(RAX, GetVarName(node));
-    PUSH_(RAX);
+    if (GetVarScope(node) != GLOBAL) { 
+        MOV_RM_OFS_(RAX, GetVarOfs(node)); 
+    }
+    else {
+        MOV_RM_LABEL_(RAX, GetVarName(node));
+    }
 }
 
 void WriteFunc(const Node_t *node)
@@ -187,17 +177,15 @@ void WriteFunc(const Node_t *node)
     AddLabel(name);
     PUSH_(RBP);
     MOV_RR_(RBP, RSP);
-    SUB_RI_(RSP, n_local_vars * (_REG_SIZE_));
+    SUB_RI_(RSP, n_local_vars * (_REG_SIZE_));  //prolog
 
     Translate_AST(GetRight(node), name);
     
     sprintf(_label, "exit_%s", GetFuncName(node));
     AddLabel(_label);
-    TEXT_("exit_%s:", GetFuncName(node));
-    
-    POP_(RAX);
+    TEXT_("%s:", _label); //fix macros
 
-    ADD_RI_(RSP, n_local_vars * (_REG_SIZE_));
+    ADD_RI_(RSP, n_local_vars * (_REG_SIZE_)); //epilog
     POP_(RBP);
     RET_();
 

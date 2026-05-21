@@ -1,69 +1,129 @@
-default rel
-extern printf
+extern print
+extern printchar
 extern my_scanf
 global main
 
 section .text
 main:
 call Main
-mov rax, 60
-xor rdi, rdi
+mov RAX, 60
+xor RDI, RDI
 syscall
-
+;OP - _END_STATEMENT_
+;OP - _FUNC_DECLARE_
 
 ;==========================================================================
 jmp end_func_Main
 ; / FUNC Main /
 ;==========================================================================
 Main:
-push rbp
-mov rbp, rsp
-sub rsp, 0
-mov rax, 0
-push rax
-mov rax, 10
-push rax
-pop rax
-pop rbx
-lea r8, [vmem_buf]
-mov [r8 + rbx], rax
-mov rax, 0
-push rax
-pop r13
-lea rbx, [vmem_buf]
-add rbx, r13
-movzx rsi, byte [rbx]
-mov [char_buf], sil
-mov rax, 1
-mov rdi, 1
-lea rsi, [char_buf]
-mov rdx, 1
-syscall
-mov rax, 42
-push rax
-pop r13
-lea rbx, [vmem_buf]
-add rbx, r13
-movzx rsi, byte [rbx]
-mov [char_buf], sil
-mov rax, 1
-mov rdi, 1
-lea rsi, [char_buf]
-mov rdx, 1
-syscall
-mov rax, 0
-push rax
+push RBP
+mov RBP, RSP
+sub RSP, 16
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 5
+mov RAX, 5
+mov rcx, -8
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;FUNC - Fact st_idx = 2, end_idx = 3
+
+;VAR - n table_idx [0]
+mov rcx, -8
+mov RAX, [rbp + rcx]
+push RAX
+call Fact
+add RSP, 8
+mov rcx, -16
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;VAR - res table_idx [1]
+mov rcx, -16
+mov RAX, [rbp + rcx]
 jmp exit_Main
 exit_Main:
-pop rax
-add rsp, 0
-pop rbp
+add RSP, 16
+pop RBP
 ret
 ;==========================================================================
 end_func_Main:
 ;==========================================================================
 
+;OP - _END_STATEMENT_
+;OP - _FUNC_DECLARE_
+
+;==========================================================================
+jmp end_func_Fact
+; / FUNC Fact /
+;==========================================================================
+Fact:
+push RBP
+mov RBP, RSP
+sub RSP, 8
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_EQ_
+;VAR - n table_idx [2]
+mov rcx, 16
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
+sete al
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c1e9b1e0590
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 1
+mov RAX, 1
+jmp exit_Fact
+end_IF_0x7c1e9b1e0590:
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_MUL_
+;VAR - n table_idx [2]
+mov rcx, 16
+mov RAX, [rbp + rcx]
+push RAX
+;FUNC - Fact st_idx = 2, end_idx = 3
+
+;OP - _MATH_SUB_
+;VAR - n table_idx [2]
+mov rcx, 16
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 1
+mov RAX, 1
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+call Fact
+add RSP, 8
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+mov rcx, -8
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;VAR - f table_idx [3]
+mov rcx, -8
+mov RAX, [rbp + rcx]
+jmp exit_Fact
+exit_Fact:
+add RSP, 8
+pop RBP
+ret
+;==========================================================================
+end_func_Fact:
+;==========================================================================
+
 section .data
-vmem_buf db 901 dup('*')
-fmt_int db "%d", 10, 0
-char_buf db 0

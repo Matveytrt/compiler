@@ -1,5 +1,4 @@
 #include "../headers/elf.h"
-#include "../headers/s_oper_funcs.h"
 #include <cassert>
 #include <cstdio>
 #include <cstring>
@@ -38,7 +37,7 @@ int Build_Elf(const char *output_filename)
 
     FILE *out = fopen(filename, "wb");
     if (!out) {
-        fprintf(stderr, "Error: cannot open %s for writing\n", output_filename);
+        fprintf(stderr, "Error: cannot open %s for writing\n", filename);
         return -1;
     }
 
@@ -111,49 +110,74 @@ void AddLabel(const char *name)
 {
     assert(name);
 
-    uint32_t pos = GetCurrentBinPos();
-    
-    for (int i = 0; i < Binary.patch_count; i++) 
-    {
-        if (Binary.patches[i].is_resolved == 0 && 
-            strcmp(Binary.patches[i].label_name, name) == 0)
-        {
-            Binary.patches[i].target_pos = pos;
-            Binary.patches[i].is_resolved = 1;
-        }
-    }
+    int idx = Binary.label_count++;
+    strcpy(Binary.labels[idx].name, name);
+    Binary.labels[idx].pos = GetCurrentBinPos();
 }
 
-void AddPatch(const char *label_name)
+void AddPatch(const char *name)
 {
-    assert(label_name);
+    assert(name);
 
     int idx = Binary.patch_count++;
+    strcpy(Binary.patches[idx].name, name);
     Binary.patches[idx].patch_pos = GetCurrentBinPos();
-    Binary.patches[idx].target_pos = 0;
-    Binary.patches[idx].is_resolved = 0;
-    strncpy(Binary.patches[idx].label_name, label_name, 63);
-    Binary.patches[idx].label_name[63] = '\0';
-    
-    EMIT_DWORD(&Binary.text, 0xAAAAAAAA);
+    Binary.patches[idx].resolved = 0;
+    EMIT_DWORD(BIN_TEXT, 0xDEADBEEF);
 }
-
-#include <string.h>
 
 void ResolveLabels(void)
 {
-    for (int i = 0; i < Binary.patch_count; i++) {
-        if (Binary.patches[i].is_resolved) {
-            uint32_t offset = Binary.patches[i].target_pos - 
-                              (Binary.patches[i].patch_pos + 4);
-            memcpy(Binary.text.bin_data + Binary.patches[i].patch_pos, &offset, 4);
-        } 
+    for (int i = 0; i < Binary.patch_count; i++) 
+    {
+        int found = 0;
+        for (int nlabels = 0; nlabels < Binary.label_count; nlabels++) 
+        {
+            if (strcmp(Binary.patches[i].name, Binary.labels[nlabels].name) == 0) 
+            {
+                uint32_t offset = Binary.labels[nlabels].pos - (Binary.patches[i].patch_pos + 4);
+                memcpy(Binary.text.bin_data + Binary.patches[i].patch_pos, &offset, 4);
+                Binary.patches[i].target_pos = Binary.labels[nlabels].pos;
+                Binary.patches[i].resolved = 1;
+                found = 1;
+                break;
+            }
+        }
 
-        else {
-            fprintf(stderr, "ERROR: unresolved label: %s\n", 
-                    Binary.patches[i].label_name);
+        if (!found) 
+        {
+            fprintf(stderr, "ERROR: unresolved patch: %s\n", Binary.patches[i].name);
         }
     }
+}
+
+void PrintLabels()
+{
+    printf("\n=== LABELS (%d) ===\n", Binary.label_count);
+    printf("| %-3s | %-30s | %-10s |\n", "idx", "name", "pos");
+    printf("|-----|--------------------------------|------------|\n");
+    
+    for (int i = 0; i < Binary.label_count; i++) {
+        printf("| %-3d | %-30s | 0x%08X |\n", 
+               i, 
+               Binary.labels[i].name,
+               Binary.labels[i].pos);
+    }
+    
+    printf("\n=== PATCHES (%d) ===\n", Binary.patch_count);
+    printf("| %-3s | %-30s | %-10s | %-10s | %s\n", 
+           "idx", "name", "patch_pos", "target_pos", "resolved");
+    printf("|-----|--------------------------------|------------|------------|----------|\n");
+    
+    for (int i = 0; i < Binary.patch_count; i++) {
+        printf("| %-3d | %-30s | 0x%08X | 0x%08X | %s\n", 
+               i,
+               Binary.patches[i].name,
+               Binary.patches[i].patch_pos,
+               Binary.patches[i].target_pos,
+               Binary.patches[i].resolved ? "YES" : "NO");
+    }
+    printf("\n");
 }
 
 void EmitDataArray(const char *name, uint64_t value, int count)

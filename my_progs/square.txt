@@ -17,11 +17,11 @@ BUYIN
         BUYIN
             BLUFF? (c SNAP 0)
             BUYIN
-                CALL (8) $
+                PRINTCHAR (38) $
                 BOUNTY 0 $
             CASHOUT $
             
-            CALL (-1) $
+            PRINTCHAR(63) $
             BOUNTY 0 $
         CASHOUT $
         
@@ -34,7 +34,7 @@ BUYIN
     
     BLUFF? (d TILT 0)
     BUYIN
-        CALL (-1) $
+        PRINTCHAR (105) $
         BOUNTY 0 $
     CASHOUT $
     
@@ -50,6 +50,7 @@ BUYIN
     FREEBET x2 BET (0 FOLD b RAISE sqrtd) CUT (2 ALLIN a) $
     
     CALL (x1) $
+    PRINTCHAR(32)$
     CALL (x2) $
     
     BOUNTY 0 $

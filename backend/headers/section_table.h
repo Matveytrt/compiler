@@ -23,18 +23,25 @@ typedef struct
 } Section_t;
 
 typedef struct {
-    uint32_t patch_pos;
-    uint32_t target_pos;
-    char     label_name[_LBL_SIZE_];
-    int      is_resolved;
+    char name[_LBL_SIZE_];
+    uint32_t pos;           
+} Label_t;
+
+typedef struct {
+    char name[_LBL_SIZE_];
+    uint32_t patch_pos;     
+    uint32_t target_pos;    
+    int resolved;
 } Patch_t;
 
 typedef struct {
     Section_t text;
     Section_t data;
     Section_t rodata;
-    Patch_t   patches[_MAX_PATCHES_];
-    int       patch_count;
+    Label_t labels[_MAX_PATCHES_];
+    int label_count;
+    Patch_t patches[_MAX_PATCHES_];
+    int patch_count;
 } Binary_t;
 
 extern Binary_t Binary;
@@ -50,5 +57,9 @@ extern Binary_t Binary;
 #define BIN_DATA_(sec) sec.bin_data
 #define BIN_SIZE_(sec) sec.bin_size
 #define BIN_CAP_(sec)  sec.bin_cap
+
+#define S_SPRINT(sec, format, ...) S_SIZE_(sec) += (size_t) snprintf(S_DATA_(sec) + S_SIZE_(sec), S_CAP_(sec) - S_SIZE_(sec), format, ##__VA_ARGS__) 
+#define TEXT_(format, ...)         S_SPRINT(TEXT_SEC, format "\n", ##__VA_ARGS__)
+#define DATA_(format, ...)         S_SPRINT(DATA_SEC, format "\n", ##__VA_ARGS__)
 
 #endif

@@ -20,7 +20,7 @@ int main(int argc, const char *argv[])
     fprintf(script_file, "nasm -f elf64 nasm_code/print.asm -o print.o\n");
     fprintf(script_file, "nasm -f elf64 nasm_code/printchar.asm -o printchar.o\n");
     fprintf(script_file, "nasm -f elf64 nasm_code/%s.asm -o %s.o\n", output_file, output_file);
-    fprintf(script_file, "gcc %s.o my_scanf.o print.o printchar.o -o %s -no-pie", output_file, output_file);
+    fprintf(script_file, "g++ %s.o my_scanf.o print.o printchar.o -o %s -no-pie", output_file, output_file);
 
     fclose(script_file);
     system(script_name);

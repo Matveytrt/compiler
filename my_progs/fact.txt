@@ -10,12 +10,12 @@ CASHOUT $
 
 BUYSTRAT Fact (n)
 BUYIN
-    BLUFF? (n SNAP (10 FOLD 10) )
+    BLUFF? (n SNAP 0 )
     BUYIN
-        BOUNTY 20 FOLD 19 $
+        BOUNTY 1 $
     CASHOUT $
 
-    FREEBET f BET 30 FOLD 29 $  
+    FREEBET f BET 1 $  
 
     f BET n ALLIN Fact (n FOLD 1 ) $  
 

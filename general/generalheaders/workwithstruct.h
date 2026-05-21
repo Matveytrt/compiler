@@ -5,7 +5,6 @@
 #include "tables.h"
 
 inline Operators    GetOper         (const Node_t *node) { return node->data.oper; }
-inline void         Do_S_Oper       (const Node_t *node) {Oper_table[GetOper(node)].ptr_s_func(node);}
 inline int          GetVar          (const Node_t *node) { return node->data.var; }
 inline char        *GetVarName      (const Node_t *node) { return Var_table.data[GetVar(node)].name; }
 inline int          GetVarOfs       (const Node_t *node) { return Var_table.data[GetVar(node)].ofs; }

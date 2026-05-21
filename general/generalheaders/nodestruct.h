@@ -129,7 +129,6 @@ struct Oper_t
     const char *name;
     size_t      len;
     int         order_type;
-    void        (*ptr_s_func)       (const Node_t *);
     void        (*ptr_infix_func)   (Node_t *, FILE *);
     void        (*ptr_postfix_func) (Node_t *, FILE *);
     size_t      hash;

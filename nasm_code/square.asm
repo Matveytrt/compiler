@@ -1,375 +1,419 @@
-default rel
-extern printf
+extern print
+extern printchar
 extern my_scanf
 global main
 
 section .text
 main:
 call Main
-mov rax, 60
-xor rdi, rdi
+mov RAX, 60
+xor RDI, RDI
 syscall
-
+;OP - _END_STATEMENT_
+;OP - _FUNC_DECLARE_
 
 ;==========================================================================
 jmp end_func_Main
 ; / FUNC Main /
 ;==========================================================================
 Main:
-push rbp
-mov rbp, rsp
-sub rsp, 56
-mov rax, 0
-push rax
-pop rax
+push RBP
+mov RBP, RSP
+sub RSP, 56
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -8
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
-pop rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -16
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
-pop rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -24
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
-pop rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -32
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
-pop rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -40
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
-pop rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;NUM = 0
+mov RAX, 0
 mov rcx, -48
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _SCAN_
 call my_scanf WRT ..plt
 mov rcx, -8
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _SCAN_
 call my_scanf WRT ..plt
 mov rcx, -16
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _SCAN_
 call my_scanf WRT ..plt
 mov rcx, -24
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_EQ_
+;VAR - a table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7b52aefe0ad0
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c2dc93e0ad0
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_EQ_
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7b52aefe0c10
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c2dc93e0c10
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_EQ_
+;VAR - c table_idx [2]
 mov rcx, -24
-mov rax, [rbp + rcx]
-push rax
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7b52aefe0d50
-mov rax, 8
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c2dc93e0d50
+;OP - _END_STATEMENT_
+;OP - _PUTCHAR_
+;NUM = 38
+mov RAX, 38
+call printchar WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
-end_IF_0x7b52aefe0d50:
-mov rax, -1
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+end_IF_0x7c2dc93e0d50:
+;OP - _END_STATEMENT_
+;OP - _PUTCHAR_
+;NUM = 63
+mov RAX, 63
+call printchar WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
-end_IF_0x7b52aefe0c10:
-mov rax, 0
-push rax
+end_IF_0x7c2dc93e0c10:
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_DIV_
+;OP - _MATH_SUB_
+;NUM = 0
+mov RAX, 0
+push RAX
+;VAR - c table_idx [2]
 mov rcx, -24
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
 cqo
-idiv rcx
-push rax
-pop rax
+idiv RBX
 mov rcx, -40
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _PRINT_
+;VAR - x1 table_idx [4]
 mov rcx, -40
-mov rax, [rbp + rcx]
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+mov RAX, [rbp + rcx]
+call print WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
-end_IF_0x7b52aefe0ad0:
+end_IF_0x7c2dc93e0ad0:
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_SUB_
+;OP - _MATH_MUL_
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
-mov rax, 4
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+push RAX
+;OP - _MATH_MUL_
+;OP - _MATH_MUL_
+;NUM = 4
+mov RAX, 4
+push RAX
+;VAR - a table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+push RAX
+;VAR - c table_idx [2]
 mov rcx, -24
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
-pop rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
 mov rcx, -32
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_BELOW_
+;VAR - d table_idx [3]
 mov rcx, -32
-mov rax, [rbp + rcx]
-push rax
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 setl al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7b52aefe1890
-mov rax, -1
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c2dc93e1890
+;OP - _END_STATEMENT_
+;OP - _PUTCHAR_
+;NUM = 79
+mov RAX, 79
+call printchar WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
-end_IF_0x7b52aefe1890:
+end_IF_0x7c2dc93e1890:
+;OP - _END_STATEMENT_
+;OP - _IF_
+;OP - _MATH_EQ_
+;VAR - d table_idx [3]
 mov rcx, -32
-mov rax, [rbp + rcx]
-push rax
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, [rbp + rcx]
+push RAX
+;NUM = 0
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7b52aefe1b50
-mov rax, 0
-push rax
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c2dc93e1b50
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_DIV_
+;OP - _MATH_SUB_
+;NUM = 0
+mov RAX, 0
+push RAX
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
-mov rax, 2
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+;OP - _MATH_MUL_
+;NUM = 2
+mov RAX, 2
+push RAX
+;VAR - a table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
-pop rcx
-pop rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+mov RBX, RAX
+pop RAX
 cqo
-idiv rcx
-push rax
-pop rax
+idiv RBX
 mov rcx, -40
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _PRINT_
+;VAR - x1 table_idx [4]
 mov rcx, -40
-mov rax, [rbp + rcx]
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+mov RAX, [rbp + rcx]
+call print WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
-end_IF_0x7b52aefe1b50:
+end_IF_0x7c2dc93e1b50:
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_SQRT_
+;VAR - d table_idx [3]
 mov rcx, -32
-mov rax, [rbp + rcx]
-push rax
-pop rax
+mov RAX, [rbp + rcx]
 cvtsi2sd xmm0, rax
 sqrtsd xmm0, xmm0
 cvttsd2si rax, xmm0
-push rax
-pop rax
 mov rcx, -56
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_DIV_
+;OP - _MATH_SUB_
+;OP - _MATH_SUB_
+;NUM = 0
+mov RAX, 0
+push RAX
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+;VAR - sqrtd table_idx [6]
 mov rcx, -56
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
-mov rax, 2
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+;OP - _MATH_MUL_
+;NUM = 2
+mov RAX, 2
+push RAX
+;VAR - a table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
-pop rcx
-pop rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+mov RBX, RAX
+pop RAX
 cqo
-idiv rcx
-push rax
-pop rax
+idiv RBX
 mov rcx, -40
-mov [rbp + rcx], rax
-mov rax, 0
-push rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _ASSIGNMENT_
+;OP - _MATH_DIV_
+;OP - _MATH_ADD_
+;OP - _MATH_SUB_
+;NUM = 0
+mov RAX, 0
+push RAX
+;VAR - b table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
+;VAR - sqrtd table_idx [6]
 mov rcx, -56
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-add rax, rcx
-push rax
-mov rax, 2
-push rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+add RAX, RBX
+push RAX
+;OP - _MATH_MUL_
+;NUM = 2
+mov RAX, 2
+push RAX
+;VAR - a table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
-pop rcx
-pop rax
-imul rax, rcx
-push rax
-pop rcx
-pop rax
+mov RAX, [rbp + rcx]
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
+mov RBX, RAX
+pop RAX
 cqo
-idiv rcx
-push rax
-pop rax
+idiv RBX
 mov rcx, -48
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _PRINT_
+;VAR - x1 table_idx [4]
 mov rcx, -40
-mov rax, [rbp + rcx]
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
+mov RAX, [rbp + rcx]
+call print WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _PUTCHAR_
+;NUM = 32
+mov RAX, 32
+call printchar WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _PRINT_
+;VAR - x2 table_idx [5]
 mov rcx, -48
-mov rax, [rbp + rcx]
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
-mov rax, 0
-push rax
+mov RAX, [rbp + rcx]
+call print WRT ..plt
+;OP - _END_STATEMENT_
+;OP - _RETURN_
+;NUM = 0
+mov RAX, 0
 jmp exit_Main
 exit_Main:
-pop rax
-add rsp, 56
-pop rbp
+add RSP, 56
+pop RBP
 ret
 ;==========================================================================
 end_func_Main:
 ;==========================================================================
 
 section .data
-vmem_buf db 901 dup('*')
-fmt_int db "%d", 10, 0
-fmt_char db "%c", 0

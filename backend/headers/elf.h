@@ -57,6 +57,7 @@ void     InitPatches        ();
 void     AddLabel           (const char *name);
 void     AddPatch           (const char *label_name);
 void     ResolveLabels      ();
+void     PrintLabels        ();
 
 void EmitDataArray(const char *name, uint64_t value, int count);
 void EmitDataValue(const char *name, uint64_t value);

@@ -17,8 +17,7 @@ int main(int argc, const char *argv[])
     DumpVarTable();
     DumpFuncTable();
 
-    // MakeAsm(node, output_file);
-    MakeCode(node, output_file);
+    GenerateCode(node, output_file);
 
     VarTableDtor();
     FuncTableDtor();

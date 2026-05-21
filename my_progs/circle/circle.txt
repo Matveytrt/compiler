@@ -1,18 +1,10 @@
 BUYSTRAT Main ()
 BUYIN
-    FREEBET r BET 0 $
-    FREEBET x0 BET 0 $
-    FREEBET y0 BET 0 $
+    FREEBET r BET 5 $
+    FREEBET x0 BET 15 $
+    FREEBET y0 BET 15 $
     FREEBET wdth BET 30 $
     FREEBET hght BET 30 $
-    
-    READ (x0) $
-    READ (y0) $
-    READ (r) $
-
-    FREEBET r2 BET r ALLIN r $
-
-    MakeCircle(x0, y0, r2, wdth, hght) $
     
     FREEBET row BET 0 $
     
@@ -22,66 +14,33 @@ BUYIN
         
         WHILE (col TILT wdth)
         BUYIN
-            FREEBET pos BET (row ALLIN wdth) RAISE col $
-            FREEBET ascii BET MEMGET(pos) $
-            PRINTCHAR(ascii) $
+            FREEBET dx BET col FOLD x0 $
+            FREEBET dy BET row FOLD y0 $
+            FREEBET dist BET (dx ALLIN dx) RAISE (dy ALLIN dy) $
+            
+            BLUFF? (dist TILT r ALLIN r)
+            BUYIN
+                PRINTCHAR(42) $
+            CASHOUT $
+            
+            BLUFF? (dist SNAP r ALLIN r)
+            BUYIN
+                PRINTCHAR(35) $
+            CASHOUT $
+            
+            BLUFF? (dist SHOVE r ALLIN r)
+            BUYIN
+                PRINTCHAR(32) $
+            CASHOUT $
+            
             col BET col RAISE 1 $
         CASHOUT $
         
-        FREEBET nl BET 10 $
-        PRINTCHAR(nl) $
-        
+        PRINTCHAR(10) $
         row BET row RAISE 1 $
     CASHOUT $
     
     BOUNTY 0 $
-CASHOUT $
-
-BUYSTRAT MakeCircle (x0, y0, r2, wdth, hght)
-BUYIN
-    FREEBET pos BET 0 $
-    CALL (x0) $
-    CALL (y0) $
-    CALL (r2) $
-    CALL (wdth) $
-    CALL (hght) $
-    FREEBET size BET wdth ALLIN hght $
-
-    WHILE (pos TILT size)
-    BUYIN
-        FREEBET dx BET GetX(pos, wdth, hght) FOLD x0 $
-        FREEBET dy BET GetY(pos, wdth, hght) FOLD y0 $
-        FREEBET dist BET GetDist(dx, dy) $
-        
-        BLUFF? (dist TILT r2)
-        BUYIN
-            MEMSET(pos, 35) $
-        CASHOUT $
-        
-        CALL (pos) $
-        pos BET pos RAISE 1 $
-    CASHOUT $
-
-    BOUNTY 0 $
-CASHOUT $
-
-BUYSTRAT GetX(pos, wdth, hght)
-BUYIN
-    FREEBET y BET pos CUT wdth $
-    FREEBET x BET pos FOLD (y ALLIN wdth) $
-    BOUNTY x $
-CASHOUT $
-
-BUYSTRAT GetY(pos, wdth, hght)
-BUYIN
-    FREEBET y BET pos CUT wdth $
-    BOUNTY y $
-CASHOUT $
-
-BUYSTRAT GetDist(dx, dy)
-BUYIN 
-    FREEBET dist BET (dx ALLIN dx) RAISE (dy ALLIN dy) $
-    BOUNTY dist $
 CASHOUT $
 
 TURN

@@ -1,0 +1,28 @@
+Starting program: /home/matt/Documents/projects/rtproga/compiler/binary/test.bin 
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.archlinux.org>
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+
+Program stopped.
+0x0000000000400078 in ?? ()
+1: x/8i $rip
+=> 0x400078:	call   0x40008a
+   0x40007d:	mov    $0x3c,%eax
+   0x400082:	add    %al,(%rax)
+   0x400084:	add    %al,(%rax)
+   0x400086:	xor    %edi,%edi
+   0x400088:	syscall
+   0x40008a:	push   %rbp
+   0x40008b:	mov    %esp,%ebp
+0x000000000040008a in ?? ()
+1: x/8i $rip
+=> 0x40008a:	push   %rbp
+   0x40008b:	mov    %esp,%ebp
+   0x40008d:	sub    $0x18,%rsp
+   0x400091:	mov    $0x2,%eax
+   0x400096:	add    %al,(%rax)
+   0x400098:	add    %al,(%rax)
+   0x40009a:	push   %rax
+   0x40009b:	pop    %rax

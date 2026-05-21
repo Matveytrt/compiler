@@ -1,15 +1,14 @@
-default rel
-extern printf
+extern print
+extern printchar
 extern my_scanf
 global main
 
 section .text
 main:
 call Main
-mov rax, 60
-xor rdi, rdi
+mov RAX, 60
+xor RDI, RDI
 syscall
-
 ;OP - _END_STATEMENT_
 ;OP - _FUNC_DECLARE_
 
@@ -18,58 +17,47 @@ jmp end_func_Main
 ; / FUNC Main /
 ;==========================================================================
 Main:
-push rbp
-mov rbp, rsp
-sub rsp, 16
+push RBP
+mov RBP, RSP
+sub RSP, 16
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;NUM = 0
-mov rax, 0
-push rax
-pop rax
+mov RAX, 0
 mov rcx, -8
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
 call my_scanf WRT ..plt
 mov rcx, -8
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;FUNC - Fibonacci st_idx = 2, end_idx = 3
 
 ;VAR - n table_idx [0]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
 call Fibonacci
-add rsp, 8
-push rax
-pop rax
+add RSP, 8
 mov rcx, -16
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _PRINT_
 ;VAR - x table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
-lea rdi, [fmt_int]
-pop rax
-mov rsi, rax
-xor rax, rax
-call printf WRT ..plt
+mov RAX, [rbp + rcx]
+call print WRT ..plt
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - x table_idx [1]
 mov rcx, -16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
 jmp exit_Main
 exit_Main:
-pop rax
-add rsp, 16
-pop rbp
+add RSP, 16
+pop RBP
 ret
 ;==========================================================================
 end_func_Main:
@@ -83,63 +71,55 @@ jmp end_func_Fibonacci
 ; / FUNC Fibonacci /
 ;==========================================================================
 Fibonacci:
-push rbp
-mov rbp, rsp
-sub rsp, 8
+push RBP
+mov RBP, RSP
+sub RSP, 8
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
 ;NUM = 0
-mov rax, 0
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, 0
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7c0602be0710
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c35c47e0710
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7c0602be0710:
+end_IF_0x7c35c47e0710:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
 ;NUM = 1
-mov rax, 1
-push rax
-pop rcx
-pop rax
-cmp rax, rcx
+mov RAX, 1
+mov RBX, RAX
+pop RAX
+cmp RAX, RBX
 sete al
-and rax, 1
-push rax
-pop rax
-test al, al
-jz end_IF_0x7c0602be0910
+movzx RAX, AL
+test AL, AL
+jz end_IF_0x7c35c47e0910
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7c0602be0910:
+end_IF_0x7c35c47e0910:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_ADD_
@@ -148,58 +128,49 @@ end_IF_0x7c0602be0910:
 ;OP - _MATH_SUB_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
 ;NUM = 1
-mov rax, 1
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
+mov RAX, 1
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
 call Fibonacci
-add rsp, 8
-push rax
+add RSP, 8
+push RAX
 ;FUNC - Fibonacci st_idx = 2, end_idx = 3
 
 ;OP - _MATH_SUB_
 ;VAR - n table_idx [2]
 mov rcx, 16
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
+push RAX
 ;NUM = 2
-mov rax, 2
-push rax
-pop rcx
-pop rax
-sub rax, rcx
-push rax
+mov RAX, 2
+mov RBX, RAX
+pop RAX
+sub RAX, RBX
+push RAX
 call Fibonacci
-add rsp, 8
-push rax
-pop rcx
-pop rax
-add rax, rcx
-push rax
-pop rax
+add RSP, 8
+mov RBX, RAX
+pop RAX
+add RAX, RBX
 mov rcx, -8
-mov [rbp + rcx], rax
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - val table_idx [3]
 mov rcx, -8
-mov rax, [rbp + rcx]
-push rax
+mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
 exit_Fibonacci:
-pop rax
-add rsp, 8
-pop rbp
+add RSP, 8
+pop RBP
 ret
 ;==========================================================================
 end_func_Fibonacci:
 ;==========================================================================
 
 section .data
-fmt_int db "%d", 10, 0
-fmt_char db "%c", 10, 0

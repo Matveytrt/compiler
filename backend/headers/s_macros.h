@@ -159,7 +159,7 @@
 #define LEA_LABEL_(dst, label)                   \
     do {                                         \
         TEXT_("lea %s, [%s]", #dst, label);      \
-        /* TODO: BIN_LEA with label address */   \
+        BIN_LEA_LABEL(REG_##dst);                \
         AddPatch(label);                         \
     } while(0)
 
@@ -272,6 +272,6 @@
 #define CQO_()                  \
     do {                        \
         TEXT_("cqo");           \
-        /* TODO: BIN_CQO */     \
+        /* TODO: BIN_CQ    assert(func_name);O */     \
     } while(0)
 #endif

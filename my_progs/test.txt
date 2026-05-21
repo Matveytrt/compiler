@@ -1,5 +1,20 @@
+ 
 BUYSTRAT Main ()
 BUYIN
-    BOUNTY 0 $
+    FREEBET n BET 5 $
+    FREEBET res BET Fact (n) $ 
+    BOUNTY res $
 CASHOUT $ 
+
+BUYSTRAT Fact (n)
+BUYIN
+    BLUFF? (n SNAP 0)
+    BUYIN
+        BOUNTY 1 $
+    CASHOUT $
+
+    FREEBET f BET n ALLIN Fact (n FOLD 1 ) $  
+
+    BOUNTY f $  
+CASHOUT $  
 TURN
