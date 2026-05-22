@@ -1,13 +1,25 @@
 VarStackInit:12 Varstack size = 0, capacity = 50
 Initialisation succses
-line: 208 pushed value = n
+line: 208 pushed value = r
 VarStackPush:208 Varstack size = 1, capacity = 50
-line: 208 pushed value = res
+line: 208 pushed value = x0
 VarStackPush:208 Varstack size = 2, capacity = 50
-line: 208 pushed value = n
+line: 208 pushed value = y0
 VarStackPush:208 Varstack size = 3, capacity = 50
-line: 208 pushed value = f
+line: 208 pushed value = wdth
 VarStackPush:208 Varstack size = 4, capacity = 50
+line: 208 pushed value = hght
+VarStackPush:208 Varstack size = 5, capacity = 50
+line: 208 pushed value = row
+VarStackPush:208 Varstack size = 6, capacity = 50
+line: 208 pushed value = col
+VarStackPush:208 Varstack size = 7, capacity = 50
+line: 208 pushed value = dx
+VarStackPush:208 Varstack size = 8, capacity = 50
+line: 208 pushed value = dy
+VarStackPush:208 Varstack size = 9, capacity = 50
+line: 208 pushed value = dist
+VarStackPush:208 Varstack size = 10, capacity = 50
 
 info about Varstack before death:
-VarStackDestroy:412 Varstack size = 4, capacity = 50
+VarStackDestroy:412 Varstack size = 10, capacity = 50

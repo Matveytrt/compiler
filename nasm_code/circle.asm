@@ -5,6 +5,7 @@ global main
 
 section .text
 main:
+nop
 call Main
 mov RAX, 60
 xor RDI, RDI
@@ -58,7 +59,7 @@ mov rcx, -48
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _WHILE_
-start_WHILE_0x7c2946fe0890:
+start_WHILE_0x7b89b97e0890:
 ;OP - _MATH_BELOW_
 ;VAR - row table_idx [5]
 mov rcx, -48
@@ -73,7 +74,7 @@ cmp RAX, RBX
 setl al
 movzx RAX, AL
 test AL, AL
-jz end_WHILE_0x7c2946fe0890
+jz end_WHILE_0x7b89b97e0890
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;NUM = 0
@@ -82,7 +83,7 @@ mov rcx, -56
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _WHILE_
-start_WHILE_0x7c2946fe0b10:
+start_WHILE_0x7b89b97e0b10:
 ;OP - _MATH_BELOW_
 ;VAR - col table_idx [6]
 mov rcx, -56
@@ -97,7 +98,7 @@ cmp RAX, RBX
 setl al
 movzx RAX, AL
 test AL, AL
-jz end_WHILE_0x7c2946fe0b10
+jz end_WHILE_0x7b89b97e0b10
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_SUB_
@@ -183,13 +184,13 @@ cmp RAX, RBX
 setl al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2946fe1290
+jz end_IF_0x7b89b97e1290
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 42
 mov RAX, 42
-call printchar WRT ..plt
-end_IF_0x7c2946fe1290:
+call printchar
+end_IF_0x7b89b97e1290:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -214,13 +215,13 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2946fe1510
+jz end_IF_0x7b89b97e1510
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 35
 mov RAX, 35
-call printchar WRT ..plt
-end_IF_0x7c2946fe1510:
+call printchar
+end_IF_0x7b89b97e1510:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_ABOVE_
@@ -245,13 +246,13 @@ cmp RAX, RBX
 setg al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2946fe1790
+jz end_IF_0x7b89b97e1790
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 32
 mov RAX, 32
-call printchar WRT ..plt
-end_IF_0x7c2946fe1790:
+call printchar
+end_IF_0x7b89b97e1790:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_ADD_
@@ -266,13 +267,13 @@ pop RAX
 add RAX, RBX
 mov rcx, -56
 mov [rbp + rcx], RAX
-jmp start_WHILE_0x7c2946fe0b10
-end_WHILE_0x7c2946fe0b10:
+jmp start_WHILE_0x7b89b97e0b10
+end_WHILE_0x7b89b97e0b10:
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 10
 mov RAX, 10
-call printchar WRT ..plt
+call printchar
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_ADD_
@@ -287,8 +288,8 @@ pop RAX
 add RAX, RBX
 mov rcx, -48
 mov [rbp + rcx], RAX
-jmp start_WHILE_0x7c2946fe0890
-end_WHILE_0x7c2946fe0890:
+jmp start_WHILE_0x7b89b97e0890
+end_WHILE_0x7b89b97e0890:
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
@@ -303,4 +304,3 @@ end_func_Main:
 ;==========================================================================
 
 section .data
-vmem_buf db 901 dup(42)

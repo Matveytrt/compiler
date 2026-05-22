@@ -5,13 +5,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-uint64_t g_printchar_addr = 0;
-uint64_t g_my_scanf_addr = 0;
-uint64_t g_print_addr = 0;
-
-StdlibAddr_t g_stdlib_addrs[MAX_STDLIB_ADDRS] = {};
-int g_stdlib_count = 0;
-
 #define _EMPTY_QWORD_ 0xDEADBEEF
 
 void Fill_Elf_Ident(unsigned char *e_ident)
@@ -91,18 +84,6 @@ static uint8_t* LoadStdlibData(StdlibSections_t *stdlib)
     
     memcpy(data, stdlib->data, stdlib->data_size);
     return data;
-}
-
-static void SetupStdlibLabels(uint64_t base_addr, uint64_t code_offset,
-                               uint32_t printchar_off, uint32_t my_scanf_off, uint32_t print_off)
-{
-    g_printchar_addr = base_addr + code_offset + printchar_off;
-    g_my_scanf_addr = base_addr + code_offset + my_scanf_off;
-    g_print_addr = base_addr + code_offset + print_off;
-    
-    AddStdlibAddr("printchar", g_printchar_addr);
-    AddStdlibAddr("my_scanf", g_my_scanf_addr);
-    AddStdlibAddr("print", g_print_addr);
 }
 
 static void ComputeStdlibOffsets(StdlibSections_t *stdlib, size_t code_size_before,
@@ -229,12 +210,6 @@ int Build_Elf(const char *output_filename, StdlibSections_t stdlib)
     uint64_t code_offset = ehdr_size + phdr_size;  // 1 PHDR
     // uint64_t data_offset = code_offset + code_size;  // rm
     
-    uint64_t stdlib_start = base_addr + code_offset + code_size_before;
-    
-    g_printchar_addr = stdlib_start + printchar_offset;
-    g_my_scanf_addr = stdlib_start + my_scanf_offset;
-    g_print_addr = stdlib_start + print_offset;
-    
     int idx = Binary.label_count++;
     strcpy(Binary.labels[idx].name, "printchar");
     Binary.labels[idx].pos = code_size_before + 0;
@@ -250,11 +225,6 @@ int Build_Elf(const char *output_filename, StdlibSections_t stdlib)
     ResolveLabels();
     
     PrintLabels();
-    printf("printchar addr: 0x%lX\n", g_printchar_addr);
-    printf("my_scanf addr: 0x%lX\n", g_my_scanf_addr);
-    printf("print addr: 0x%lX\n", g_print_addr);
-    printf("code_size_before: %zu, code_size: %zu\n", code_size_before, code_size);
-    printf("entry: 0x%lx\n", base_addr + code_offset);
     
     WriteElfHeader(out, base_addr + code_offset, ehdr_size, 1);  // phnum = 1
     WriteProgramHeaders(out, code_offset, base_addr + code_offset, code_size);  // no data
@@ -268,16 +238,6 @@ int Build_Elf(const char *output_filename, StdlibSections_t stdlib)
     // free(stdlib.data);  // rm
     
     return 0;
-}
-
-void AddStdlibAddr(const char *name, uint64_t addr)
-{
-    assert(name);
-    assert(g_stdlib_count < MAX_STDLIB_ADDRS);
-    
-    strcpy(g_stdlib_addrs[g_stdlib_count].name, name);
-    g_stdlib_addrs[g_stdlib_count].addr = addr;
-    g_stdlib_count++;
 }
 
 void EmitDataArray(const char *name, uint64_t value, int count)
@@ -342,19 +302,6 @@ void ResolveLabels()
                 Binary.patches[i].resolved = 1;
                 found = 1;
                 break;
-            }
-        }
-        
-        if (!found) {
-            for (int j = 0; j < g_stdlib_count; j++) {
-                if (strcmp(Binary.patches[i].name, g_stdlib_addrs[j].name) == 0) {
-                    uint32_t offset = (uint32_t)g_stdlib_addrs[j].addr - (Binary.patches[i].patch_pos + 4);
-                    memcpy(Binary.text.bin_data + Binary.patches[i].patch_pos, &offset, 4);
-                    Binary.patches[i].target_pos = Binary.labels[j].pos;
-                    Binary.patches[i].resolved = 1;
-                    found = 1;
-                    break;
-                }
             }
         }
         

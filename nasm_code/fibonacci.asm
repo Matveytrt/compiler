@@ -5,6 +5,7 @@ global main
 
 section .text
 main:
+nop
 call Main
 mov RAX, 60
 xor RDI, RDI
@@ -96,14 +97,14 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7b9f0d1e0790
+jz end_IF_0x7c0a93fe0790
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
 mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7b9f0d1e0790:
+end_IF_0x7c0a93fe0790:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -119,14 +120,14 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7b9f0d1e0990
+jz end_IF_0x7c0a93fe0990
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
 mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7b9f0d1e0990:
+end_IF_0x7c0a93fe0990:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_ADD_

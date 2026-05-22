@@ -1,8 +1,8 @@
 BUYSTRAT Main ()
 BUYIN
-    FREEBET a BET 0 $
-    FREEBET b BET 0 $
-    FREEBET c BET 0 $
+    FREEBET a BET 1 $
+    FREEBET b BET 2 $
+    FREEBET c BET 1 $
     FREEBET d BET 0 $
     FREEBET x1 BET 0 $
     FREEBET x2 BET 0 $

@@ -63,18 +63,8 @@ typedef struct {
     uint64_t addr;
 } StdlibAddr_t;
 
-#define MAX_STDLIB_ADDRS 3
-
-extern StdlibAddr_t g_stdlib_addrs[MAX_STDLIB_ADDRS];
-extern int g_stdlib_count;
-
-extern uint64_t g_printchar_addr;
-extern uint64_t g_my_scanf_addr;
-extern uint64_t g_print_addr;
-
 int      Build_Elf          (const char *output_filename, StdlibSections_t stdlib);
 StdlibSections_t LoadStdlibSections();
-void AddStdlibAddr(const char *name, uint64_t addr);
 void Fill_Elf_Ident(unsigned char *e_ident);
 uint32_t GetCurrentBinPos   ();
 void     InitPatches        ();

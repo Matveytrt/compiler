@@ -5,6 +5,7 @@ global main
 
 section .text
 main:
+nop
 call Main
 mov RAX, 60
 xor RDI, RDI
@@ -59,12 +60,18 @@ mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
 call my_scanf
+mov rcx, -8
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
 call my_scanf
+mov rcx, -16
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
 call my_scanf
+mov rcx, -24
+mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -80,7 +87,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7ba2f67e0ad0
+jz end_IF_0x7c0733fe0ad0
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -96,7 +103,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7ba2f67e0c10
+jz end_IF_0x7c0733fe0c10
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -112,7 +119,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7ba2f67e0d50
+jz end_IF_0x7c0733fe0d50
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 38
@@ -123,7 +130,7 @@ call printchar
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7ba2f67e0d50:
+end_IF_0x7c0733fe0d50:
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 63
@@ -134,7 +141,7 @@ call printchar
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7ba2f67e0c10:
+end_IF_0x7c0733fe0c10:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_DIV_
@@ -169,7 +176,7 @@ call print
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7ba2f67e0ad0:
+end_IF_0x7c0733fe0ad0:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_SUB_
@@ -223,7 +230,7 @@ cmp RAX, RBX
 setl al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7ba2f67e1890
+jz end_IF_0x7c0733fe1890
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 105
@@ -234,7 +241,7 @@ call printchar
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7ba2f67e1890:
+end_IF_0x7c0733fe1890:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -250,7 +257,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7ba2f67e1b50
+jz end_IF_0x7c0733fe1b50
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_DIV_
@@ -292,7 +299,7 @@ call print
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7ba2f67e1b50:
+end_IF_0x7c0733fe1b50:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_SQRT_
