@@ -19,46 +19,46 @@
     } while(0)
 
 // ========== MATH reg reg ==========
-#define ADD_RR_(dst, src)                 \
+#define ADD_REG2REG_(dst, src)                 \
     do {                                  \
         TEXT_("add %s, %s", #dst, #src);  \
-        BIN_ADD_RR(REG_##dst, REG_##src); \
+        BIN_ADD_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define SUB_RR_(dst, src)                 \
+#define SUB_REG2REG_(dst, src)                 \
     do {                                  \
         TEXT_("sub %s, %s", #dst, #src);  \
-        BIN_SUB_RR(REG_##dst, REG_##src); \
+        BIN_SUB_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define XOR_RR_(dst, src)                 \
+#define XOR_REG2REG_(dst, src)                 \
     do {                                  \
         TEXT_("xor %s, %s", #dst, #src);  \
-        BIN_XOR_RR(REG_##dst, REG_##src); \
+        BIN_XOR_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define MUL_RR_(dst, src)                  \
+#define MUL_REG2REG_(dst, src)                  \
     do {                                   \
         TEXT_("imul %s, %s", #dst, #src);  \
-        BIN_IMUL_RR(REG_##dst, REG_##src); \
+        BIN_IMUL_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define CMP_RR_(dst, src)                 \
+#define CMP_REG_REG_(dst, src)                 \
     do {                                  \
         TEXT_("cmp %s, %s", #dst, #src);  \
-        BIN_CMP_RR(REG_##dst, REG_##src); \
+        BIN_CMP_REG_REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define AND_RR_(dst, src)                 \
+#define AND_REG2REG_(dst, src)                 \
     do {                                  \
         TEXT_("and %s, %s", #dst, #src);  \
-        BIN_AND_RR(REG_##dst, REG_##src); \
+        BIN_AND_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define OR_RR_(dst, src)                 \
+#define OR_REG2REG_(dst, src)                 \
     do {                                 \
         TEXT_("or %s, %s", #dst, #src);  \
-        BIN_OR_RR(REG_##dst, REG_##src); \
+        BIN_OR_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
 #define NOT_R_(reg)                      \
@@ -68,16 +68,16 @@
     } while(0)
 
 // ========== MATH reg imm ============
-#define ADD_RI_(dst, imm)               \
+#define ADD_IMM2REG_(dst, imm)               \
     do {                                \
         TEXT_("add %s, %d", #dst, imm); \
-        BIN_ADD_RI(REG_##dst, imm);     \
+        BIN_ADD_IMM2REG(REG_##dst, imm);     \
     } while(0)
 
-#define SUB_RI_(dst, imm)               \
+#define SUB_IMM2REG_(dst, imm)               \
     do {                                \
         TEXT_("sub %s, %d", #dst, imm); \
-        BIN_SUB_RI(REG_##dst, imm);     \
+        BIN_SUB_IMM2REG(REG_##dst, imm);     \
     } while(0)
 
 #define MUL_RI_(dst, imm)                \
@@ -86,16 +86,16 @@
         BIN_IMUL_RI(REG_##dst, imm);     \
     } while(0)
 
-#define CMP_RI_(dst, imm)               \
+#define CMP_REG_IMM_(dst, imm)               \
     do {                                \
         TEXT_("cmp %s, %d", #dst, imm); \
-        BIN_CMP_RI(REG_##dst, imm);     \
+        BIN_CMP_REG_IMM(REG_##dst, imm);     \
     } while(0)
 
-#define AND_RI_(dst, imm)               \
+#define AND_IMM2REG_(dst, imm)               \
     do {                                \
         TEXT_("and %s, %d", #dst, imm); \
-        BIN_AND_RI(REG_##dst, imm);     \
+        BIN_AND_IMM2REG(REG_##dst, imm);     \
     } while(0)
 
 #define OR_RI_(dst, imm)                \
@@ -105,48 +105,48 @@
     } while(0)
 
 // ========== MOV ==========
-#define MOV_RR_(dst, src)                 \
+#define MOV_REG2REG_(dst, src)                 \
     do {                                  \
         TEXT_("mov %s, %s", #dst, #src);  \
-        BIN_MOV_RR(REG_##dst, REG_##src); \
+        BIN_MOV_REG2REG(REG_##dst, REG_##src); \
     } while(0)
 
-#define MOV_RI_(dst, imm)               \
+#define MOV_IMM2REG_(dst, imm)               \
     do {                                \
         TEXT_("mov %s, %d", #dst, imm); \
-        BIN_MOV_RI(REG_##dst, imm);     \
+        BIN_MOV_IMM2REG(REG_##dst, imm);     \
     } while(0)
 
-#define MOV_RM_(dst, src, disp)                        \
+#define MOV_MEM2REG_(dst, src, disp)                        \
     do {                                               \
         TEXT_("mov %s, [%s + %d]", #dst, #src, disp);  \
-        BIN_MOV_RM(REG_##dst, REG_##src, disp);        \
+        BIN_MOV_MEM2REG(REG_##dst, REG_##src, disp);        \
     } while(0)
 
-#define MOV_MR_(dst, disp, src)                       \
+#define MOV_REG2MEM_(dst, disp, src)                       \
     do {                                              \
         TEXT_("mov [%s + %d], %s", #dst, disp, #src); \
-        BIN_MOV_MR(REG_##dst, disp, REG_##src);       \
+        BIN_MOV_REG2MEM(REG_##dst, disp, REG_##src);       \
     } while(0)
 
-#define MOV_RM_LABEL_(dst, label)                 \
+#define MOV_MEM2REG_LABEL_(dst, label)                 \
     do {                                          \
         TEXT_("mov %s, [%s]", #dst, label);       \
-        BIN_MOV_RM_LABEL(REG_##dst);              \
+        BIN_MOV_MEM2REG_LABEL(REG_##dst);              \
         AddPatch(label);                          \
     } while(0)
 
-#define MOV_MR_LABEL_(label, src)                 \
+#define MOV_REG2MEM_LABEL_(label, src)                 \
     do {                                          \
         TEXT_("mov [%s], %s", label, #src);       \
-        BIN_MOV_MR_LABEL(REG_##src);              \
+        BIN_MOV_REG2MEM_LABEL(REG_##src);              \
         AddPatch(label);                          \
     } while(0)
 
-#define MOVZX_RR_(dst, src)                       \
+#define MOVZX_REG2REG_(dst, src)                       \
     do {                                          \
         TEXT_("movzx %s, %s", #dst, #src);        \
-        BIN_MOVZX_RR(REG_##dst, REG_##src);       \
+        BIN_MOVZX_REG2REG(REG_##dst, REG_##src);       \
     } while(0)
 
 // =================== LEA ===================
@@ -164,20 +164,20 @@
     } while(0)
 
 // ============ MOV ofs (rbp + ofs) ===========
-#define MOV_RM_OFS_(dst, ofs)                  \
+#define MOV_MEM2REG_OFS_(dst, ofs)                  \
     do {                                       \
         TEXT_("mov rcx, %d", ofs);             \
         TEXT_("mov %s, [rbp + rcx]", #dst);    \
-        BIN_MOV_RI(REG_RCX, ofs);              \
-        BIN_MOV_RM(REG_##dst, REG_RBP, ofs);   \
+        BIN_MOV_IMM2REG(REG_RCX, ofs);              \
+        BIN_MOV_MEM2REG(REG_##dst, REG_RBP, ofs);   \
     } while(0)
 
-#define MOV_MR_OFS_(ofs, src)                \
+#define MOV_REG2MEM_OFS_(ofs, src)                \
     do {                                     \
         TEXT_("mov rcx, %d", ofs);           \
         TEXT_("mov [rbp + rcx], %s", #src);  \
-        BIN_MOV_RI(REG_RCX, ofs);            \
-        BIN_MOV_MR(REG_RBP, ofs, REG_##src); \
+        BIN_MOV_IMM2REG(REG_RCX, ofs);            \
+        BIN_MOV_REG2MEM(REG_RBP, ofs, REG_##src); \
     } while(0)
 
 // ================ bitops ================
@@ -194,10 +194,10 @@
     } while(0)
 
 // =================== TEST ==================
-#define TEST_RR_(reg1, reg2)                 \
+#define TEST_REG_REG_(reg1, reg2)                 \
     do {                                     \
         TEXT_("test %s, %s", #reg1, #reg2);  \
-        BIN_TEST_RR(REG_##reg1, REG_##reg2); \
+        BIN_TEST_REG_REG(REG_##reg1, REG_##reg2); \
     } while(0)
 
 // ================ jmp with binary labels =======================
@@ -272,6 +272,6 @@
 #define CQO_()                  \
     do {                        \
         TEXT_("cqo");           \
-        /* TODO: BIN_CQ    assert(func_name);O */     \
+        /* TODO: BIN_CQO */     \
     } while(0)
 #endif

@@ -4,12 +4,13 @@
 #include <cstddef>
 
 #include "backendfuncs.h"
+#include "elf.h"
 
 #define _BIN_BUF_SIZE_ 10000
 
 void CtorSections       ();
 void Store_S_Buf        (const char *output_file);
-void Store_Bin_Buf      (const char *output_file);
+void Store_Bin_Buf      (const char *output_file, StdlibSections_t stdlib);
 void GenerateProlog     ();
 void DtorSections       ();
 void GenerateCode           (const Node_t *node, const char *output_file);

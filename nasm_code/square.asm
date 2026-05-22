@@ -58,19 +58,13 @@ mov rcx, -48
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
-call my_scanf WRT ..plt
-mov rcx, -8
-mov [rbp + rcx], RAX
+call my_scanf
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
-call my_scanf WRT ..plt
-mov rcx, -16
-mov [rbp + rcx], RAX
+call my_scanf
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
-call my_scanf WRT ..plt
-mov rcx, -24
-mov [rbp + rcx], RAX
+call my_scanf
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -86,7 +80,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2dc93e0ad0
+jz end_IF_0x7ba2f67e0ad0
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -102,7 +96,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2dc93e0c10
+jz end_IF_0x7ba2f67e0c10
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -118,29 +112,29 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2dc93e0d50
+jz end_IF_0x7ba2f67e0d50
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 38
 mov RAX, 38
-call printchar WRT ..plt
+call printchar
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7c2dc93e0d50:
+end_IF_0x7ba2f67e0d50:
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 63
 mov RAX, 63
-call printchar WRT ..plt
+call printchar
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7c2dc93e0c10:
+end_IF_0x7ba2f67e0c10:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_DIV_
@@ -169,13 +163,13 @@ mov [rbp + rcx], RAX
 ;VAR - x1 table_idx [4]
 mov rcx, -40
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7c2dc93e0ad0:
+end_IF_0x7ba2f67e0ad0:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_SUB_
@@ -229,18 +223,18 @@ cmp RAX, RBX
 setl al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2dc93e1890
+jz end_IF_0x7ba2f67e1890
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
-;NUM = 79
-mov RAX, 79
-call printchar WRT ..plt
+;NUM = 105
+mov RAX, 105
+call printchar
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7c2dc93e1890:
+end_IF_0x7ba2f67e1890:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -256,7 +250,7 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c2dc93e1b50
+jz end_IF_0x7ba2f67e1b50
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_DIV_
@@ -292,13 +286,13 @@ mov [rbp + rcx], RAX
 ;VAR - x1 table_idx [4]
 mov rcx, -40
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0
 mov RAX, 0
 jmp exit_Main
-end_IF_0x7c2dc93e1b50:
+end_IF_0x7ba2f67e1b50:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_SQRT_
@@ -391,18 +385,18 @@ mov [rbp + rcx], RAX
 ;VAR - x1 table_idx [4]
 mov rcx, -40
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _PUTCHAR_
 ;NUM = 32
 mov RAX, 32
-call printchar WRT ..plt
+call printchar
 ;OP - _END_STATEMENT_
 ;OP - _PRINT_
 ;VAR - x2 table_idx [5]
 mov rcx, -48
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 0

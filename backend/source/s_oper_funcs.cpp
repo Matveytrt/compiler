@@ -2,57 +2,34 @@
 #include <cassert>
 #include <cstdio>
 
+extern uint64_t g_printchar_addr;
+extern uint64_t g_my_scanf_addr;
+extern uint64_t g_print_addr;
 
 #define HANDLE_BIN_OP(op)                 \
     case OP_##op:                         \
         Emit_Infix_Oper(node, func_name); \
-        op##_RR_(RAX, RBX);               \
+        op##_REG2REG_(RAX, RBX);          \
         break;
 
 #define HANDLE_CMP_OP(name, set_inst, set_op)        \
     case OP_##name:                                  \
         Emit_Infix_Oper(node, func_name);            \
-        CMP_RR_(RAX, RBX);                           \
+        CMP_REG_REG_(RAX, RBX);                      \
         TEXT_(#set_inst " al");                      \
         BIN_SETCC(set_op, REG_AL);                   \
-        MOVZX_RR_(RAX, AL);                          \
+        MOVZX_REG2REG_(RAX, AL);                     \
         break;
-
-void Emit_SQRT(const Node_t *node)
-{
-    assert(node);
-
-    TEXT_("cvtsi2sd xmm0, rax");
-
-    EMIT_BYTE(BIN_TEXT, 0xF2);
-    EMIT_BYTE(BIN_TEXT, 0x0F);
-    EMIT_BYTE(BIN_TEXT, 0x2A);
-    EMIT_BYTE(BIN_TEXT, 0xC0);
-
-    TEXT_("sqrtsd xmm0, xmm0");
-
-    EMIT_BYTE(BIN_TEXT, 0xF2);
-    EMIT_BYTE(BIN_TEXT, 0x0F);
-    EMIT_BYTE(BIN_TEXT, 0x51);
-    EMIT_BYTE(BIN_TEXT, 0xC0);
-
-    TEXT_("cvttsd2si rax, xmm0");
-
-    EMIT_BYTE(BIN_TEXT, 0xF2);
-    EMIT_BYTE(BIN_TEXT, 0x0F);
-    EMIT_BYTE(BIN_TEXT, 0x2C);
-    EMIT_BYTE(BIN_TEXT, 0xC0);
-}
 
 void Emit_MEMGET(const Node_t *node)
 {
     assert(node);
 
     LEA_LABEL_(RDX, "vmem_buf");
-    ADD_RR_(RDX, RAX);
+    ADD_REG2REG_(RDX, RAX);
 
-    MOV_RM_(RAX, RDX, 0);
-    AND_RI_(RAX, 0xFF);
+    MOV_MEM2REG_(RAX, RDX, 0);
+    AND_IMM2REG_(RAX, 0xFF);
 }
 
 void Emit_MEMSET (const Node_t *node, char *func_name)
@@ -65,29 +42,35 @@ void Emit_MEMSET (const Node_t *node, char *func_name)
     PUSH_(RAX);
     Translate_AST(GetRight(GetLeft(node)), func_name);
     LEA_LABEL_(RDX, "vmem_buf");
-    ADD_RR_(RDX, RAX);
+    ADD_REG2REG_(RDX, RAX);
     POP_(RAX);
-    MOV_MR_(RDX, 0, AL);
+    MOV_REG2MEM_(RDX, 0, AL);
 }
 
 void Emit_PRINT (const Node_t *node)
 {
     assert(node);
-    CALL_("print WRT ..plt");
+
+    printf("_PRINT_ called!\n");
+    CALL_("print");
 }
 
-void Emit_SCAN (const Node_t *node)
+void Emit_SCAN(const Node_t *node)
 {
     assert(node);
-    CALL_("my_scanf WRT ..plt");
-    MOV_MR_OFS_(GetVarOfs(GetLeft(node)), RAX);
+
+    printf("_SCAN_ called!\n");
+    CALL_("my_scanf");
+    MOV_REG2MEM_OFS_(GetVarOfs(GetLeft(node)), RAX);
 }
 
 void Emit_PRINTCHAR(const Node_t *node)
 {
     assert(node);
-    CALL_("printchar WRT ..plt");
-}
+
+    printf("_PRINTCHAR_ called!\n");
+    CALL_("printchar");
+}   
 
 void Emit_VDECL (const Node_t *node)
 {
@@ -119,7 +102,7 @@ void Emit_Oper(const Node_t *node, char *func_name)
             Emit_SQRT(node);
             break;
         case OP_POW:
-            MUL_RR_(RAX, RAX);
+            MUL_REG2REG_(RAX, RAX);
             break;
 
         HANDLE_CMP_OP(EQ, sete, SET_E);
@@ -211,10 +194,9 @@ void Emit_Infix_Oper(const Node_t *node, char *func_name)
     assert(node);
     assert(func_name);
 
-
     PUSH_(RAX);
     Translate_AST(GetRight(node), func_name);
-    MOV_RR_(RBX, RAX);
+    MOV_REG2REG_(RBX, RAX);
     POP_(RAX);
 }
 
@@ -223,7 +205,7 @@ void Emit_IF(const Node_t *node, char *func_name)
     assert(node);
     assert(func_name);
 
-    TEST_RR_(AL, AL);
+    TEST_REG_REG_(AL, AL);
     JMP_BIN(JCC_JE, jz, "end_IF", node);
     Translate_AST(GetRight(node), func_name);
     Emit_IF_Epilog(node);
@@ -236,7 +218,8 @@ void Emit_IF_Epilog(const Node_t *node)
     Node_t *else_node = NULL;
 
     if (GetParent(node) && GetRight(GetParent(node)) && ( else_node = GetLeft(GetRight(GetParent(node))) ) 
-        && IsOper(else_node, OP_ELSE)) {
+                                                        && IsOper(else_node, OP_ELSE)) 
+    {
         JMP_BIN_UNCOND("end_ELSE", else_node);
     }
 
@@ -250,7 +233,7 @@ void Emit_WHILE (const Node_t *node, char *func_name)
 
     LBL_BIN("start_WHILE", node);
     Translate_AST(GetLeft(node), func_name);
-    TEST_RR_(AL, AL);
+    TEST_REG_REG_(AL, AL);
     JMP_BIN(JCC_JE, jz, "end_WHILE", node);
     Translate_AST(GetRight(node), func_name);
     Emit_WHILE_Epilog(node);
@@ -269,11 +252,11 @@ void Emit_FOR(const Node_t *node, char *func_name)
     assert(node);
     assert(func_name);
 
-    MOV_RR_(RCX, RAX);
+    MOV_REG2REG_(RCX, RAX);
     LBL_BIN("start_FOR", node);
     Translate_AST(GetRight(node), func_name);
-    SUB_RI_(RCX, 1);
-    TEST_RR_(RCX, RCX);
+    SUB_IMM2REG_(RCX, 1);
+    TEST_REG_REG_(RCX, RCX);
     JMP_BIN(JCC_JNE, jnz, "start_FOR", node);
 }
 
@@ -302,12 +285,12 @@ void Emit_ASSIGN(const Node_t *node, char *func_name)
             EmitDataValue(GetVarName(assign_node), 0);
         }
 
-        MOV_MR_LABEL_(GetVarName(assign_node), RAX);
+        MOV_REG2MEM_LABEL_(GetVarName(assign_node), RAX);
     }
     else
     {
         int var_ofs = GetVarOfs(assign_node);
-        MOV_MR_OFS_(var_ofs, RAX);
+        MOV_REG2MEM_OFS_(var_ofs, RAX);
     }
 }
 
@@ -319,6 +302,32 @@ void Emit_RETURN(const Node_t *node, char *func_name)
     char _label[_LBL_SIZE_] = "";
     sprintf(_label, "exit_%s", func_name);
     TEXT_("jmp %s", _label);
+    EMIT_BYTE(BIN_TEXT, OPC_JMP);
     AddPatch(_label);
 }
 
+void Emit_SQRT(const Node_t *node)
+{
+    assert(node);
+
+    TEXT_("cvtsi2sd xmm0, rax");
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x2A);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+
+    TEXT_("sqrtsd xmm0, xmm0");
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x51);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+
+    TEXT_("cvttsd2si rax, xmm0");
+
+    EMIT_BYTE(BIN_TEXT, 0xF2);
+    EMIT_BYTE(BIN_TEXT, 0x0F);
+    EMIT_BYTE(BIN_TEXT, 0x2C);
+    EMIT_BYTE(BIN_TEXT, 0xC0);
+}

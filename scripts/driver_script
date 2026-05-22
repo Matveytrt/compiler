@@ -1,7 +1,7 @@
-./objects/front my_progs/circle.txt ast_trees/front.txt
-./objects/back ast_trees/front.txt circle
+./objects/front my_progs/fibonacci.txt ast_trees/front.txt
+./objects/back ast_trees/front.txt fibonacci
 nasm -f elf64 nasm_code/my_scanf.asm -o my_scanf.o
 nasm -f elf64 nasm_code/print.asm -o print.o
 nasm -f elf64 nasm_code/printchar.asm -o printchar.o
-nasm -f elf64 nasm_code/circle.asm -o circle.o
-g++ circle.o my_scanf.o print.o printchar.o -o circle -no-pie
+nasm -f elf64 nasm_code/fibonacci.asm -o fibonacci.o
+g++ fibonacci.o my_scanf.o print.o printchar.o -o fibonacci -no-pie

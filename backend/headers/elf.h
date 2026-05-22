@@ -21,6 +21,7 @@
 // p_flags
 #define PF_X 1
 #define PF_R 4
+#define PF_W 2
 
 typedef struct {
     unsigned char e_ident[EI_NIDENT];
@@ -50,8 +51,29 @@ typedef struct {
     uint64_t      p_align;
 } Elf64_Phdr;
 
+typedef struct {
+    uint8_t *text;
+    size_t text_size;
+    uint8_t *data;
+    size_t data_size;
+} StdlibSections_t;
 
-int      Build_Elf          (const char *output_filename);
+typedef struct {
+    char name[64];
+    uint64_t addr;
+} StdlibAddr_t;
+
+extern StdlibAddr_t g_stdlib_addrs[3];
+extern int g_stdlib_count;
+
+extern uint64_t g_printchar_addr;
+extern uint64_t g_my_scanf_addr;
+extern uint64_t g_print_addr;
+
+int      Build_Elf          (const char *output_filename, StdlibSections_t stdlib);
+StdlibSections_t LoadStdlibSections();
+void AddStdlibAddr(const char *name, uint64_t addr);
+void Fill_Elf_Ident(unsigned char *e_ident);
 uint32_t GetCurrentBinPos   ();
 void     InitPatches        ();
 void     AddLabel           (const char *name);

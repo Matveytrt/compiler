@@ -43,18 +43,18 @@ typedef enum {
 // Opcodes
 //=====================================================================================
 typedef enum {
-    OPC_MOV_RM8   = 0x8A,
-    OPC_MOV_RM64  = 0x8B,
-    OPC_MOV_MR8   = 0x88,
-    OPC_MOV_MR64  = 0x89,
-    OPC_MOV_RR    = 0x89,
-    OPC_MOV_RI    = 0xB8,
-    OPC_ADD_RR    = 0x01,
-    OPC_SUB_RR    = 0x29,
-    OPC_XOR_RR    = 0x31,
-    OPC_IMUL_RR   = 0xAF,
+    OPC_MOV_MEM2REG8   = 0x8A,
+    OPC_MOV_MEM2REG64  = 0x8B,
+    OPC_MOV_REG2MEM8   = 0x88,
+    OPC_MOV_REG2MEM64  = 0x89,
+    OPC_MOV_REG2REG    = 0x89,
+    OPC_MOV_IMM2REG    = 0xB8,
+    OPC_ADD_REG2REG    = 0x01,
+    OPC_SUB_REG2REG    = 0x29,
+    OPC_XOR_REG2REG    = 0x31,
+    OPC_IMUL_REG2REG   = 0xAF,
     OPC_IDIV      = 0xF7,
-    OPC_CMP_RR    = 0x39,
+    OPC_CMP_REG_REG    = 0x39,
     OPC_CMP_IMM   = 0x81,
     OPC_JMP       = 0xE9,
     OPC_CALL      = 0xE8,
@@ -65,13 +65,13 @@ typedef enum {
     OPC_SYSCALL   = 0x05,
     OPC_NOP       = 0x90,
     OPC_LEA       = 0x8D,
-    OPC_AND_RR    = 0x21,
-    OPC_OR_RR     = 0x09,
-    OPC_TEST_RR   = 0x85,
+    OPC_AND_REG2REG    = 0x21,
+    OPC_OR_REG2REG     = 0x09,
+    OPC_TEST_REG_REG   = 0x85,
     OPC_SHIFT     = 0xC1,
-    OPC_ADD_RI    = 0x83,
-    OPC_SUB_RI    = 0x83,
-    OPC_AND_RI    = 0x83,
+    OPC_ADD_IMM2REG    = 0x83,
+    OPC_SUB_IMM2REG    = 0x83,
+    OPC_AND_IMM2REG    = 0x83,
     OPC_OR_RI     = 0x83,
     OPC_NOT_R     = 0xF7,
     OPC_SETCC     = 0x0F,
@@ -129,8 +129,8 @@ typedef enum {
 // Label ops
 //=====================================================================================
 typedef enum {
-    LABEL_MOV_MR,   // mov [label], reg
-    LABEL_MOV_RM,   // mov reg, [label]
+    LABEL_MOV_REG2MEM,   // mov [label], reg
+    LABEL_MOV_MEM2REG,   // mov reg, [label]
     LABEL_LEA       // lea reg, [label]
 } LabelOp_t;
 
@@ -161,21 +161,21 @@ typedef enum {
 //=====================================================================================
 
 // Arithmetic Reg2Reg
-void emit_arith_rr(Section_t *sec, ArithOp_t op, Reg_t dst, Reg_t src);
-void emit_imul_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_arith_reg2reg(Section_t *sec, ArithOp_t op, Reg_t dst, Reg_t src);
+void emit_IMUL_REG2REG(Section_t *sec, Reg_t dst, Reg_t src);
 void emit_idiv(Section_t *sec, Reg_t reg);
 void emit_not_r(Section_t *sec, Reg_t reg);
 
 // Arithmetic Imm2Reg
-void emit_arith_ri(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm);
-void emit_cmp_ri(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_arith_imm2reg(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm);
+void emit_CMP_REG_IMM(Section_t *sec, Reg_t dst, int64_t imm);
 
 // MOV
-void emit_mov_rr(Section_t *sec, Reg_t dst, Reg_t src);
-void emit_mov_ri(Section_t *sec, Reg_t dst, int64_t imm);
-void emit_mov_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
-void emit_mov_mr(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src);
-void emit_movzx_rr(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_MOV_REG2REG(Section_t *sec, Reg_t dst, Reg_t src);
+void emit_MOV_IMM2REG(Section_t *sec, Reg_t dst, int64_t imm);
+void emit_MOV_MEM2REG(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
+void emit_MOV_REG2MEM(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src);
+void emit_MOVZX_REG2REG(Section_t *sec, Reg_t dst, Reg_t src);
 
 // LEA
 void emit_lea_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp);
@@ -203,8 +203,8 @@ void emit_setcc(Section_t *sec, SetCCOp_t op, Reg_t reg);
 
 // Label emitters
 void emit_label(Section_t *sec, LabelOp_t op, Reg_t reg);
-void emit_mov_mr_label(Section_t *sec, Reg_t src);
-void emit_mov_rm_label(Section_t *sec, Reg_t dst);
+void emit_MOV_REG2MEM_label(Section_t *sec, Reg_t src);
+void emit_MOV_MEM2REG_label(Section_t *sec, Reg_t dst);
 void emit_lea_label(Section_t *sec, Reg_t dst);
 
 #endif

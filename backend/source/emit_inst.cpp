@@ -55,20 +55,20 @@ static void emit_modrm_disp(Section_t *sec, Reg_t reg, Reg_t rm, int32_t disp)
 // Arith Reg2Reg
 //=============================================================================
 
-void emit_arith_rr(Section_t *sec, ArithOp_t op, Reg_t dst, Reg_t src)
+void emit_arith_reg2reg(Section_t *sec, ArithOp_t op, Reg_t dst, Reg_t src)
 {
     assert(sec);
     
     uint8_t opcode = 0;
 
     switch (op) {
-        case ARITH_ADD:  opcode = OPC_ADD_RR; break;
-        case ARITH_SUB:  opcode = OPC_SUB_RR; break;
-        case ARITH_XOR:  opcode = OPC_XOR_RR; break;
-        case ARITH_AND:  opcode = OPC_AND_RR; break;
-        case ARITH_OR:   opcode = OPC_OR_RR;  break;
-        case ARITH_CMP:  opcode = OPC_CMP_RR; break;
-        case ARITH_TEST: opcode = OPC_TEST_RR; break;
+        case ARITH_ADD:  opcode = OPC_ADD_REG2REG; break;
+        case ARITH_SUB:  opcode = OPC_SUB_REG2REG; break;
+        case ARITH_XOR:  opcode = OPC_XOR_REG2REG; break;
+        case ARITH_AND:  opcode = OPC_AND_REG2REG; break;
+        case ARITH_OR:   opcode = OPC_OR_REG2REG;  break;
+        case ARITH_CMP:  opcode = OPC_CMP_REG_REG; break;
+        case ARITH_TEST: opcode = OPC_TEST_REG_REG; break;
         default: assert(0); break;
     }
     
@@ -78,16 +78,16 @@ void emit_arith_rr(Section_t *sec, ArithOp_t op, Reg_t dst, Reg_t src)
     EMIT_BYTE(sec, rex);
     
     EMIT_BYTE(sec, opcode);
-    EMIT_MODRM(sec, MOD_REG, dst & 7, src & 7);
+    EMIT_MODRM(sec, MOD_REG, src & 7, dst & 7);
 }
 
-void emit_imul_rr(Section_t *sec, Reg_t dst, Reg_t src)
+void emit_IMUL_REG2REG(Section_t *sec, Reg_t dst, Reg_t src)
 {
     assert(sec);
 
     emit_rex_wb(sec, 1, dst, src);
     EMIT_BYTE(sec, OPC_TWO_BYTE_PREFIX);
-    EMIT_BYTE(sec, OPC_IMUL_RR);
+    EMIT_BYTE(sec, OPC_IMUL_REG2REG);
     EMIT_MODRM(sec, MOD_REG, dst & 7, src & 7);
 }
 
@@ -116,7 +116,7 @@ void emit_not_r(Section_t *sec, Reg_t reg)
 // Arith Imm2Reg
 //=============================================================================
 
-void emit_arith_ri(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm)
+void emit_arith_imm2reg(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm)
 {
     assert(sec);
     
@@ -134,7 +134,7 @@ void emit_arith_ri(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm)
     
     if (imm <= 0x7F && imm >= -0x80) {
         EMIT_BYTE(sec, rex_base);
-        EMIT_BYTE(sec, OPC_ADD_RI);
+        EMIT_BYTE(sec, OPC_ADD_IMM2REG);
         EMIT_MODRM(sec, MOD_REG, modrm_reg, dst & 7);
         EMIT_BYTE(sec, imm & 0xFF);
     } 
@@ -147,7 +147,7 @@ void emit_arith_ri(Section_t *sec, ArithOp_t op, Reg_t dst, int64_t imm)
     }
 }
 
-void emit_cmp_ri(Section_t *sec, Reg_t dst, int64_t imm)
+void emit_CMP_REG_IMM(Section_t *sec, Reg_t dst, int64_t imm)
 {
     assert(sec);
 
@@ -165,7 +165,7 @@ void emit_cmp_ri(Section_t *sec, Reg_t dst, int64_t imm)
 // MOV
 //=============================================================================
 
-void emit_mov_rr(Section_t *sec, Reg_t dst, Reg_t src)
+void emit_MOV_REG2REG(Section_t *sec, Reg_t dst, Reg_t src)
 {
     assert(sec);
 
@@ -174,11 +174,11 @@ void emit_mov_rr(Section_t *sec, Reg_t dst, Reg_t src)
     if (dst >= 8) rex |= REX_B;
     EMIT_BYTE(sec, rex);
 
-    EMIT_BYTE(sec, OPC_MOV_RR);
+    EMIT_BYTE(sec, OPC_MOV_REG2REG);
     EMIT_MODRM(sec, MOD_REG, src & 7, dst & 7);
 }
 
-void emit_mov_ri(Section_t *sec, Reg_t dst, int64_t imm)
+void emit_MOV_IMM2REG(Section_t *sec, Reg_t dst, int64_t imm)
 {
     assert(sec);
     
@@ -186,11 +186,11 @@ void emit_mov_ri(Section_t *sec, Reg_t dst, int64_t imm)
     if (dst >= 8) rex |= REX_B;
     EMIT_BYTE(sec, rex);
 
-    EMIT_BYTE(sec, OPC_MOV_RI | (dst & 7));
+    EMIT_BYTE(sec, OPC_MOV_IMM2REG | (dst & 7));
     EMIT_QWORD(sec, imm);
 }
 
-void emit_mov_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp)
+void emit_MOV_MEM2REG(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp)
 {
     assert(sec);
 
@@ -199,11 +199,11 @@ void emit_mov_rm(Section_t *sec, Reg_t dst, Reg_t src, int32_t disp)
     if (src >= 8) rex |= REX_B;
     EMIT_BYTE(sec, rex);
 
-    EMIT_BYTE(sec, OPC_MOV_RM64);
+    EMIT_BYTE(sec, OPC_MOV_MEM2REG64);
     emit_modrm_disp(sec, dst, src, disp);
 }
 
-void emit_mov_mr(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src)
+void emit_MOV_REG2MEM(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src)
 {
     assert(sec);
 
@@ -212,11 +212,11 @@ void emit_mov_mr(Section_t *sec, Reg_t dst, int32_t disp, Reg_t src)
     if (dst >= 8) rex |= REX_B;
     EMIT_BYTE(sec, rex); 
 
-    EMIT_BYTE(sec, OPC_MOV_MR64);
+    EMIT_BYTE(sec, OPC_MOV_REG2MEM64);
     emit_modrm_disp(sec, src, dst, disp);
 }
 
-void emit_movzx_rr(Section_t *sec, Reg_t dst, Reg_t src)
+void emit_MOVZX_REG2REG(Section_t *sec, Reg_t dst, Reg_t src)
 {
     assert(sec);
 
@@ -374,12 +374,12 @@ void emit_label(Section_t *sec, LabelOp_t op, Reg_t reg)
     int rex_w = 0;
     
     switch (op) {
-        case LABEL_MOV_MR:
-            opcode = OPC_MOV_MR64;
+        case LABEL_MOV_REG2MEM:
+            opcode = OPC_MOV_REG2MEM64;
             rex_w = 0;
             break;
-        case LABEL_MOV_RM:
-            opcode = OPC_MOV_RM64;
+        case LABEL_MOV_MEM2REG:
+            opcode = OPC_MOV_MEM2REG64;
             rex_w = 1;
             break;
         case LABEL_LEA:
@@ -404,14 +404,14 @@ void emit_label(Section_t *sec, LabelOp_t op, Reg_t reg)
     EMIT_MODRM(sec, MOD_INDIRECT, reg & 7, 5);
 }
 
-void emit_mov_mr_label(Section_t *sec, Reg_t src)
+void emit_MOV_REG2MEM_label(Section_t *sec, Reg_t src)
 {
-    emit_label(sec, LABEL_MOV_MR, src);
+    emit_label(sec, LABEL_MOV_REG2MEM, src);
 }
 
-void emit_mov_rm_label(Section_t *sec, Reg_t dst)
+void emit_MOV_MEM2REG_label(Section_t *sec, Reg_t dst)
 {
-    emit_label(sec, LABEL_MOV_RM, dst);
+    emit_label(sec, LABEL_MOV_MEM2REG, dst);
 }
 
 void emit_lea_label(Section_t *sec, Reg_t dst)

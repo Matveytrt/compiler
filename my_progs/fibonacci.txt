@@ -2,7 +2,7 @@ BUYSTRAT Main ()
 BUYIN
     FREEBET n BET 0 $
     READ (n) $
-    FREEBET x BET Fibonacci(n) $
+    FREEBET x BET Fibonacci(n) ALLIN 100$
     CALL (x) $
     BOUNTY x $
 CASHOUT $

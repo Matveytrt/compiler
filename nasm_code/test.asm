@@ -78,13 +78,13 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c1e9b1e0590
+jz end_IF_0x7b913b1e0590
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 1
 mov RAX, 1
 jmp exit_Fact
-end_IF_0x7c1e9b1e0590:
+end_IF_0x7b913b1e0590:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_MUL_

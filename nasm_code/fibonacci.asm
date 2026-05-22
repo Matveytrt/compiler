@@ -28,11 +28,12 @@ mov rcx, -8
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
-call my_scanf WRT ..plt
+call my_scanf
 mov rcx, -8
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
+;OP - _MATH_MUL_
 ;FUNC - Fibonacci st_idx = 2, end_idx = 3
 
 ;VAR - n table_idx [0]
@@ -41,6 +42,12 @@ mov RAX, [rbp + rcx]
 push RAX
 call Fibonacci
 add RSP, 8
+push RAX
+;NUM = 100
+mov RAX, 100
+mov RBX, RAX
+pop RAX
+imul RAX, RBX
 mov rcx, -16
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
@@ -48,7 +55,7 @@ mov [rbp + rcx], RAX
 ;VAR - x table_idx [1]
 mov rcx, -16
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - x table_idx [1]
@@ -89,14 +96,14 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c35c47e0710
+jz end_IF_0x7be9131e0790
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
 mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7c35c47e0710:
+end_IF_0x7be9131e0790:
 ;OP - _END_STATEMENT_
 ;OP - _IF_
 ;OP - _MATH_EQ_
@@ -112,14 +119,14 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7c35c47e0910
+jz end_IF_0x7be9131e0990
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - n table_idx [2]
 mov rcx, 16
 mov RAX, [rbp + rcx]
 jmp exit_Fibonacci
-end_IF_0x7c35c47e0910:
+end_IF_0x7be9131e0990:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;OP - _MATH_ADD_

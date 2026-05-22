@@ -1,0 +1,84 @@
+
+test_nasm:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <main>:
+  401000:	e8 0c 00 00 00       	call   401011 <Main>
+  401005:	b8 3c 00 00 00       	mov    $0x3c,%eax
+  40100a:	48 31 ff             	xor    %rdi,%rdi
+  40100d:	0f 05                	syscall
+  40100f:	eb 4f                	jmp    401060 <end_func_Main>
+
+0000000000401011 <Main>:
+  401011:	55                   	push   %rbp
+  401012:	48 89 e5             	mov    %rsp,%rbp
+  401015:	48 83 ec 10          	sub    $0x10,%rsp
+  401019:	b8 00 00 00 00       	mov    $0x0,%eax
+  40101e:	48 c7 c1 f8 ff ff ff 	mov    $0xfffffffffffffff8,%rcx
+  401025:	48 89 44 0d 00       	mov    %rax,0x0(%rbp,%rcx,1)
+  40102a:	48 c7 c1 f8 ff ff ff 	mov    $0xfffffffffffffff8,%rcx
+  401031:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  401036:	50                   	push   %rax
+  401037:	e8 29 00 00 00       	call   401065 <Fact>
+  40103c:	48 83 c4 08          	add    $0x8,%rsp
+  401040:	48 c7 c1 f0 ff ff ff 	mov    $0xfffffffffffffff0,%rcx
+  401047:	48 89 44 0d 00       	mov    %rax,0x0(%rbp,%rcx,1)
+  40104c:	48 c7 c1 f0 ff ff ff 	mov    $0xfffffffffffffff0,%rcx
+  401053:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  401058:	eb 00                	jmp    40105a <exit_Main>
+
+000000000040105a <exit_Main>:
+  40105a:	48 83 c4 10          	add    $0x10,%rsp
+  40105e:	5d                   	pop    %rbp
+  40105f:	c3                   	ret
+
+0000000000401060 <end_func_Main>:
+  401060:	e9 85 00 00 00       	jmp    4010ea <end_func_Fact>
+
+0000000000401065 <Fact>:
+  401065:	55                   	push   %rbp
+  401066:	48 89 e5             	mov    %rsp,%rbp
+  401069:	48 83 ec 08          	sub    $0x8,%rsp
+  40106d:	b9 10 00 00 00       	mov    $0x10,%ecx
+  401072:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  401077:	50                   	push   %rax
+  401078:	b8 00 00 00 00       	mov    $0x0,%eax
+  40107d:	48 89 c3             	mov    %rax,%rbx
+  401080:	58                   	pop    %rax
+  401081:	48 39 d8             	cmp    %rbx,%rax
+  401084:	0f 94 c0             	sete   %al
+  401087:	48 0f b6 c0          	movzbq %al,%rax
+  40108b:	84 c0                	test   %al,%al
+  40108d:	74 07                	je     401096 <end_IF_0x7b87d37e0590>
+  40108f:	b8 01 00 00 00       	mov    $0x1,%eax
+  401094:	eb 4e                	jmp    4010e4 <exit_Fact>
+
+0000000000401096 <end_IF_0x7b87d37e0590>:
+  401096:	b9 10 00 00 00       	mov    $0x10,%ecx
+  40109b:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  4010a0:	50                   	push   %rax
+  4010a1:	b9 10 00 00 00       	mov    $0x10,%ecx
+  4010a6:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  4010ab:	50                   	push   %rax
+  4010ac:	b8 01 00 00 00       	mov    $0x1,%eax
+  4010b1:	48 89 c3             	mov    %rax,%rbx
+  4010b4:	58                   	pop    %rax
+  4010b5:	48 29 d8             	sub    %rbx,%rax
+  4010b8:	50                   	push   %rax
+  4010b9:	e8 a7 ff ff ff       	call   401065 <Fact>
+  4010be:	48 83 c4 08          	add    $0x8,%rsp
+  4010c2:	48 89 c3             	mov    %rax,%rbx
+  4010c5:	58                   	pop    %rax
+  4010c6:	48 0f af c3          	imul   %rbx,%rax
+  4010ca:	48 c7 c1 f8 ff ff ff 	mov    $0xfffffffffffffff8,%rcx
+  4010d1:	48 89 44 0d 00       	mov    %rax,0x0(%rbp,%rcx,1)
+  4010d6:	48 c7 c1 f8 ff ff ff 	mov    $0xfffffffffffffff8,%rcx
+  4010dd:	48 8b 44 0d 00       	mov    0x0(%rbp,%rcx,1),%rax
+  4010e2:	eb 00                	jmp    4010e4 <exit_Fact>
+
+00000000004010e4 <exit_Fact>:
+  4010e4:	48 83 c4 08          	add    $0x8,%rsp
+  4010e8:	5d                   	pop    %rbp
+  4010e9:	c3                   	ret

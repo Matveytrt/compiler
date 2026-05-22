@@ -58,6 +58,7 @@ lea rdi, [fmt_int]
 pop rax
 mov rsi, rax
 xor rax, rax
+imul rax, 100
 call printf WRT ..plt
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_

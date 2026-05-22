@@ -1,4 +1,5 @@
 global print
+default abs
 
 section .text
 print:
@@ -13,7 +14,7 @@ print:
     
     mov rax, 1
     mov rdi, 1
-    lea rsi, [minus]
+    mov rsi, minus
     mov rdx, 1
     syscall
     neg r12

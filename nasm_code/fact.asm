@@ -28,9 +28,14 @@ mov rcx, -8
 mov [rbp + rcx], RAX
 ;OP - _END_STATEMENT_
 ;OP - _SCAN_
-call my_scanf WRT ..plt
+call my_scanf
 mov rcx, -8
 mov [rbp + rcx], RAX
+;OP - _END_STATEMENT_
+;OP - _PRINT_
+;NUM = 5
+mov RAX, 5
+call print
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;FUNC - Fact st_idx = 2, end_idx = 3
@@ -48,7 +53,7 @@ mov [rbp + rcx], RAX
 ;VAR - res table_idx [1]
 mov rcx, -16
 mov RAX, [rbp + rcx]
-call print WRT ..plt
+call print
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;VAR - res table_idx [1]
@@ -89,13 +94,13 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7b4ed1de0710
+jz end_IF_0x7be409fe07d0
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 1
 mov RAX, 1
 jmp exit_Fact
-end_IF_0x7b4ed1de0710:
+end_IF_0x7be409fe07d0:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;NUM = 1
