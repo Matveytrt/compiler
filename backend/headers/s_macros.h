@@ -245,6 +245,12 @@
         AddPatch(func);                             \
     } while(0)
 
+#define CALL_R(reg)              \
+    do {                         \
+        TEXT_("call %s", #reg);  \
+        BIN_CALL_REG(REG_##reg); \
+    } while(0)
+
 #define RET_()            \
     do {                  \
         TEXT_("ret");     \

@@ -58,7 +58,6 @@ void Store_Bin_Buf(const char *output_file, StdlibSections_t stdlib)
 
     printf("code_size: %zu\n", BIN_SIZE_(TEXT_SEC));
     Build_Elf(output_file, stdlib);
-    PrintLabels();
 }
 
 void GenerateCode(const Node_t *node, const char *output_file)
@@ -73,6 +72,7 @@ void GenerateCode(const Node_t *node, const char *output_file)
     GenerateProlog();
 
     char name[_LBL_SIZE_] = "Main";
+    NOP_();
     CALL_(name);
     MOV_IMM2REG_(RAX, 0x3C);
     XOR_REG2REG_(RDI, RDI);

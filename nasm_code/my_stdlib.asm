@@ -65,7 +65,6 @@ my_scanf:
     mov rsp, rbp
     pop rbp
     ret
-
 print:
     push rbp
     mov rbp, rsp
@@ -76,20 +75,23 @@ print:
     test r12, r12
     jns .positive
     
+    ; выводим минус напрямую
     mov rax, 1
     mov rdi, 1
-    lea rsi, [minus]
+    push 45              ; '-' = 45
+    mov rsi, rsp
     mov rdx, 1
     syscall
+    pop rax
     neg r12
     
 .positive:
     lea rsi, [rbp - 32]
     mov rbx, 10
-    mov rcx, 0
+    xor rcx, rcx
     
 .convert:
-    mov rdx, 0
+    xor rdx, rdx
     mov rax, r12
     div rbx
     add dl, '0'
@@ -108,6 +110,3 @@ print:
     mov rsp, rbp
     pop rbp
     ret
-
-section .data
-    minus db '-'

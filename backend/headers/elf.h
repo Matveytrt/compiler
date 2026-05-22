@@ -63,7 +63,9 @@ typedef struct {
     uint64_t addr;
 } StdlibAddr_t;
 
-extern StdlibAddr_t g_stdlib_addrs[3];
+#define MAX_STDLIB_ADDRS 3
+
+extern StdlibAddr_t g_stdlib_addrs[MAX_STDLIB_ADDRS];
 extern int g_stdlib_count;
 
 extern uint64_t g_printchar_addr;

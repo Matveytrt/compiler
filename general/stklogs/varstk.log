@@ -2,11 +2,11 @@ VarStackInit:12 Varstack size = 0, capacity = 50
 Initialisation succses
 line: 208 pushed value = n
 VarStackPush:208 Varstack size = 1, capacity = 50
-line: 208 pushed value = x
+line: 208 pushed value = res
 VarStackPush:208 Varstack size = 2, capacity = 50
 line: 208 pushed value = n
 VarStackPush:208 Varstack size = 3, capacity = 50
-line: 208 pushed value = val
+line: 208 pushed value = f
 VarStackPush:208 Varstack size = 4, capacity = 50
 
 info about Varstack before death:

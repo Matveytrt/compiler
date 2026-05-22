@@ -329,6 +329,14 @@ void emit_call(Section_t *sec, int32_t offset)
     EMIT_DWORD(sec, offset);
 }
 
+void emit_call_reg(Section_t *sec, Reg_t reg)
+{
+    assert(sec);
+
+    EMIT_BYTE(sec, OPC_CALL_REG);
+    EMIT_MODRM(sec, MOD_REG, 2, reg & 7);
+}
+
 void emit_ret(Section_t *sec)
 {
     assert(sec);

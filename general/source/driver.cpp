@@ -4,7 +4,7 @@
 
 int main(int argc, const char *argv[])
 {
-    const char *input_file = (argc >= 2) ? argv[1] : "fact";
+    const char *input_file = (argc >= 2) ? argv[1] : "test";
     const char *output_file = (argc == 3) ? argv[2] : "test";
 
     const char *script_name = "scripts/driver_script";

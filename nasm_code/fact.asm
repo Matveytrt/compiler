@@ -5,6 +5,7 @@ global main
 
 section .text
 main:
+nop
 call Main
 mov RAX, 60
 xor RDI, RDI
@@ -31,11 +32,6 @@ mov [rbp + rcx], RAX
 call my_scanf
 mov rcx, -8
 mov [rbp + rcx], RAX
-;OP - _END_STATEMENT_
-;OP - _PRINT_
-;NUM = 5
-mov RAX, 5
-call print
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;FUNC - Fact st_idx = 2, end_idx = 3
@@ -94,13 +90,13 @@ cmp RAX, RBX
 sete al
 movzx RAX, AL
 test AL, AL
-jz end_IF_0x7be409fe07d0
+jz end_IF_0x7b48c27e0710
 ;OP - _END_STATEMENT_
 ;OP - _RETURN_
 ;NUM = 1
 mov RAX, 1
 jmp exit_Fact
-end_IF_0x7be409fe07d0:
+end_IF_0x7b48c27e0710:
 ;OP - _END_STATEMENT_
 ;OP - _ASSIGNMENT_
 ;NUM = 1

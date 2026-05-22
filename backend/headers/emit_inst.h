@@ -58,6 +58,7 @@ typedef enum {
     OPC_CMP_IMM   = 0x81,
     OPC_JMP       = 0xE9,
     OPC_CALL      = 0xE8,
+    OPC_CALL_REG  = 0xFF,
     OPC_JCC       = 0x0F,
     OPC_PUSH      = 0x50,
     OPC_POP       = 0x58,
@@ -194,6 +195,7 @@ void emit_pop(Section_t *sec, Reg_t reg);
 void emit_jmp(Section_t *sec, int32_t offset);
 void emit_jcc(Section_t *sec, JCC_Cond_t cond, int32_t offset);
 void emit_call(Section_t *sec, int32_t offset);
+void emit_call_reg(Section_t *sec, Reg_t reg);
 void emit_ret(Section_t *sec);
 
 // Other
